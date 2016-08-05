@@ -1,0 +1,5144 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.5">
+  <Nodes>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxConnectorGui.R.R">
+        <Position x="846" y="1029" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RScript><![CDATA[#########
+# Helper function
+AlteryxReportRx <- function (rx.obj, null.deviance = NULL) {
+    if (!(class(rx.obj) %in% c("rxLinMod","rxLogit","rxGlm"))) 
+        stop("The object provided is not an appropriate RevoScaleR class object")
+    the.call <- paste(capture.output(rx.obj$call), collapse = "")
+    the.call = gsub("\\s\\s", "", the.call)
+	# The coefficients and related estimates need to be done by class
+	if (class(rx.obj) == "rxLinMod") {
+		param.names <- attributes(rx.obj$coefficients)$dimnames[[1]]
+		coefs1 <- rx.obj$coefficients[,1]
+		the.coefs <- format(coefs1, digits = 4)
+		the.coefs[is.na(coefs1)] <- "Dropped"
+		the.se <- format(rx.obj$coef.std.error[,1], digits = 4)
+		the.se[is.na(coefs1)] <- "Dropped"
+		the.t <- format(rx.obj$coef.t.value[,1], digits = 4)
+		the.t[is.na(coefs1)] <- "Dropped"
+		p.stars <- pStars(rx.obj$coef.p.value[,1])
+		p.stars$p_txt <- as.character(p.stars$p_txt)
+		p.stars$p_txt[is.na(coefs1)] <- "Dropped"
+		p.stars$Stars <- as.character(p.stars$Stars)
+		p.stars$Stars[is.na(coefs1)] <- " "
+	} else {
+		param.names <- names(rx.obj$coefficients)
+		the.coefs <- format(rx.obj$coefficients, digits = 4)
+		the.coefs[is.na(rx.obj$coefficients)] <- "Dropped"
+		the.se <- format(rx.obj$coef.std.error, digits = 4)
+		the.se[is.na(rx.obj$coefficients)] <- "Dropped"
+		the.t <- format(rx.obj$coef.t.value, digits = 4)
+		the.t[is.na(rx.obj$coefficients)] <- "Dropped"
+		p.stars <- pStars(rx.obj$coef.p.value)
+		p.stars$p_txt <- as.character(p.stars$p_txt)
+		p.stars$p_txt[is.na(rx.obj$coefficients)] <- "Dropped"
+		p.stars$Stars <- as.character(p.stars$Stars)
+		p.stars$Stars[is.na(rx.obj$coefficients)] <- " "
+	}
+	coef.est <- paste(param.names, the.coefs, the.se, the.t, p.stars$p_txt, p.stars$Stars, sep = "|")
+    coef.lab <- "Coefficients:"
+    omitted <- names(rx.obj$aliased)[rx.obj$aliased]
+    if (length(omitted) > 0)
+        coef.lab <- paste(coef.lab, " (", length(omitted), " not defined because of singularities)", sep = "")
+	# Model summary, slightly different for glm based objects versus lm objects
+	if (class(rx.obj) != "rxLinMod") {
+		if (class(rx.obj) == "rxGlm")
+			dispersion <- paste("(Dispersion parameter for ", rx.obj$family$family, " taken to be ", rx.obj$dispersion, ")", sep = "")
+		if (class(rx.obj) == "rxLogit")
+			dispersion <- "(Dispersion parameter for binomial taken to be 1)"
+		df.null <- rx.obj$nValidObs - 1
+		df.mod <- rx.obj$nValidObs - length(param.names)
+		null.dev <- paste("Null deviance:", format(null.deviance, digits = 5), "on", df.null, "degrees of freedom")
+		mod.dev <- paste("Residual deviance:", format(rx.obj$deviance, digits = 5), "on", df.mod, "degrees of freedom")
+		McF.R2 <- 1 - (rx.obj$deviance/null.deviance)
+		mod.fit <- paste("McFadden R-Squared: ", format(McF.R2, digits = 4), ", AIC: ", format(rx.obj$aic, digits = 4), sep = "")
+		fisher.it <- paste("Number of IRLS iterations:", rx.obj$iter)
+		sum.grps <- c("Call", "Coef_Label", rep("Coef_Est", length(coef.est)), "Dispersion", rep("Fit_Stats", 3), "Fisher")
+		sum.out <- c(the.call, coef.lab, coef.est, dispersion, null.dev, mod.dev, mod.fit, fisher.it)
+		summary.df <- data.frame(grp = sum.grps, out = sum.out)
+		summary.df$grp <- as.character(summary.df$grp)
+		summary.df$out <- as.character(summary.df$out)
+	} else {
+		resid.se <- paste("Residual standard error:", format(rx.obj$sigma, digits = 5), "on", rx.obj$df[2], "degrees of freedom")
+		r.sq <- paste("Multiple R-squared: ", format(rx.obj$r.squared, digits = 4), ", Adjusted R-Squared: ", format(rx.obj$adj.r.squared, 
+        digits = 4), sep = "")
+		p.f <- format(rx.obj$f.pvalue, digits = 4)
+		p.f[rx.obj$f.pvalue < 2.2e-16] <- "< 2.2e-16"
+		f.stat <- paste("F-statistic: ", format(rx.obj$fstatistic$value, digits = 4), " on ", as.integer(rx.obj$fstatistic$numdf), " and ", as.integer(rx.obj$fstatistic$dendf), " DF, p-value: ", p.f, sep = "")
+		sum.grps <- c("Call", "Coef_Label", rep("Coef_Est", length(coef.est)), rep("Fit_Stats", 3))
+		sum.out <- c(the.call, coef.lab, coef.est, resid.se, r.sq, f.stat)
+		summary.df <- data.frame(grp = sum.grps, out = sum.out)
+		summary.df$grp <- as.character(summary.df$grp)
+		summary.df$out <- as.character(summary.df$out)
+	}
+	json.str <- paste("\"", names(rx.obj$coefficients), "\":\"", rx.obj$coefficients, "\"", sep = "", collapse = ", ")
+	json.str <- paste("{", json.str, "}")
+	coef.str <- c("Coef_JSON", json.str)
+	summary.df <- rbind(summary.df, coef.str)
+	summary.df
+}
+xdfLevels <- function(form, xdf) {
+	factors <- rxSummary(form, data = xdf)$categorical
+	the.names <- sapply(factors, function(x) names(x)[1])
+	if (length(the.names) == 1) {
+		the.levels <- eval(parse(text = paste("list(", the.names, " = as.character(factors[[1]][[1]]))")))
+	} else {
+		the.levels <- sapply(factors, function(x) as.character(x[[1]]))
+		names(the.levels) <- the.names
+	}
+	the.levels
+}
+#########
+# Determine if the "car" package is needed and, if it is, determine if it is
+# available.
+has.car <- "car" %in% row.names(installed.packages())
+if(has.car) {
+  library(car)
+} else {warning("Unable to find the car package")}
+ 
+#########
+# The core portion of the macro
+# The path to the Alteryx temporary directory
+temp.dir <- scan(what = character(), nmax = 1)
+%Engine.TempFilePath%
+# Determine if a compute context is being used, and whether it is XDF
+is.XDF <- FALSE 
+meta.data <- read.AlteryxMetaInfo("#1")
+the.source <- as.character(meta.data$Source)
+if (all(substr(the.source, 3, 9) == "Context")) {
+	library(rjson)
+	meta.list <- fromJSON(the.source[1])
+	if (meta.list$Context == "XDF") {
+		is.XDF <- TRUE
+		xdf.path <- meta.list$File.Loc
+	} else {
+		stop.Alteryx("At this time only XDF scaling is supported")
+	}
+}
+# Read the data stream into R
+the.data <- read.Alteryx("#1")
+# Get the field names
+name.y.var <- names(the.data)[1]
+names.x.vars <- names(the.data)[-1]
+# Boolean if weights are used
+used.weights <- '%Question.Use Weights%' == "True"
+# Adjust the set of field names to remove the weight field if weights are used
+if (used.weights) {
+	use.probs <- '%Question.samp.probs%' == "True"
+	the.weights <- names.x.vars[length(names.x.vars)]
+	names.x.vars <- names.x.vars[1:(length(names.x.vars) - 1)]
+	if (!is.XDF) {
+		weight.arg <- paste(", weights =", the.weights)
+	} else {
+		weight.arg <- paste(', pweights = "', the.weights, '"', sep = "")
+	}
+}
+# Make sure that the target variable is not included in the set of
+# predictor variables. If it is, then remove it from the set.
+if (name.y.var %in% names.x.vars)
+	names.x.vars <- names.x.vars[names.x.vars != name.y.var]
+# Create the base right-hand side of the formula
+x.vars <- paste(names.x.vars, collapse = " + ")
+# Obtain and prep other user inputs
+model.name <- '%Question.Model Name%'
+model.name <- validName(model.name)
+no.constant <- '%Question.Omit Constant%'
+if(no.constant == "True") {
+  the.formula <- paste(name.y.var, '~ -1 + ', x.vars)
+} else {
+  the.formula <- paste(name.y.var, '~', x.vars)
+}
+# The model call
+if (!is.XDF) {
+	model.call <- paste(model.name, ' <- lm(', the.formula, ', data = the.data', sep="")
+} else {
+	model.call <- paste(model.name, ' <- rxLinMod(', the.formula, ', data = "', xdf.path, '", covCoef = TRUE, dropFirst = TRUE', sep="")
+}
+# If the user has specified weighted least squares, add the weights to the call
+if(used.weights) {
+	model.call <- paste(model.call, weight.arg, ')', sep="")
+} else {
+	model.call <- paste(model.call, ')', sep="")
+}
+# Model estimation
+eval(parse(text = model.call))
+the.model <- eval(parse(text = model.name))
+# Add the level labels for factor predictors to use in model scoring, and
+# determine if the smearing estimator adjustment should be calculated for
+# scoring option value.
+if (is.XDF) {
+	the.model$xlevels <- eval(parse(text = paste("xdfLevels(~ ", x.vars, ", xdf.path)")))
+	sum.info <- eval(parse(text = paste("rxSummary(~ ", name.y.var, ", data = xdf.path)", sep = "")))
+	# See if it is possible that the maximum target value is consistent with the
+	# use of a natural log transformation, and construct the smearing adjust if
+	# it is.
+	if (sum.info$sDataFrame[1,5] <= 709) {
+		resids.path <- paste(temp.dir, "\\resids", ceiling(100000*runif(1)), ".xdf", sep = "")
+		rxPredict(the.model, data = xdf.path, outData = resids.path, computeResiduals = TRUE, predVarNames = "Pred", residVarNames = "Resid")
+		resids.df <- rxReadXdf(file = resids.path)
+		smear <- rxSummary(~ Resid, data = resids.path, transforms = list(Resid = exp(Resid)))
+		the.model$smearing.adj <- smear$sDataFrame[1,2]
+	}
+}
+# When running the macro within Alteryx by itself, the line of code below
+# causes the model summary to be written to the ouput window. However, this
+# does not occur when the macro is called from another module
+print(summary(the.model))
+# The code below creates the key-value pair table of the lm results and the
+# set of parameters that can be used downstream
+if (!is.XDF) {
+	lm.out <- Alteryx.ReportLM(the.model)
+} else {
+	lm.out <- AlteryxReportRx(the.model)
+}
+# Put the name of the model as the first entry in the key entry in the
+# key-value table.
+lm.out <- rbind(c("Model_Name", model.name), lm.out)
+# If the ANOVA table is requested then create it and add its results to the
+# key-value table 
+if(has.car && !is.XDF) {
+  print(Anova(the.model, type="II")) # Write to the Output window
+  lm.out <- rbind(lm.out, Alteryx.ReportAnova(the.model))
+}
+if (is.XDF)
+	AlteryxMessage("Creation of the Analysis of Variance table was surpressed due to the use of an XDF file", iType = 2, iPriority = 3) 
+# Write out the key-value pair table to Alteryx
+write.Alteryx(lm.out)
+# Create the diagnostic plots
+if (!is.XDF) {
+	whr <- graphWHR(inches = "True", in.w = 6, in.h = 6, resolution ='%Question.graph.resolution%')
+	AlteryxGraph(2, width = whr[1], height = whr[2], res = whr[3], pointsize = 9)
+	par(mfrow=c(2,2), mar=c(5, 4, 2, 2) + 0.1)
+	plot(the.model)
+	invisible(dev.off())
+} else {
+	AlteryxGraph(2)
+	plot(x = c(0,1), y = c(0,1), type = "n", main = "Plots not available", xlab = "", ylab = "", xaxt = "n", yaxt = "n")
+	invisible(dev.off())
+	AlteryxMessage("The diagnostic plot is not available for XDF based models", iType = 2, iPriority = 3)
+}
+# Create a list with the model object and its name and write it out via
+# the third output
+the.obj <- vector(mode="list", length=2)
+the.obj[[1]] <- c(model.name)
+the.obj[[2]] <- list(the.model)
+names(the.obj) <- c("Name", "Object")
+write.Alteryx(the.obj, nOutput = 3)
+]]></RScript>
+          <UseFullUpdate value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Install R and the necessary packages here:
+http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="grp" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="out" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output2">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxR" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings>
+        <Position x="990" y="619" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output58">
+          <RecordInfo>
+            <Field name="Model_Name" size="114" source="R-Data:" type="V_String" />
+            <Field name="Call" size="114" source="R-Data:" type="V_String" />
+            <Field description="TextToColumns: Parsed from Fit_Stats" name="Fit_Stats2" size="2048" source="TextToColumns: Parsed from Fit_Stats" type="V_String" />
+            <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="2147483647" source="Report: (Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Supporting_Macros\Linear_Model_summary.yxmc" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings>
+        <Position x="990" y="812" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output69">
+          <RecordInfo>
+            <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="2147483647" source="Report: (Multiple Sources)" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Supporting_Macros\Linear_Model_ANOVA.yxmc" />
+    </Node>
+    <Node ToolID="102">
+      <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+        <Position x="978" y="1017" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Images />
+          <Output>Graph_Title</Output>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
+          <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Verdana;}}
+\viewkind4\uc1\pard\i\f0\fs24 Basic Diagnostic Plots\par
+}
+]]></RichTextString>
+          <Styles>
+            <Style Name="TextStyle" />
+          </Styles>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Basic Diagnostic Plots</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Graph_Title" size="2147483647" source="Report:Text:" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1086" y="1017" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="Desc" type="V_String" size="64" expression="&quot;BasicDiagnosticPlotsTitle&quot;" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Desc="BasicDiagnosticPlotsTitle"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Graph_Title" size="2147483647" source="Report:Text:" type="V_String" />
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlotsTitle&quot;" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="117">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="990" y="1282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_652_66908f95cfc9454e8411b0f3dd127784_\Engine_2428_feac2c90f7de4d67bab1f0e330024cb0_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Table</DefaultTab>
+              <Hints />
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1182" y="1017" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <SelectFields>
+            <SelectField field="Desc" selected="True" />
+            <SelectField field="Graph_Title" selected="True" rename="Report" />
+            <SelectField field="Name" selected="True" />
+            <SelectField field="Object" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlotsTitle&quot;" type="V_String" />
+            <Field name="Report" size="2147483647" source="Report:Text:" type="V_String" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1086" y="1306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="Desc" type="V_String" size="64" expression="&quot;BasicDiagnosticPlots&quot;" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Desc="BasicDiagnosticPlots"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlots&quot;" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="114">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1182" y="1306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <SelectFields>
+            <SelectField field="Desc" selected="True" />
+            <SelectField field="Graph" selected="True" rename="Report" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlots&quot;" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1290" y="1017" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+            <Connection>#3</Connection>
+            <Connection>#4</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="2244" y="943" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_652_66908f95cfc9454e8411b0f3dd127784_\Engine_2428_76fca5a0b2c44f99b973ba32e1cf38a5_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints />
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="125">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="162" y="1005" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Detour based on whether sample weights are used.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
+    </Node>
+    <Node ToolID="126">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+        <Position x="666" y="1029" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd" />
+    </Node>
+    <Node ToolID="127">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="y" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Select the target variable, no weights.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="128">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="764" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="y" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Select the predictors, no weights.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="390" y="764" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>If the target is included in the list of predictor fields, then remove it, no weights.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="522" y="583" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="True">
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Join the target and predictor, no weights.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="1246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="y" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Select the target variable, weights used.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="1499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="y" selected="False" />
+            <SelectField field="x2" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Select the predictors, weights used.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="282" y="1764" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="x2" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Select the field with the weights.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="x2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="134">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="378" y="1499" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>If the target is included in the list of predictor fields, then remove it, weights used.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="136">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="876" height="96" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Alteryx Macro:
+Linear Regression</Text>
+          <Font name="Microsoft Sans Serif" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="95" g="152" b="171" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="143">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicSelect.DynamicSelect">
+        <Position x="738" y="1029" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>FieldTypes</Mode>
+          <FieldTypes>Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString</FieldTypes>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Filter out disallowed field types that are not properly screened by the selection of predictor fields actions</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicSelect" />
+    </Node>
+    <Node ToolID="155">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Label.Label">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="161">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="163">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="164">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="165">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="78" y="1005" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input</Name>
+          <Abbrev>
+            <Abbrev />
+          </Abbrev>
+          <ShowFieldMap value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="501" />
+              <Fields>
+                <Field name="y" />
+                <Field name="x1" />
+                <Field name="x2" />
+                <Field name="d1" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>7.33789065062709</c>
+                  <c>7.61311166552838</c>
+                  <c>4.11184511766063</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.4813515285873</c>
+                  <c>8.10249422276655</c>
+                  <c>3.69030538756702</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.1934957352158</c>
+                  <c>9.04395016076681</c>
+                  <c>2.93730541367909</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.8575770718692</c>
+                  <c>7.09569593394442</c>
+                  <c>3.28493801610005</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.354627842363</c>
+                  <c>8.94812132598945</c>
+                  <c>3.82229249758442</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.94607280923871</c>
+                  <c>9.76500917314405</c>
+                  <c>3.08962381365133</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.8854385707969</c>
+                  <c>4.85140249016695</c>
+                  <c>2.77606176205012</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.28336067906249</c>
+                  <c>6.5888022801047</c>
+                  <c>2.1428211295795</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.3662190163535</c>
+                  <c>6.48536627143729</c>
+                  <c>5.06973199224943</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>14.2336531044816</c>
+                  <c>3.71107148478866</c>
+                  <c>4.40083468781258</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.65290687593174</c>
+                  <c>9.34125239393942</c>
+                  <c>1.68211450891368</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.9883036951544</c>
+                  <c>4.67488221616041</c>
+                  <c>4.03193361483602</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.59356656659776</c>
+                  <c>1.91328789238473</c>
+                  <c>2.82144174499268</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.94712468145079</c>
+                  <c>4.81306233303264</c>
+                  <c>3.14976165534309</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.2200454497181</c>
+                  <c>14.8343049359094</c>
+                  <c>3.18942893593641</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.30976218185139</c>
+                  <c>8.26777087232771</c>
+                  <c>4.29411765846015</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.48323339086445</c>
+                  <c>9.96582016583633</c>
+                  <c>2.83168098416659</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.31349265687401</c>
+                  <c>7.50433427297452</c>
+                  <c>1.30752968592404</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.60043384535339</c>
+                  <c>6.20708372037045</c>
+                  <c>2.36396916735064</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.3240373442145</c>
+                  <c>6.44277442582297</c>
+                  <c>4.70922717908716</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.89185551165121</c>
+                  <c>7.00122248675336</c>
+                  <c>1.91310091434834</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.14949640479862</c>
+                  <c>7.47998053500181</c>
+                  <c>3.59500502675471</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.5974177552108</c>
+                  <c>8.10155685609953</c>
+                  <c>4.96282562725892</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.71521790597247</c>
+                  <c>8.25689901006541</c>
+                  <c>2.7131184984231</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.34902702210086</c>
+                  <c>10.2841707816464</c>
+                  <c>2.68114187432688</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.7936140702693</c>
+                  <c>6.85335530928493</c>
+                  <c>4.6450615469721</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.38837900658254</c>
+                  <c>7.52930083007906</c>
+                  <c>2.9941567083279</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.4053592111561</c>
+                  <c>6.23602111248805</c>
+                  <c>4.40812841985761</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.14725478963333</c>
+                  <c>5.94760016939165</c>
+                  <c>4.07888604822403</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.49379900942313</c>
+                  <c>6.3694098693158</c>
+                  <c>2.78757111351725</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.5322987754546</c>
+                  <c>7.68684645549623</c>
+                  <c>4.38577977532362</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.2590163262137</c>
+                  <c>5.45858147437179</c>
+                  <c>2.85693076354793</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.4004862605795</c>
+                  <c>9.75749366970544</c>
+                  <c>5.84898386923473</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>15.8647851762697</c>
+                  <c>5.48041423511686</c>
+                  <c>4.55830937182981</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.8933355464203</c>
+                  <c>6.31616034384173</c>
+                  <c>3.53658028595905</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.69312524470345</c>
+                  <c>8.78607572396348</c>
+                  <c>3.99594141312408</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.8805366365163</c>
+                  <c>8.73022797061295</c>
+                  <c>4.81107449255231</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.54887819590345</c>
+                  <c>7.94783246283357</c>
+                  <c>3.33468777990654</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.1576913159865</c>
+                  <c>8.73591555255645</c>
+                  <c>2.3346594584639</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>0.00571395345243</c>
+                  <c>8.84426222088639</c>
+                  <c>0.329856455419789</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.4758577240005</c>
+                  <c>3.72477173691668</c>
+                  <c>2.46795774184435</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.6106615326966</c>
+                  <c>6.86102724252004</c>
+                  <c>3.37034150541202</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.97503271601524</c>
+                  <c>6.05902717577117</c>
+                  <c>2.43683720129337</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.28012138715821</c>
+                  <c>8.8407915260924</c>
+                  <c>2.23544050339939</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.48435663026962</c>
+                  <c>5.64044177925351</c>
+                  <c>2.77913245570772</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.84025826278724</c>
+                  <c>5.14262699323408</c>
+                  <c>3.01825310689584</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.2353820776718</c>
+                  <c>7.07834162426947</c>
+                  <c>2.22906862090508</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.47127270671017</c>
+                  <c>5.34625880039445</c>
+                  <c>1.73356221925488</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.3130182834095</c>
+                  <c>7.70942862576461</c>
+                  <c>3.06219794868514</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.68323291290946</c>
+                  <c>7.57484645481796</c>
+                  <c>3.36542238857334</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.8596709433309</c>
+                  <c>5.58273999461974</c>
+                  <c>3.54890902808499</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.59987449909825</c>
+                  <c>7.12688876673745</c>
+                  <c>2.39778012679375</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.47686002962513</c>
+                  <c>3.73870651662573</c>
+                  <c>3.68007031152169</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.0323267908258</c>
+                  <c>9.1166328595747</c>
+                  <c>3.79245399966674</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>14.2162827986492</c>
+                  <c>9.08787900220475</c>
+                  <c>3.610458730913</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.13789585064795</c>
+                  <c>9.31147777749387</c>
+                  <c>1.53292336533767</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.9708486923657</c>
+                  <c>3.32511200230289</c>
+                  <c>3.15220209230329</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.1505347756824</c>
+                  <c>5.9166252794384</c>
+                  <c>3.44728836227611</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.0768090918389</c>
+                  <c>6.84887065738509</c>
+                  <c>3.84390259561735</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.0150082132658</c>
+                  <c>5.63205973872414</c>
+                  <c>3.35885762833081</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.6445589685575</c>
+                  <c>6.74883891759484</c>
+                  <c>2.69160933044846</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.59602071582727</c>
+                  <c>8.1454461309533</c>
+                  <c>3.1676365570412</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.5109019523651</c>
+                  <c>8.20940296196155</c>
+                  <c>3.87232346438901</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.7889267558364</c>
+                  <c>6.09894119833293</c>
+                  <c>3.68081422150631</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.5448678423194</c>
+                  <c>3.67833075055961</c>
+                  <c>2.51493256301625</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.9005155343326</c>
+                  <c>8.03657529979488</c>
+                  <c>2.87519771199029</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.50706585171467</c>
+                  <c>7.49090107625437</c>
+                  <c>1.61561654164448</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.39275660656351</c>
+                  <c>8.73410373941057</c>
+                  <c>2.65602747329741</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.79557103578995</c>
+                  <c>5.62591451522563</c>
+                  <c>3.43772359045469</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.52714363258506</c>
+                  <c>9.18479481250875</c>
+                  <c>2.68679495823974</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.53231922148298</c>
+                  <c>8.41725413600992</c>
+                  <c>2.882757306455</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.58523221077258</c>
+                  <c>6.26686540486565</c>
+                  <c>1.92555758469782</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.58393385478992</c>
+                  <c>6.78424028047497</c>
+                  <c>3.51230682986525</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.31823399817689</c>
+                  <c>6.18406074296342</c>
+                  <c>3.0620809401112</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.1877773734572</c>
+                  <c>8.6388060752513</c>
+                  <c>1.8893031307082</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.5165237616159</c>
+                  <c>4.98138378720631</c>
+                  <c>5.09639708799716</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.51787950355418</c>
+                  <c>13.4233731278874</c>
+                  <c>2.63049122553344</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.69503908280486</c>
+                  <c>5.82274984719652</c>
+                  <c>1.40887289908714</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.51354111933948</c>
+                  <c>11.3260953795248</c>
+                  <c>2.93206443306642</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.13187458043576</c>
+                  <c>8.71194065990355</c>
+                  <c>5.92370800961593</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.77408183029148</c>
+                  <c>9.17736905822</c>
+                  <c>3.8582575073453</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.4420906342478</c>
+                  <c>7.99128266616677</c>
+                  <c>3.01344182503628</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.73198756686015</c>
+                  <c>9.59692053427046</c>
+                  <c>2.03200784105027</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.61225429284146</c>
+                  <c>3.69818052369834</c>
+                  <c>2.62295778057431</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.42355798173668</c>
+                  <c>6.12631597233354</c>
+                  <c>2.5643628170721</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.20071694898338</c>
+                  <c>6.44306399310963</c>
+                  <c>3.24292143300177</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.5421628163446</c>
+                  <c>7.97564987447924</c>
+                  <c>4.11944893425599</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.7418607518021</c>
+                  <c>9.74410947175676</c>
+                  <c>4.15521358662301</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.41761507018798</c>
+                  <c>6.59140956916202</c>
+                  <c>1.62751288912388</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.12019697046029</c>
+                  <c>7.11600983605427</c>
+                  <c>4.63851925465314</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.2324117920556</c>
+                  <c>7.27318532475365</c>
+                  <c>2.7295349986937</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.27805379175169</c>
+                  <c>8.50207091264948</c>
+                  <c>2.37653054843272</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.5350697802629</c>
+                  <c>9.44009068377905</c>
+                  <c>1.75623465165374</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.2615508110844</c>
+                  <c>5.68406597098845</c>
+                  <c>2.83748622640991</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.0769193672104</c>
+                  <c>5.55501258597274</c>
+                  <c>2.94887194831866</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.3069085842037</c>
+                  <c>4.65791543770319</c>
+                  <c>3.68768327254164</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>3.66594028524406</c>
+                  <c>5.02697612106786</c>
+                  <c>2.06978543398382</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.25253335910406</c>
+                  <c>6.03077644122919</c>
+                  <c>3.41183396950353</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.49759198269541</c>
+                  <c>6.97522510569141</c>
+                  <c>1.91696756482719</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.60817414915716</c>
+                  <c>6.09265629025295</c>
+                  <c>4.58213773962701</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.24650372259161</c>
+                  <c>7.68999523195836</c>
+                  <c>3.60682178926772</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.40736432838704</c>
+                  <c>3.73633547896424</c>
+                  <c>2.31205394668261</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.34321857248735</c>
+                  <c>7.83372171944639</c>
+                  <c>2.7281886588642</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.9903585769586</c>
+                  <c>5.31973401826312</c>
+                  <c>3.79721123329255</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.8947561644069</c>
+                  <c>7.68217699468076</c>
+                  <c>2.5611370393073</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.95000209648979</c>
+                  <c>4.19338209203639</c>
+                  <c>3.58322865118112</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.249045696344</c>
+                  <c>7.79568327934049</c>
+                  <c>2.92918215147247</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.3554077279424</c>
+                  <c>9.23611645922169</c>
+                  <c>2.79603578853604</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.8363621155768</c>
+                  <c>7.16023120957713</c>
+                  <c>3.09264670397083</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.1561126223463</c>
+                  <c>8.71662750030557</c>
+                  <c>3.1442062624558</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.4215288956369</c>
+                  <c>4.35215235848931</c>
+                  <c>2.73708701052832</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.3446432202882</c>
+                  <c>9.14351273331475</c>
+                  <c>2.34032432568574</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.13021485751965</c>
+                  <c>8.06260245807864</c>
+                  <c>2.56359021774477</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.20185927059857</c>
+                  <c>8.20821671720336</c>
+                  <c>2.06582294675156</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.39887620850658</c>
+                  <c>7.469524856588</c>
+                  <c>2.97857045604805</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.84922894231384</c>
+                  <c>7.21188515726894</c>
+                  <c>1.37883819681126</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.0140813757754</c>
+                  <c>4.81760264176113</c>
+                  <c>3.90738182228819</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.1766215983973</c>
+                  <c>8.4734437731137</c>
+                  <c>3.75001402230739</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.51322559545915</c>
+                  <c>6.56268449348538</c>
+                  <c>2.15392287449667</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.5926214520326</c>
+                  <c>7.95348641652614</c>
+                  <c>2.57225265735456</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>2.67402631363754</c>
+                  <c>6.45035275188993</c>
+                  <c>3.3267928364682</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.9628701052278</c>
+                  <c>3.34653645848405</c>
+                  <c>2.07300789007361</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.87127111263777</c>
+                  <c>10.0987778830886</c>
+                  <c>3.17726522788638</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.79202448044777</c>
+                  <c>9.54809146247501</c>
+                  <c>2.49032124891111</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.1824453969132</c>
+                  <c>10.2962161411278</c>
+                  <c>3.57898080429125</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.90013029766501</c>
+                  <c>8.54486699159447</c>
+                  <c>1.14487759919383</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.18306571527347</c>
+                  <c>7.44390225879226</c>
+                  <c>2.31862554535396</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.2450499680394</c>
+                  <c>7.96301914419298</c>
+                  <c>0.788457377142197</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.15617838719668</c>
+                  <c>5.14372544373095</c>
+                  <c>1.96134368430818</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>14.2656371793424</c>
+                  <c>11.7210054601428</c>
+                  <c>3.64363127109345</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.0983536106646</c>
+                  <c>2.81996925386858</c>
+                  <c>1.21243707987289</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.3175947656833</c>
+                  <c>7.73147877483325</c>
+                  <c>3.56344105275069</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.3343503538624</c>
+                  <c>8.34364534802298</c>
+                  <c>3.50949095170672</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.87800754424709</c>
+                  <c>6.17095789617888</c>
+                  <c>2.69241526845632</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.69339469334476</c>
+                  <c>8.49860262071493</c>
+                  <c>3.39678786770071</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.0785843625788</c>
+                  <c>7.81634658653346</c>
+                  <c>4.60918265574094</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.7407962334023</c>
+                  <c>9.1220115550887</c>
+                  <c>4.75740492645884</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.30545156875009</c>
+                  <c>10.0083498891625</c>
+                  <c>0.768329992648033</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>14.546114697272</c>
+                  <c>8.81122739766392</c>
+                  <c>5.15384693917331</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.0599173663925</c>
+                  <c>8.5940578922632</c>
+                  <c>3.71140271700473</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.51965791347339</c>
+                  <c>11.0731047039174</c>
+                  <c>3.17184470934472</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.39713302119843</c>
+                  <c>8.68433617324913</c>
+                  <c>2.89826873993419</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.48490847828802</c>
+                  <c>10.1749162363951</c>
+                  <c>2.60385607369081</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.60619521468365</c>
+                  <c>8.1168707405612</c>
+                  <c>2.91970454532227</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.77517590849757</c>
+                  <c>7.72239522560864</c>
+                  <c>2.44515158879467</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.53618974340912</c>
+                  <c>7.14301262910566</c>
+                  <c>3.58379020186137</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.1604386132666</c>
+                  <c>8.46996151309911</c>
+                  <c>3.1436732407239</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.70939225435469</c>
+                  <c>8.88451512001521</c>
+                  <c>1.67304789201515</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.3429939438868</c>
+                  <c>8.00467910076286</c>
+                  <c>4.69188498855992</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.80042572470991</c>
+                  <c>4.96148910321766</c>
+                  <c>3.01913005912426</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.76288513409856</c>
+                  <c>9.40853190932309</c>
+                  <c>2.23632170074202</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.554744999143</c>
+                  <c>8.45858050573443</c>
+                  <c>2.17086882686754</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.0206567378207</c>
+                  <c>6.3257520331138</c>
+                  <c>2.67659161821528</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.81388297155703</c>
+                  <c>6.81986175313769</c>
+                  <c>2.67971380861497</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.41276856786525</c>
+                  <c>5.19906734472803</c>
+                  <c>1.69493655386433</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.22335724626064</c>
+                  <c>7.67966684610349</c>
+                  <c>3.06479098865343</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.6296938488137</c>
+                  <c>7.12267559710908</c>
+                  <c>2.3974859968353</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.69704745862438</c>
+                  <c>5.86787473011208</c>
+                  <c>2.21129447008112</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.2251945567238</c>
+                  <c>9.82694738686732</c>
+                  <c>2.34689966357722</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.07508930082788</c>
+                  <c>6.64561001887259</c>
+                  <c>2.44136800637918</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.43460948105661</c>
+                  <c>7.26793888161656</c>
+                  <c>3.22995937073869</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.61396879967204</c>
+                  <c>4.35001775304191</c>
+                  <c>1.94897227733915</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.83460821339366</c>
+                  <c>9.43351227512614</c>
+                  <c>3.49556107043785</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.26547107346613</c>
+                  <c>7.30451976582498</c>
+                  <c>2.79653956210117</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.21916181751111</c>
+                  <c>4.64069447097656</c>
+                  <c>3.72024289110613</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>3.49237180122446</c>
+                  <c>7.14279718696887</c>
+                  <c>3.22398344483514</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.0640395044038</c>
+                  <c>5.60646630314123</c>
+                  <c>3.10529454584788</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.8634191726248</c>
+                  <c>7.51487204158147</c>
+                  <c>1.75811640766006</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.5288310411659</c>
+                  <c>5.73374035004065</c>
+                  <c>2.56941886276373</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.82678619890224</c>
+                  <c>6.81654003785313</c>
+                  <c>2.47094698626616</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.02130346589069</c>
+                  <c>6.19094800649558</c>
+                  <c>2.22655054417519</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.6506830777434</c>
+                  <c>9.30200048710633</c>
+                  <c>3.02348583884388</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.70337740560114</c>
+                  <c>4.98532055263371</c>
+                  <c>1.31622806367376</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.30196162116226</c>
+                  <c>7.65376729580724</c>
+                  <c>2.93207770504997</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.72502237527533</c>
+                  <c>6.84901307807856</c>
+                  <c>3.80095543223133</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.6569186309841</c>
+                  <c>7.73068509813893</c>
+                  <c>4.43118698802511</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.62569210227593</c>
+                  <c>7.95693424472815</c>
+                  <c>3.78086362883939</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.5954466813039</c>
+                  <c>5.50342925262094</c>
+                  <c>4.03235878854112</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.33678224529464</c>
+                  <c>6.60046730265817</c>
+                  <c>2.26879679520369</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.023320366613</c>
+                  <c>6.93150828390819</c>
+                  <c>4.16894222410889</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.8828613950469</c>
+                  <c>7.84142101962006</c>
+                  <c>2.13651566438243</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.1412213239992</c>
+                  <c>6.16970003151693</c>
+                  <c>2.69885704576182</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.4536413002488</c>
+                  <c>5.81995586771675</c>
+                  <c>4.65559406325229</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.2347689632813</c>
+                  <c>6.25778320513699</c>
+                  <c>2.98108828907377</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.1968544374281</c>
+                  <c>6.58500973117591</c>
+                  <c>3.25412954783039</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.3469632634688</c>
+                  <c>9.21504533489467</c>
+                  <c>4.00690725262263</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.44808026585028</c>
+                  <c>6.06747280845988</c>
+                  <c>3.50780420439704</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.9072587899834</c>
+                  <c>6.87753997301778</c>
+                  <c>5.15360559904847</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.01567311460016</c>
+                  <c>3.3914849934451</c>
+                  <c>2.2261396175271</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.42015122819424</c>
+                  <c>9.11965994501257</c>
+                  <c>2.46980342866151</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.93560466815189</c>
+                  <c>3.71335875924004</c>
+                  <c>2.19411731285876</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.1752072359983</c>
+                  <c>8.35539914464472</c>
+                  <c>2.69484950167889</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.7479364827929</c>
+                  <c>9.92001717927499</c>
+                  <c>2.90764389230007</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.25833500311815</c>
+                  <c>5.97215377214908</c>
+                  <c>3.45017817023394</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.1430034054648</c>
+                  <c>6.92597087363612</c>
+                  <c>2.38046742206936</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.71834103367433</c>
+                  <c>9.75722472248472</c>
+                  <c>3.67022952290706</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.2381785810687</c>
+                  <c>9.20458287604878</c>
+                  <c>3.13374090843376</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.75807596382409</c>
+                  <c>6.90288636086132</c>
+                  <c>2.5141250246514</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.66891078164122</c>
+                  <c>6.21229751420244</c>
+                  <c>3.15965079672638</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.71846936789385</c>
+                  <c>9.34933666484855</c>
+                  <c>4.37233665955833</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.98030639006753</c>
+                  <c>3.77733401550542</c>
+                  <c>3.61558452537889</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.71470949030796</c>
+                  <c>9.78287451333129</c>
+                  <c>4.17626475123413</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.90974231393608</c>
+                  <c>7.48682544202719</c>
+                  <c>3.59145184919507</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.4722645030762</c>
+                  <c>4.61087659427268</c>
+                  <c>3.34887862388474</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.3755030110994</c>
+                  <c>4.15524888153256</c>
+                  <c>3.00775343450287</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.2595965186219</c>
+                  <c>6.11510152000685</c>
+                  <c>4.66382325082758</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.5797312999078</c>
+                  <c>8.17990566037995</c>
+                  <c>2.65534575866163</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.56260533187321</c>
+                  <c>1.88926402690595</c>
+                  <c>2.15699662846704</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.84670146743294</c>
+                  <c>4.91134396206886</c>
+                  <c>2.48913607069941</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.75925238387827</c>
+                  <c>7.39743487213792</c>
+                  <c>1.47708265174166</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.06375423973974</c>
+                  <c>8.14825752193701</c>
+                  <c>1.78422051465053</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.99871287135253</c>
+                  <c>7.45681906386148</c>
+                  <c>1.6351309798972</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.19280717992218</c>
+                  <c>2.83177797970394</c>
+                  <c>3.69811652717655</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.72493698324886</c>
+                  <c>6.9261662875407</c>
+                  <c>2.68881440296566</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.93760886734645</c>
+                  <c>7.55629907930438</c>
+                  <c>2.40145109379391</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.09345655005054</c>
+                  <c>9.70295768341489</c>
+                  <c>5.08891733879983</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.00091504656893</c>
+                  <c>8.32099435349494</c>
+                  <c>3.92530025353623</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.43211662053065</c>
+                  <c>10.1592521310022</c>
+                  <c>2.85832946568705</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.72761304172797</c>
+                  <c>7.48200666834944</c>
+                  <c>3.86401783038127</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.60433067478312</c>
+                  <c>9.54236846026303</c>
+                  <c>1.77412844087387</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.0924153749065</c>
+                  <c>7.38845156252662</c>
+                  <c>3.32459700198475</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.6497047009562</c>
+                  <c>3.08927431777904</c>
+                  <c>3.04578404194357</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.15886839061426</c>
+                  <c>8.29863962714871</c>
+                  <c>4.39760273531869</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.6872977902192</c>
+                  <c>4.19255146268621</c>
+                  <c>4.00484740040219</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>-2.58431778756649</c>
+                  <c>7.50979750219928</c>
+                  <c>3.6124250489218e-002</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.890844451545</c>
+                  <c>5.18387571734158</c>
+                  <c>1.89835657718398</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.02919274988</c>
+                  <c>9.21759963822295</c>
+                  <c>3.97579061813476</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.1164981644724</c>
+                  <c>6.92719010344817</c>
+                  <c>3.90174717821953</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.9601937676224</c>
+                  <c>7.77969451682016</c>
+                  <c>3.08889729151592</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.6960383220453</c>
+                  <c>6.37413333716979</c>
+                  <c>3.03697607024706</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.66010027097915</c>
+                  <c>6.19273310370647</c>
+                  <c>2.57812715907615</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.91048372423558</c>
+                  <c>6.53715745540247</c>
+                  <c>3.20530623543053</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.6863090926687</c>
+                  <c>8.89554201508744</c>
+                  <c>1.82591351204004</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.7933503155684</c>
+                  <c>5.02556401834071</c>
+                  <c>3.21654073964784</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.3621980862985</c>
+                  <c>8.11092599900021</c>
+                  <c>2.46735450959098</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.04548557857168</c>
+                  <c>8.67780300597892</c>
+                  <c>3.24484846079539</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.53319618692423</c>
+                  <c>6.07357912833017</c>
+                  <c>4.16031768912787</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.45045416039415</c>
+                  <c>9.28478146321837</c>
+                  <c>3.19280892974812</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.53728243661628</c>
+                  <c>8.46437725533045</c>
+                  <c>1.60060325010468</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.59539786841847</c>
+                  <c>8.77142018123591</c>
+                  <c>3.26275265382846</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.76903947770852</c>
+                  <c>10.0168269466519</c>
+                  <c>1.71682481389322</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.85482239545228</c>
+                  <c>8.18471987360472</c>
+                  <c>2.07835534125967</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.68881261264247</c>
+                  <c>8.41536548940278</c>
+                  <c>3.24373794438882</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.65665033331284</c>
+                  <c>10.0597332765434</c>
+                  <c>2.3219902306382</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.5801193959949</c>
+                  <c>4.98681970570902</c>
+                  <c>2.70249339347062</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.49966183709066</c>
+                  <c>10.1004588987615</c>
+                  <c>3.31102114864214</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.28586631499991</c>
+                  <c>11.3057500174864</c>
+                  <c>2.11026630893028</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.5975562077813</c>
+                  <c>11.719151043063</c>
+                  <c>3.7273431642246</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.04639023170413</c>
+                  <c>4.67552409075529</c>
+                  <c>2.71267437533261</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.8030248280245</c>
+                  <c>5.12418211215713</c>
+                  <c>3.92828563958951</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.88507605175568</c>
+                  <c>9.3480762518744</c>
+                  <c>2.76627966970286</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.10480641543525</c>
+                  <c>5.40480275277402</c>
+                  <c>1.67020572627617</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.5695718282377</c>
+                  <c>6.09669996004088</c>
+                  <c>3.14596173776152</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>3.53814239652515</c>
+                  <c>8.93462679184936</c>
+                  <c>0.840958337542593</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.3087801567473</c>
+                  <c>6.20676625128881</c>
+                  <c>4.63410849389927</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.9071708483558</c>
+                  <c>6.73545728808872</c>
+                  <c>3.68458340718994</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.82487437493749</c>
+                  <c>7.97087367512682</c>
+                  <c>2.19669208803354</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.612787300906</c>
+                  <c>6.17240408956808</c>
+                  <c>3.38619282714807</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>14.2564305463744</c>
+                  <c>11.2464913974963</c>
+                  <c>3.58702679755036</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.65638502040674</c>
+                  <c>6.83543433761219</c>
+                  <c>2.55961676275732</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.4269315732111</c>
+                  <c>3.78140542556654</c>
+                  <c>3.05806154801925</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.0240932353895</c>
+                  <c>6.79789391028618</c>
+                  <c>3.22139806274539</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.2566451969034</c>
+                  <c>5.18025888217039</c>
+                  <c>3.09424497789946</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.79048271677561</c>
+                  <c>7.68174505392739</c>
+                  <c>4.06638799566808</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.0014515206242</c>
+                  <c>8.2632419272679</c>
+                  <c>3.83208727731349</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.77902144809698</c>
+                  <c>5.53013117517586</c>
+                  <c>3.01308901307989</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.25747857885053</c>
+                  <c>10.9197373159452</c>
+                  <c>3.92176492048861</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>15.3083642371327</c>
+                  <c>7.39271784230597</c>
+                  <c>3.95173531550599</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.35301181134869</c>
+                  <c>4.17904458061359</c>
+                  <c>3.47492082811475</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.3848919734888</c>
+                  <c>6.36917333988302</c>
+                  <c>5.17167230456203</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.26266210898441</c>
+                  <c>5.14874791456217</c>
+                  <c>1.22966856164886</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.94629623644066</c>
+                  <c>6.57078545983725</c>
+                  <c>1.8668038883011</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.7364887503809</c>
+                  <c>10.5634527249447</c>
+                  <c>3.90940027325788</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.05628716623898</c>
+                  <c>3.04817748097718</c>
+                  <c>1.74723953284232</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.28015304263554</c>
+                  <c>5.21385696608998</c>
+                  <c>1.83035126227333</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.19355323562265</c>
+                  <c>2.72086360175667</c>
+                  <c>2.44070637552971</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.2950981443461</c>
+                  <c>8.27513979789294</c>
+                  <c>3.24610619891132</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>14.0521772208326</c>
+                  <c>10.8668056370903</c>
+                  <c>3.00001625679523</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.1763848539239</c>
+                  <c>8.6370465357904</c>
+                  <c>2.87168751930195</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.39686137521791</c>
+                  <c>10.1301848802094</c>
+                  <c>2.37247815641822</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.96453770638597</c>
+                  <c>7.91556168413831</c>
+                  <c>0.504210741465809</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.55183394932055</c>
+                  <c>9.00786859017212</c>
+                  <c>3.10379630631424</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.4656443349073</c>
+                  <c>5.09744950478169</c>
+                  <c>2.15750636909738</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.95994951223573</c>
+                  <c>6.34073053252047</c>
+                  <c>1.72923513111474</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.46085693080629</c>
+                  <c>10.510949560953</c>
+                  <c>1.4467825060781</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.60839440699181</c>
+                  <c>9.26489211889502</c>
+                  <c>4.04302221624349</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.38546970562248</c>
+                  <c>6.74681990655381</c>
+                  <c>2.69610420784682</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.80439278455569</c>
+                  <c>4.86222001572347</c>
+                  <c>4.15796793028128</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.4119042362768</c>
+                  <c>5.98704620950716</c>
+                  <c>3.2713818796425</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.77176010544209</c>
+                  <c>8.91002303992659</c>
+                  <c>3.93146974629047</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.12053148047713</c>
+                  <c>5.53528048006093</c>
+                  <c>1.11450150785528</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.9268275971941</c>
+                  <c>7.3184987532077</c>
+                  <c>4.00787783283594</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.597913466124</c>
+                  <c>8.20322258462185</c>
+                  <c>4.05320465232357</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.1119742812588</c>
+                  <c>6.49501589400786</c>
+                  <c>2.20521825641856</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.59107144012726</c>
+                  <c>6.37613588795835</c>
+                  <c>4.56791907671806</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.6718262364143</c>
+                  <c>10.3277232601919</c>
+                  <c>3.48117287666192</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.96473812472572</c>
+                  <c>4.32530918407786</c>
+                  <c>2.57512992267475</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.71923196840103</c>
+                  <c>4.29800287152031</c>
+                  <c>1.98026782799836</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.7822173547618</c>
+                  <c>8.05635536804244</c>
+                  <c>4.26679178816713</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.0826822429955</c>
+                  <c>8.63450666895622</c>
+                  <c>3.80606666568361</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.0534953866593</c>
+                  <c>6.94055059736226</c>
+                  <c>2.52199100927108</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.6834555260714</c>
+                  <c>8.52745742465208</c>
+                  <c>3.14100266158052</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.522648676235</c>
+                  <c>7.32694252378757</c>
+                  <c>2.73484348716834</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.595293185639</c>
+                  <c>3.87221462997045</c>
+                  <c>4.23508530645985</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.70600300569682</c>
+                  <c>8.24751735776959</c>
+                  <c>2.93079163506638</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.73952893042521</c>
+                  <c>4.91656595258738</c>
+                  <c>2.05241923719819</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.0344271762</c>
+                  <c>3.7687721373962</c>
+                  <c>2.88328250693056</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.848376941406</c>
+                  <c>5.05155140174454</c>
+                  <c>4.59823036280095</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.07927596574527</c>
+                  <c>10.8419301558647</c>
+                  <c>3.2434831577299</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.09438526187123</c>
+                  <c>7.82923818456816</c>
+                  <c>3.1009075328865</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.04331471796369</c>
+                  <c>4.64572345940355</c>
+                  <c>2.80601066647299</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.42158663875821</c>
+                  <c>8.09518376563594</c>
+                  <c>1.63554672866831</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>13.4416154975807</c>
+                  <c>13.1756370441483</c>
+                  <c>4.59756357279312</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.13281134773286</c>
+                  <c>7.67147521180555</c>
+                  <c>2.29680598503306</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.04497544065236</c>
+                  <c>3.15555423138084</c>
+                  <c>3.82678120341814</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.14517220196925</c>
+                  <c>5.50330503940564</c>
+                  <c>2.12294201885561</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.2785216675193</c>
+                  <c>4.30541306565823</c>
+                  <c>3.03746581917088</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.1085142928148</c>
+                  <c>7.76096386541573</c>
+                  <c>4.08362422410816</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.5343203703139</c>
+                  <c>2.9603831030946</c>
+                  <c>2.91440081796325</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.8239960982397</c>
+                  <c>10.1787974288912</c>
+                  <c>4.26659964382778</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.17371515340035</c>
+                  <c>3.52179998056164</c>
+                  <c>2.48256789645149</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.61679665877283</c>
+                  <c>9.93338294645265</c>
+                  <c>3.59190740843012</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.82336852901433</c>
+                  <c>7.8005914585497</c>
+                  <c>1.80044488634149</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.7349066602851</c>
+                  <c>7.85340231838279</c>
+                  <c>3.25177226080111</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.27527088087945</c>
+                  <c>5.94786052324625</c>
+                  <c>3.02685431888019</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.4667380399753</c>
+                  <c>7.66961665259811</c>
+                  <c>3.03309678343006</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>14.4709542744935</c>
+                  <c>12.7930370201194</c>
+                  <c>3.99429494731315</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.93330093653665</c>
+                  <c>7.22123910035116</c>
+                  <c>3.72845750166437</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.4739792602665</c>
+                  <c>9.55011650544746</c>
+                  <c>3.23493392167049</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.40773577655086</c>
+                  <c>5.60683176521113</c>
+                  <c>2.4703942997851</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.6403635742119</c>
+                  <c>7.81331317358648</c>
+                  <c>2.91818126902991</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.3245511037216</c>
+                  <c>4.86732555133436</c>
+                  <c>2.62877105092093</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.82686540696432</c>
+                  <c>8.96231325591078</c>
+                  <c>4.02961316011448</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.14552584767956</c>
+                  <c>7.92119590353235</c>
+                  <c>1.49908271622482</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.14208699680125</c>
+                  <c>6.12900154390092</c>
+                  <c>0.904118593897151</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.14090246433981</c>
+                  <c>9.54002333642849</c>
+                  <c>4.02776819294382</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.95255276814591</c>
+                  <c>4.56984007523762</c>
+                  <c>5.31332640409511</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>3.21620780702266</c>
+                  <c>10.2115647936182</c>
+                  <c>0.854187286382195</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.3051823907441</c>
+                  <c>8.456447567838</c>
+                  <c>4.24712270255202</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.26198089009466</c>
+                  <c>6.20696258430032</c>
+                  <c>4.06234350995486</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.82070125074388</c>
+                  <c>6.38418682539422</c>
+                  <c>2.39441803338968</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.1438816713486</c>
+                  <c>7.08775499037595</c>
+                  <c>1.57442522306911</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.09335173774</c>
+                  <c>5.57797221224353</c>
+                  <c>2.49754069977428</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.56434720043464</c>
+                  <c>6.06120268276803</c>
+                  <c>1.83656912533635</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.07146962237857</c>
+                  <c>5.51283168613579</c>
+                  <c>2.68643533490908</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.30064943166924</c>
+                  <c>8.2248002185983</c>
+                  <c>1.95245698056238</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.5222042702812</c>
+                  <c>9.33267525629268</c>
+                  <c>2.56701840261889</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.47005995484674</c>
+                  <c>7.78011150595052</c>
+                  <c>0.829179588659462</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.16803773227057</c>
+                  <c>4.35002008043037</c>
+                  <c>2.9997285123563</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.24757144080537</c>
+                  <c>9.30812569408907</c>
+                  <c>3.94302114091185</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.0790815853045</c>
+                  <c>8.30155928260743</c>
+                  <c>2.45548199687954</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.99942806170393</c>
+                  <c>3.33580923911262</c>
+                  <c>3.2361821578006</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.5460509496088</c>
+                  <c>8.19230212095833</c>
+                  <c>4.19356721601842</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.43904530919362</c>
+                  <c>5.85924517293101</c>
+                  <c>3.94644915938416</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.7872198786154</c>
+                  <c>6.06725590148336</c>
+                  <c>3.74100446964359</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.99683839509954</c>
+                  <c>8.3777385817376</c>
+                  <c>1.49595381531921</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.18041541521907</c>
+                  <c>7.93439884957471</c>
+                  <c>2.33082416865886</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.09208661136193</c>
+                  <c>9.74460583521612</c>
+                  <c>1.38166961123967</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.69938699059949</c>
+                  <c>5.51877717469112</c>
+                  <c>5.28841792248575</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.74886415663175</c>
+                  <c>8.4823741978912</c>
+                  <c>3.23218930233064</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.5713988426572</c>
+                  <c>7.66373461371528</c>
+                  <c>2.76087763142602</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.9912961540105</c>
+                  <c>4.31816825305293</c>
+                  <c>2.94535805976174</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.748155998307</c>
+                  <c>9.85247630846693</c>
+                  <c>3.07972252693614</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.42561290338841</c>
+                  <c>6.66260639115208</c>
+                  <c>2.58857497043453</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.11136155201991</c>
+                  <c>3.95456411990319</c>
+                  <c>2.12962291560716</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.64790065492831</c>
+                  <c>9.55144919940232</c>
+                  <c>3.06961911954945</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.50154197815429</c>
+                  <c>6.36464283274481</c>
+                  <c>2.43456813283164</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.03024475208648</c>
+                  <c>8.44656159465379</c>
+                  <c>3.54672657660892</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.76891997241258</c>
+                  <c>12.4403796926705</c>
+                  <c>3.16057687092693</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>4.25798073843289</c>
+                  <c>8.26311565024298</c>
+                  <c>1.23073946172556</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.37812814305852</c>
+                  <c>4.23120893647697</c>
+                  <c>2.40147089277955</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.37284218866076</c>
+                  <c>5.68403097203057</c>
+                  <c>3.77702920616667</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.0183604273071</c>
+                  <c>5.43170494373048</c>
+                  <c>2.76033727649362</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.15829022295446</c>
+                  <c>9.85674856192022</c>
+                  <c>2.88063126464236</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.787434782134</c>
+                  <c>7.77905703643259</c>
+                  <c>4.10433953550964</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.2596953550122</c>
+                  <c>5.09379067501871</c>
+                  <c>5.76587706621835</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.0502970001325</c>
+                  <c>8.72903496326742</c>
+                  <c>2.23275119405751</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.30716399896285</c>
+                  <c>9.15086393088056</c>
+                  <c>1.70641502866674</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.3110358834981</c>
+                  <c>8.52566265700747</c>
+                  <c>3.88071095754837</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.85648589690056</c>
+                  <c>8.8857160232976</c>
+                  <c>3.3576547684449</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.05647042318955</c>
+                  <c>7.43271968703291</c>
+                  <c>3.83251895451614</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.11130818837369</c>
+                  <c>6.21844053635491</c>
+                  <c>1.0855225739814</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.07175071336044</c>
+                  <c>5.23761103704234</c>
+                  <c>1.84421306965953</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.5131706050978</c>
+                  <c>4.10577923875087</c>
+                  <c>3.36782987399106</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.25097761189218</c>
+                  <c>7.59733810208512</c>
+                  <c>2.12284330378843</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.4047878661435</c>
+                  <c>8.89693011094856</c>
+                  <c>1.67170549132402</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.2058966437289</c>
+                  <c>8.08963727683519</c>
+                  <c>5.38128153775181</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>3.05668829451958</c>
+                  <c>8.35786622819362</c>
+                  <c>0.986718136736341</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.1823456494386</c>
+                  <c>7.92587089145306</c>
+                  <c>3.28203165412412</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.47423022516456</c>
+                  <c>5.84940418082434</c>
+                  <c>2.86677218631633</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.7888296371428</c>
+                  <c>6.47487558533974</c>
+                  <c>3.74164039123711</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.67649924432972</c>
+                  <c>9.42652419103098</c>
+                  <c>2.57776699735924</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.2890638060201</c>
+                  <c>8.82705049770483</c>
+                  <c>3.50049295208187</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.2880175876432</c>
+                  <c>6.8265913493795</c>
+                  <c>2.84469911005958</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.40022305874833</c>
+                  <c>5.35096047040998</c>
+                  <c>3.68944952004256</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.5746323978661</c>
+                  <c>3.77426527181804</c>
+                  <c>1.59962212538179</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.3597311429272</c>
+                  <c>7.51825922181283</c>
+                  <c>2.43339462326619</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.9778980803943</c>
+                  <c>5.62106848797804</c>
+                  <c>3.05499339663116</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.98592930956501</c>
+                  <c>8.93200068693091</c>
+                  <c>2.62085522858334</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.27992268297034</c>
+                  <c>4.2435700918707</c>
+                  <c>3.05077492342104</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.81739857149709</c>
+                  <c>7.29116992474269</c>
+                  <c>2.22911838753967</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.485769439682</c>
+                  <c>5.97166967588302</c>
+                  <c>4.89660623365756</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.4089902194509</c>
+                  <c>5.82780987850126</c>
+                  <c>3.56462158165683</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.0615285834359</c>
+                  <c>5.66345944414825</c>
+                  <c>4.42908628832915</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.03735646686708</c>
+                  <c>6.04368342547765</c>
+                  <c>4.59392177910021</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.0065224845222</c>
+                  <c>8.45091042454266</c>
+                  <c>3.28179160616001</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.24719153804835</c>
+                  <c>5.52846664246917</c>
+                  <c>1.83967519160443</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.6917917421779</c>
+                  <c>5.15406756333376</c>
+                  <c>2.55194432082565</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>2.71767906985089</c>
+                  <c>9.39384901469998</c>
+                  <c>1.01376381145456</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.3688877049627</c>
+                  <c>3.56063013435028</c>
+                  <c>3.68836277681253</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.14743266832104</c>
+                  <c>7.14939644842439</c>
+                  <c>3.03460525357889</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.2676994238126</c>
+                  <c>10.0541572969494</c>
+                  <c>2.59131604363517</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.1053413309461</c>
+                  <c>8.74038688701993</c>
+                  <c>2.96581926388432</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.1959564096728</c>
+                  <c>8.46564376135165</c>
+                  <c>3.21693239357663</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.55679119260816</c>
+                  <c>4.68667797073391</c>
+                  <c>1.01405346435316</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.93049899289832</c>
+                  <c>8.15458107688125</c>
+                  <c>4.30875577654722</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.4681715493367</c>
+                  <c>5.90994154977047</c>
+                  <c>2.7296806838102</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.12647868772485</c>
+                  <c>9.46431222770624</c>
+                  <c>2.75545802772928</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.8046750202039</c>
+                  <c>7.67939852088653</c>
+                  <c>4.34817687157238</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.75600573618058</c>
+                  <c>8.93743371814194</c>
+                  <c>1.69070794976101</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.87148024262278</c>
+                  <c>5.89654283012531</c>
+                  <c>3.10688031734456</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.1396096173404</c>
+                  <c>2.76323810565965</c>
+                  <c>4.54818839791533</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.6177242196756</c>
+                  <c>6.37377716491986</c>
+                  <c>3.64914711656947</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.95080630788323</c>
+                  <c>7.32966547251533</c>
+                  <c>4.26899747386893</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.51566960792643</c>
+                  <c>8.26036712484076</c>
+                  <c>3.44647274474653</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.24136193485471</c>
+                  <c>7.10233833509013</c>
+                  <c>2.02222960383329</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.89094026206335</c>
+                  <c>8.38081673479263</c>
+                  <c>1.7720802960629</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.60857054984543</c>
+                  <c>8.63708233436136</c>
+                  <c>2.43078910779188</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.62767040507196</c>
+                  <c>1.56828784649768</c>
+                  <c>2.26999543338199</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.9885443075956</c>
+                  <c>6.43159226650299</c>
+                  <c>2.01951643580207</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.8692521272505</c>
+                  <c>12.4211902680606</c>
+                  <c>4.82436462358785</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.87898817441003</c>
+                  <c>11.2375042317744</c>
+                  <c>2.40346920348053</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.04412477719505</c>
+                  <c>6.0644059147104</c>
+                  <c>1.12268541164205</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.3819535003112</c>
+                  <c>5.70638361875681</c>
+                  <c>3.44222562261287</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.49585424601415</c>
+                  <c>6.0073298564936</c>
+                  <c>4.074846436489</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.9719685059232</c>
+                  <c>4.5945184901646</c>
+                  <c>3.35918438011707</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.72993097337266</c>
+                  <c>4.75429990770844</c>
+                  <c>2.24223286496533</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.0792505587006</c>
+                  <c>9.91161866076805</c>
+                  <c>4.1940285577901</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.0135883336435</c>
+                  <c>6.74457653400225</c>
+                  <c>3.4145257926413</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.3636869981346</c>
+                  <c>9.53219057377143</c>
+                  <c>2.25927367298638</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.64950136619148</c>
+                  <c>7.46947761540328</c>
+                  <c>4.43526671271141</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.75427161619815</c>
+                  <c>8.78355441050398</c>
+                  <c>2.48839961482009</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.78049829345341</c>
+                  <c>4.65929571195059</c>
+                  <c>4.18060761722299</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.5740910084124</c>
+                  <c>6.66791043180838</c>
+                  <c>3.95300378178503</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.71706666079275</c>
+                  <c>10.7452175035414</c>
+                  <c>0.793708344320196</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.40275325758802</c>
+                  <c>6.6028818494299</c>
+                  <c>1.91260589158448</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.81743292401671</c>
+                  <c>7.63181253826329</c>
+                  <c>3.65279770475061</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.24763922691804</c>
+                  <c>5.68542007583178</c>
+                  <c>3.29485505983305</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.85906277733422</c>
+                  <c>5.88100390222534</c>
+                  <c>2.6228530823614</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.61467574649919</c>
+                  <c>4.42068403168649</c>
+                  <c>2.24406119691205</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>11.3634927784163</c>
+                  <c>7.61051878011839</c>
+                  <c>4.51741872924172</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.84669725355987</c>
+                  <c>5.42539145102394</c>
+                  <c>3.39027734285855</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.80933857839934</c>
+                  <c>7.6245480477948</c>
+                  <c>1.93602441888982</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.5360187339543</c>
+                  <c>9.26455712318552</c>
+                  <c>4.81164678457825</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.93189794152044</c>
+                  <c>8.16187383834637</c>
+                  <c>3.58506313081646</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.73794737956256</c>
+                  <c>8.31366491897405</c>
+                  <c>2.53839389110687</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>4.96380056401528</c>
+                  <c>9.50142536808382</c>
+                  <c>2.63186625466884</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.1580261827228</c>
+                  <c>5.75243397225953</c>
+                  <c>3.64408296460829</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.4372049635871</c>
+                  <c>11.1216605811054</c>
+                  <c>3.83193647197443</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.81229920394283</c>
+                  <c>7.34932768190067</c>
+                  <c>2.36828988263662</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.6711656820466</c>
+                  <c>7.24458665939074</c>
+                  <c>2.31513263006342</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.7412714604375</c>
+                  <c>7.00130993992569</c>
+                  <c>3.55187233528673</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.00197382264495</c>
+                  <c>5.02856629096596</c>
+                  <c>2.12976949948227</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.9862684831319</c>
+                  <c>6.14075599307277</c>
+                  <c>1.60739712445037</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.82956262249232</c>
+                  <c>6.77382232086447</c>
+                  <c>2.47558064652117</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>12.9712989301295</c>
+                  <c>7.83373901375337</c>
+                  <c>3.00869150368779</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>5.48320753529641</c>
+                  <c>6.71902156293495</c>
+                  <c>4.22412421962264</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>10.629204680135</c>
+                  <c>6.45950388198964</c>
+                  <c>2.84950127394481</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.3208259610555</c>
+                  <c>7.52797791243085</c>
+                  <c>3.85407649996721</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.48622679188568</c>
+                  <c>9.23427492348905</c>
+                  <c>1.76834810796099</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>5.99967484131083</c>
+                  <c>6.18915592720109</c>
+                  <c>4.04610196366074</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.8494343516695</c>
+                  <c>8.59668845367556</c>
+                  <c>4.11968102770435</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.1493942673865</c>
+                  <c>6.96287978581024</c>
+                  <c>3.03125590650147</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.548362266548</c>
+                  <c>7.3970553550964</c>
+                  <c>1.95534225032721</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.74235073317267</c>
+                  <c>6.24365581022864</c>
+                  <c>4.30473120835048</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>11.8567257815965</c>
+                  <c>6.70618383479656</c>
+                  <c>4.28629921543539</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.17724684360402</c>
+                  <c>8.35240523141648</c>
+                  <c>1.55239900618393</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.5308628513023</c>
+                  <c>8.78909289285861</c>
+                  <c>2.8824983318858</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.64383690126195</c>
+                  <c>9.34726307184618</c>
+                  <c>2.74064990901116</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.15293647294445</c>
+                  <c>8.16885829655504</c>
+                  <c>2.06011659016911</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.68280975632218</c>
+                  <c>8.82610632621194</c>
+                  <c>1.66276304386716</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>12.4647344814349</c>
+                  <c>9.6657483120226</c>
+                  <c>2.80877273077545</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.13948554423457</c>
+                  <c>6.28722090124785</c>
+                  <c>2.39332044507208</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>6.30462974316807</c>
+                  <c>5.52220035796093</c>
+                  <c>2.83046792459167</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>3.75854833362031</c>
+                  <c>4.22940803976543</c>
+                  <c>1.28624532582948</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.55951615164095</c>
+                  <c>4.11697168261848</c>
+                  <c>2.09163812517352</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.06460922703833</c>
+                  <c>8.17304536264472</c>
+                  <c>3.54689611948649</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>6.24548803920397</c>
+                  <c>3.06061184706049</c>
+                  <c>3.47632789689845</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.21094287339336</c>
+                  <c>6.48290318121115</c>
+                  <c>2.23135500613986</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>8.65247232722528</c>
+                  <c>7.38376939069623</c>
+                  <c>2.17397820080896</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>10.7464256162165</c>
+                  <c>5.30074607470753</c>
+                  <c>3.72687949636146</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>9.86987139780158</c>
+                  <c>8.59894539065278</c>
+                  <c>2.33580213347277</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>13.768106527951</c>
+                  <c>6.40077361460432</c>
+                  <c>4.7663540262664</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.59736745526872</c>
+                  <c>11.7147070670059</c>
+                  <c>2.9207166682099</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>8.67690867515188</c>
+                  <c>2.91363897531607</c>
+                  <c>2.70988783781392</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>2.87899906191349</c>
+                  <c>4.44110823916143</c>
+                  <c>2.17591661683077</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.83410860081158</c>
+                  <c>6.85082450546222</c>
+                  <c>2.86857984591713</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>9.79616659730201</c>
+                  <c>6.20132370949634</c>
+                  <c>5.99710252527232</c>
+                  <c>Yes</c>
+                </r>
+                <r>
+                  <c>7.31593184623179</c>
+                  <c>6.13652407075931</c>
+                  <c>1.94059052971905</c>
+                  <c>No</c>
+                </r>
+                <r>
+                  <c>7.46957316323189</c>
+                  <c>8.92913722788369</c>
+                  <c>2.93561594596391</c>
+                  <c>Yes</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Input</Name>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="166">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="990" y="1354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output</Name>
+          <Abbrev>O</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Output</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="167">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="2244" y="1063" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Reports</Name>
+          <Abbrev>R</Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Reports</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="168">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="540" y="1327" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="True">
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Join the target and predictor.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="169">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="600" y="1531" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="True">
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Join the weight field to the other data.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="170">
+      <GuiSettings Plugin="AlteryxRPluginGui.R">
+        <Position x="1356" y="1075" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RScript><![CDATA[mod.df <- read.Alteryx("#1")
+mod.obj <- unserializeObject(as.character(mod.df$Object[1]))
+the.class <- class(mod.obj)[1]
+write.Alteryx(data.frame(Class = the.class))
+]]></RScript>
+          <UseFullUpdate value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Get the model class, to determine if it is a lm or rxLinMod model.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
+    </Node>
+    <Node ToolID="171">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+        <Position x="1536" y="1039" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <CartesianMode>Error</CartesianMode>
+          <SelectConfiguration>
+            <Configuration outputConnection="Output">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Add the model class field to the report snippets</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+    </Node>
+    <Node ToolID="172">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1668" y="1039" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Class] == "rxLinMod"</Expression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Fork depending on whether the models is a rxLinMod or lm model:
+[Class] == "rxLinMod"</AnnotationText>
+          <DefaultAnnotationText>[Class] == "rxLinMod"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="173">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="2088" y="1063" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="Desc" selected="True" />
+            <SelectField field="Report" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Remove the "Class" field.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="174">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1956" y="1063" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Unioning the elements back together, but only one of the two inputs will have data.</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="175">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1800" y="1003" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Desc] == "ResidualsTitle" OR [Desc] == "ANOVAAnalysisTitle" OR [Desc] == "ANOVAAnalysis" OR [Desc] == "BasicDiagnosticPlotsTitle" OR [Desc] == "BasicDiagnosticPlots"</Expression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Filter out the report elements that aren't available for rxLinMod models:
+[Desc] == "ResidualsTitle" OR [Desc] == "ANOVAAnalysisTitle" O...</AnnotationText>
+          <DefaultAnnotationText>[Desc] == "ResidualsTitle" OR [Desc] == "ANOVAAnalysisTitle" ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="177">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="55" y="163" width="875" height="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="25" Margin="60" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="144">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="475" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>weights.used</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="145">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="199" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>get.y.A</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="146">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="559" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>get.x.A</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="147">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="295" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>remove.y.from.x.A</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="148">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="379" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>get.y.B</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="149">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="643" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>get.x.B</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="150">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="811" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>get.weights</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="151">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="115" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>remove.y.from.x.B</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="154">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
+            <Position x="115" y="247" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Model Name</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="156">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="203.5" y="242" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Y Var</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="157">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
+            <Position x="646" y="242" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>X Vars</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="158">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="292" y="242" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Omit Constant</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="159">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="380.5" y="242" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Weight Vec</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="160">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="469" y="242" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Use Weights</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="162">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="557.5" y="242" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>graph.resolution</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="176">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="727" y="350" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="138">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="757" y="74" width="138.6955" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Module Description</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="137">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="767" y="103" width="132" height="204" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.) ]]></Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="140">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="795" y="111" width="98.89567" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Tools Used</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="139">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="805" y="140" width="223" height="218" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>TOOLS USED:
+Select
+Browse
+Output
+Formula
+Explorer Box
+Text
+R
+Linear Model ANOVA Tests Macro
+Linear Model Summary Macro
+Text Input
+Tool Container
+Union</Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="255" g="243" b="196" />
+              <Shape shape="0" />
+              <Justification Justification="2" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output2" />
+      <Destination ToolID="113" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="166" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="117" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="102" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="170" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="107" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection name="#4">
+      <Origin ToolID="114" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="102" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="114" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="171" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output1" />
+      <Destination ToolID="171" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Left" />
+      <Destination ToolID="127" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="145" Connection="Action" />
+      <Destination ToolID="127" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Left" />
+      <Destination ToolID="128" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="146" Connection="Action" />
+      <Destination ToolID="128" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Right" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="148" Connection="Action" />
+      <Destination ToolID="131" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Right" />
+      <Destination ToolID="132" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="149" Connection="Action" />
+      <Destination ToolID="132" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="125" Connection="Right" />
+      <Destination ToolID="133" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="150" Connection="Action" />
+      <Destination ToolID="133" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="143" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="130" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Output" />
+      <Destination ToolID="130" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="147" Connection="Action" />
+      <Destination ToolID="129" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="130" Connection="Join" />
+      <Destination ToolID="126" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="169" Connection="Join" />
+      <Destination ToolID="126" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="131" Connection="Output" />
+      <Destination ToolID="168" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="134" Connection="Output" />
+      <Destination ToolID="168" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="134" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="151" Connection="Action" />
+      <Destination ToolID="134" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="169" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="168" Connection="Join" />
+      <Destination ToolID="169" Connection="Left" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="143" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="144" Connection="Action" />
+      <Destination ToolID="125" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="165" Connection="Question" />
+      <Destination ToolID="156" Connection="Question Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="165" Connection="Question" />
+      <Destination ToolID="157" Connection="Question Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="165" Connection="Question" />
+      <Destination ToolID="159" Connection="Question Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="171" Connection="Output" />
+      <Destination ToolID="172" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="172" Connection="True" />
+      <Destination ToolID="175" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="172" Connection="False" />
+      <Destination ToolID="174" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="175" Connection="False" />
+      <Destination ToolID="174" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="173" Connection="Output" />
+      <Destination ToolID="167" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="173" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="174" Connection="Output" />
+      <Destination ToolID="173" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="145" Connection="Question" />
+    </Connection>
+    <Connection name="Y Var" Wireless="True">
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="147" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="148" Connection="Question" />
+    </Connection>
+    <Connection name="Y Var" Wireless="True">
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="151" Connection="Question" />
+    </Connection>
+    <Connection name="X Vars" Wireless="True">
+      <Origin ToolID="157" Connection="Question" />
+      <Destination ToolID="146" Connection="Question" />
+    </Connection>
+    <Connection name="X Vars" Wireless="True">
+      <Origin ToolID="157" Connection="Question" />
+      <Destination ToolID="149" Connection="Question" />
+    </Connection>
+    <Connection name="X Vars" Wireless="True">
+      <Origin ToolID="157" Connection="Question" />
+      <Destination ToolID="176" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="159" Connection="Question" />
+      <Destination ToolID="150" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="160" Connection="Question" />
+      <Destination ToolID="144" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Model Name</Name>
+        <Value>Test_Model</Value>
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Y Var</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>X Vars</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Omit Constant</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Weight Vec</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Use Weights</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>graph.resolution</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Linear Regression</Name>
+      <Description>Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.)
+
+[Can be used with Oracle R In-DB workflows.]</Description>
+      <RootToolName>Linear_Regression</RootToolName>
+      <ToolVersion>1.0</ToolVersion>
+      <ToolInDb value="False" />
+      <CategoryName>Predictive</CategoryName>
+      <SearchTags>predictive, macro, R, linear, model, least, squares, variable, regression, predictive category</SearchTags>
+      <Author>Dan Putler</Author>
+      <Company>Alteryx</Company>
+      <Copyright>2012 Alteryx</Copyright>
+      <DescriptionLink actual="" displayed="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>weights.used</Description>
+              <ToolId value="144" />
+              <Mode>Simple</Mode>
+              <Variable>Use Weights</Variable>
+              <Replace value="False" />
+              <Destination>125/DetourRight/@value</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>get.y.A</Description>
+              <ToolId value="145" />
+              <Mode>Simple</Mode>
+              <Variable>Y Var</Variable>
+              <Replace value="False" />
+              <Destination>127/SelectFields/SelectField[@field='y']/@field</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateRawXml</Type>
+              <Description />
+              <ToolId value="146" />
+              <Expression>'  &lt;SelectFields&gt;
+    &lt;SelectField field="' + replace(EscapeXMLMetacharacters([X Vars]), " + ", '" selected="True" /&gt;
+    &lt;SelectField field="') + '" selected="True" /&gt;
+    &lt;SelectField field="*Unknown" selected="False" /&gt;
+  &lt;/SelectFields&gt;'</Expression>
+              <Destination>128/SelectFields</Destination>
+              <OuterXml value="True" />
+            </Action>
+            <Action>
+              <Type>UpdateRawXml</Type>
+              <Description>remove.y.from.x.A</Description>
+              <ToolId value="147" />
+              <Expression>'  &lt;SelectFields&gt;
+    &lt;SelectField field="' + EscapeXMLMetacharacters([Y Var]) + '" selected="False" /&gt;
+    &lt;SelectField field="*Unknown" selected="True" /&gt;
+  &lt;/SelectFields&gt;'</Expression>
+              <Destination>129/SelectFields</Destination>
+              <OuterXml value="False" />
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>get.y.B</Description>
+              <ToolId value="148" />
+              <Mode>Simple</Mode>
+              <Variable>Y Var</Variable>
+              <Replace value="False" />
+              <Destination>131/SelectFields/SelectField[@field='y']/@field</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateRawXml</Type>
+              <Description />
+              <ToolId value="149" />
+              <Expression>'  &lt;SelectFields&gt;
+    &lt;SelectField field="' + replace(EscapeXMLMetacharacters([X Vars]), " + ", '" selected="True" /&gt;
+    &lt;SelectField field="') + '" selected="True" /&gt;
+    &lt;SelectField field="*Unknown" selected="False" /&gt;
+  &lt;/SelectFields&gt;'</Expression>
+              <Destination>132/SelectFields</Destination>
+              <OuterXml value="True" />
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>get.weights</Description>
+              <ToolId value="150" />
+              <Mode>Simple</Mode>
+              <Variable>Weight Vec</Variable>
+              <Replace value="False" />
+              <Destination>133/SelectFields/SelectField[@field='x2']/@field</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateRawXml</Type>
+              <Description>remove.y.from.x.B</Description>
+              <ToolId value="151" />
+              <Expression>'  &lt;SelectFields&gt;
+    &lt;SelectField field="' + EscapeXMLMetacharacters([Y Var]) + '" selected="False" /&gt;
+    &lt;SelectField field="*Unknown" selected="True" /&gt;
+  &lt;/SelectFields&gt;'</Expression>
+              <Destination>134/SelectFields</Destination>
+              <OuterXml value="False" />
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description>At least one predictor variable must be selected</Description>
+              <ToolId value="176" />
+              <Expression>[X Vars] == ""</Expression>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Input</Description>
+          <Name>Tab (164)</Name>
+          <ToolId value="164" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Input</Description>
+              <Name>Input</Name>
+              <ToolId value="165" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output</Description>
+              <Name>Output</Name>
+              <ToolId value="166" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Reports</Description>
+              <Name>Reports</Name>
+              <ToolId value="167" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Configuration</Description>
+          <Name>Tab (161)</Name>
+          <ToolId value="161" />
+          <Questions>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Model name</Description>
+              <Name>Model Name</Name>
+              <ToolId value="154" />
+              <Default />
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>Label</Type>
+              <Description><![CDATA[ ]]></Description>
+              <Name>Label (155)</Name>
+              <ToolId value="155" />
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Select the target variable</Description>
+              <Name>Y Var</Name>
+              <ToolId value="156" />
+              <Multiple value="False" />
+              <Default />
+              <Mode>MacroField</Mode>
+              <MacroField_InputTool value="1" />
+              <Field_IncludeNone value="False" />
+              <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Select the predictor variables</Description>
+              <Name>X Vars</Name>
+              <ToolId value="157" />
+              <Multiple value="True" />
+              <Multiple_Custom value="True" />
+              <Multiple_Start />
+              <Multiple_Separator><![CDATA[ + ]]></Multiple_Separator>
+              <Multiple_End />
+              <Multiple_Default value="False" />
+              <Mode>MacroField</Mode>
+              <MacroField_InputTool value="1" />
+              <Field_IncludeNone value="False" />
+              <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString</MacroField_FilterTypes>
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Omit a model constant.</Description>
+              <Name>Omit Constant</Name>
+              <ToolId value="158" />
+              <Questions />
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Use a weight variable for weighted least squares. (Optional)</Description>
+              <Name>Use Weights</Name>
+              <ToolId value="160" />
+              <Questions>
+                <Question>
+                  <Type>ListBox</Type>
+                  <Description>Select the variable to use as weights</Description>
+                  <Name>Weight Vec</Name>
+                  <ToolId value="159" />
+                  <Multiple value="False" />
+                  <Default />
+                  <Mode>MacroField</Mode>
+                  <MacroField_InputTool value="1" />
+                  <Field_IncludeNone value="False" />
+                  <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="True" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Graphics Options</Description>
+          <Name>Tab (163)</Name>
+          <ToolId value="163" />
+          <Questions>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Graph Resolution</Description>
+              <Name>graph.resolution</Name>
+              <ToolId value="162" />
+              <Multiple value="False" />
+              <Default>1x</Default>
+              <Mode>Manual</Mode>
+              <Manual_Values><![CDATA[1x (96 dpi):1x
+2x (192 dpi):2x
+3x (288 dpi):3x
+]]></Manual_Values>
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:lm</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAADbmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMwNjcgNzkuMTU3NzQ3LCAyMDE1LzAzLzMwLTIzOjQwOjQyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjkzQzNFMjlFMzU0NkUyMTE4RUUzQ0FDNkFGMUVEODMxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhCOTNCMUU5MjNGODExRTU4NzIyQ0VCNEE2RUZFN0EwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhCOTNCMUU4MjNGODExRTU4NzIyQ0VCNEE2RUZFN0EwIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE0IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmI5YTJiMzQ2LTI3MjgtNzA0MC1hYTM3LWM4ODlkY2U4MjU1OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5M0MzRTI5RTM1NDZF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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="4" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="108" Selected="True" />
+        <Tool ToolId="117" Selected="False" />
+        <Tool ToolId="116" Selected="False" />
+        <Tool ToolId="165" Selected="True" />
+        <Tool ToolId="166" Selected="True" />
+        <Tool ToolId="167" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

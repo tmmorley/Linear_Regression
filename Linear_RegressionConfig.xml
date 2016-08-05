@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<AlteryxJavaScriptPlugin>
+  <EngineSettings EngineDLL="Macro" EngineDLLEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" SDKVersion="10.1"/>
+  <GuiSettings Html="Linear_RegressionGui.html" Icon="Linear_RegressionIcon.png" SDKVersion="10.1" Help="AlteryxHelp:lm">
+    <InputConnections>
+      <Connection Name="Input" AllowMultiple="False" Optional="False" Type="Connection" Label=""/>
+    </InputConnections>
+    <OutputConnections>
+      <Connection Name="Output" AllowMultiple="False" Optional="False" Type="Connection" Label="O"/>
+      <Connection Name="Reports" AllowMultiple="False" Optional="False" Type="Connection" Label="R"/>
+    </OutputConnections>
+  </GuiSettings>
+  <Properties>
+    <MetaInfo>
+      <NameIsFileName></NameIsFileName>
+      <Name>Linear Regression</Name>
+      <Description>Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.)
+
+[Can be used with Oracle R In-DB workflows.]</Description>
+      <RootToolName>Linear_Regression</RootToolName>
+      <ToolVersion>1.0</ToolVersion>
+      <ToolInDb></ToolInDb>
+      <CategoryName>Predictive</CategoryName>
+      <SearchTags>predictive, macro, R, linear, model, least, squares, variable, regression, predictive category</SearchTags>
+      <Author>Dan Putler</Author>
+      <Company>Alteryx</Company>
+      <Copyright>2012 Alteryx</Copyright>
+      <DescriptionLink></DescriptionLink>
+    </MetaInfo>
+  </Properties>
+</AlteryxJavaScriptPlugin>
