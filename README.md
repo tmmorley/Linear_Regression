@@ -6,7 +6,10 @@ This repo contains the **Linear_Regression** tool in Alteryx. Shown below is a b
 
 | File                            | Description                                  |
 |---------------------------------|----------------------------------------------|
-| Linear_RegressionConfig.xml      | Configuration for plugin (auto generated)    |  | Linear_RegressionGui.html        | Gui for plugin (auto generated)              |  | Linear_RegressionIcon.png        | Icon for plugin                              |  | app.min.js                      | Script to interactively manipulate Gui.html  |
+| Linear_RegressionConfig.xml      | Configuration for plugin (auto generated)   |  
+| Linear_RegressionGui.html        | Gui for plugin (auto generated)             |  
+| Linear_RegressionIcon.png        | Icon for plugin                             |  
+| app.min.js                      | Script to interactively manipulate Gui.html  |
 | app.css                         | Custom style sheet for Gui.html              |
 | Macros/                         | Macro backend                                |
 | Extras/                         | Gui, Tests, Samples and Help                 |             
