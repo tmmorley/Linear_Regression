@@ -1,4 +1,43 @@
+#' ---
+#' title: Logistic Regression
+#' author: Dan Putler, Bridget Toomey, Ramnath Vaidyanathan
+#' output:
+#'   html_document:
+#'     toc: true
+#'     toc_depth: 4
+#' ---
+#' Load Libraries 
 library(car)
+
+#' ### Read Inputs and Configuration
+#' #### Configuration
+#' 
+#' 
+## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
+suppressWarnings(library(AlteryxPredictive))
+config <- list(
+  `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
+  `model.name` = textInput('%Question.Model Name%'),
+  `used.weights` = checkboxInput('%Question.Use Weights%' , FALSE),
+  `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
+  `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
+  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg')
+)
+options(alteryx.wd = '%Engine.WorkflowDirectory%')
+options(alteryx.debug = config$debug)
+##----
+
+#' #### Inputs
+#' 
+#' This is a named list of all inputs that stream into the R tool.
+#' We also specify defaults for use when R code is run outside Alteryx.
+defaults <- list(
+  data = mtcars
+)
+inputs <- list(
+  the.data = read.Alteryx2("#1", default = defaults$data)
+)
+
 #########
 # The core portion of the macro
 # The path to the Alteryx temporary directory
