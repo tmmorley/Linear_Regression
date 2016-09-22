@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <AlteryxJavaScriptPlugin>
   <EngineSettings EngineDLL="Macro" EngineDLLEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" SDKVersion="10.1"/>
-  <GuiSettings Html="Linear_RegressionGui.html" Icon="Linear_RegressionIcon.png" SDKVersion="10.1" Help="AlteryxHelp:lm">
+  <GuiSettings Html="Linear_RegressionGui.html" Icon="Linear_RegressionIcon.png" SDKVersion="10.1" Help="lm.htm">
     <InputConnections>
       <Connection Name="Input" AllowMultiple="False" Optional="False" Type="Connection" Label=""/>
     </InputConnections>
