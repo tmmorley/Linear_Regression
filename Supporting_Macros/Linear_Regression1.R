@@ -1,5 +1,5 @@
 #' ---
-#' title: Logistic Regression
+#' title: Linear Regression
 #' author: Dan Putler, Bridget Toomey, Ramnath Vaidyanathan
 #' output:
 #'   html_document:
