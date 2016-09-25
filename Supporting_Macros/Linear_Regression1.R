@@ -6,12 +6,12 @@
 #'     toc: true
 #'     toc_depth: 4
 #' ---
-#' Load Libraries 
+#' Load Libraries
 library(car)
 
 #' ### Read Configuration
-#' 
-#' 
+#'
+#'
 ## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
 suppressWarnings(library(AlteryxPredictive))
 config <- list(
@@ -26,22 +26,16 @@ config <- list(
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
 ##----
-
-config$model.name = validName(config$model.name)
-
 #' ### Read Inputs
-#' 
+#'
 #' This is a named list of all inputs that stream into the R tool.
 #' We also specify defaults for use when R code is run outside Alteryx.
-defaults <- list(
-  data = mtcars
-)
 inputs <- list(
-  the.data = read.Alteryx2("#1", default = defaults$data)
+  the.data = read.Alteryx2("#1", default = mtcars)
 )
-
 
 #' ### Run and Create Outputs
+config$model.name = validName(config$model.name)
 XDFInfo <- if (inAlteryx()) getXdfProperties("#1") else list(is_XDF = FALSE)
 if (XDFInfo$is_XDF){
   the.model <- processLinearXDF(inputs, config)
