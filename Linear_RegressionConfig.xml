@@ -26,6 +26,7 @@
       <Company>Alteryx</Company>
       <Copyright>2012 Alteryx</Copyright>
       <DescriptionLink></DescriptionLink>
+      <Example></Example>
     </MetaInfo>
   </Properties>
 </AlteryxJavaScriptPlugin>
