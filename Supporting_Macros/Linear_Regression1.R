@@ -6,8 +6,6 @@
 #'     toc: true
 #'     toc_depth: 4
 #' ---
-#' Load Libraries
-library(car)
 
 #' ### Read Configuration
 #'
@@ -31,32 +29,39 @@ options(alteryx.debug = config$debug)
 #' This is a named list of all inputs that stream into the R tool.
 #' We also specify defaults for use when R code is run outside Alteryx.
 inputs <- list(
-  the.data = read.Alteryx2("#1", default = mtcars)
+  the.data = read.Alteryx2("#1", default = mtcars),
+  XDFInfo = getXdfProperties("#1", default = list(is_XDF = FALSE, xdf_path = NULL))
 )
 
 #' ### Run and Create Outputs
-config$model.name = validName(config$model.name)
-XDFInfo <- if (inAlteryx()) getXdfProperties("#1") else list(is_XDF = FALSE)
-if (XDFInfo$is_XDF){
-  the.model <- processLinearXDF(inputs, config)
-  lm.out <- createReportLinearXDF(the.model, config)
-  plot.out <- function(){createPlotOutputsXDF()}
-} else {
-  the.model <- processLinearOSR(inputs, config)
-  lm.out <- createReportLinearOSR(the.model, config)
-  plot.out <- function(){createPlotOutputsLinearOSR(the.model)}
+runLinearRegression <- function(inputs, config){
+  library(car)
+  config$model.name = validName(config$model.name)
+  if (inputs$XDFInfo$is_XDF){
+    the.model <- processLinearXDF(inputs, config)
+    lm.out <- createReportLinearXDF(the.model, config)
+    plot.out <- function(){createPlotOutputsXDF()}
+  } else {
+    the.model <- processLinearOSR(inputs, config)
+    lm.out <- createReportLinearOSR(the.model, config)
+    plot.out <- function(){createPlotOutputsLinearOSR(the.model)}
+  }
+
+  # Report
+  write.Alteryx2(lm.out, nOutput = 1)
+
+  # Plot Output
+  # whr <- graphWHR(inches = "True", in.w = 6, in.h = 6, config$resolution)
+  whr <- AlteryxPredictive:::graphWHR2(inches = TRUE, in.w = 6, in.h = 6,
+    config$graph.resolution)
+  AlteryxGraph2(plot.out(), 2, width = whr[1], height = whr[2],
+    res = whr[3], pointsize = 9)
+
+  # Model Object
+  the.obj <- prepModelForOutput(config$model.name, the.model)
+  write.Alteryx2(the.obj, nOutput = 3)
 }
 
-# Report
-write.Alteryx2(lm.out, nOutput = 1)
+runLinearRegression(inputs, config)
 
-# Plot Output
-# whr <- graphWHR(inches = "True", in.w = 6, in.h = 6, config$resolution)
-whr <- AlteryxPredictive:::graphWHR2(inches = TRUE, in.w = 6, in.h = 6,
-  config$graph.resolution)
-AlteryxGraph2(plot.out(), 2, width = whr[1], height = whr[2],
-  res = whr[3], pointsize = 9)
 
-# Model Object
-the.obj <- prepModelForOutput(config$model.name, the.model)
-write.Alteryx2(the.obj, nOutput = 3)
