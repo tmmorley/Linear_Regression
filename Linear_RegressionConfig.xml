@@ -17,7 +17,7 @@
       <Description>Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.)
 
 [Can be used with Oracle R In-DB workflows.]</Description>
-      <RootToolName>Linear_Regression</RootToolName>
+      <RootToolName>Linear Regression</RootToolName>
       <ToolVersion>1.0</ToolVersion>
       <ToolInDb></ToolInDb>
       <CategoryName>Predictive Refresh</CategoryName>
