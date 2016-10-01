@@ -15,8 +15,6 @@
 #'     toc: true
 #'     toc_depth: 4
 #' ---
-#' Load Libraries
-library(car)
 
 #' ### Read Configuration
 #'
@@ -25,9 +23,9 @@ library(car)
 suppressWarnings(library(AlteryxPredictive))
 config &lt;- list(
   `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
-  `model.name` = textInput('%Question.Model Name%'),
+  `Model Name` = textInput('%Question.Model Name%'),
   `Omit Constant` = checkboxInput('%Question.Omit Constant%' , FALSE),
-  `used.weights` = checkboxInput('%Question.Use Weights%' , FALSE),
+  `Use Weights` = checkboxInput('%Question.Use Weights%' , FALSE),
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg')
@@ -40,35 +38,13 @@ options(alteryx.debug = config$debug)
 #' This is a named list of all inputs that stream into the R tool.
 #' We also specify defaults for use when R code is run outside Alteryx.
 inputs &lt;- list(
-  the.data = read.Alteryx2("#1", default = mtcars)
+  the.data = read.Alteryx2("#1", default = mtcars),
+  XDFInfo = getXdfProperties("#1", default = list(is_XDF = FALSE, xdf_path = NULL))
 )
 
-#' ### Run and Create Outputs
-config$model.name = validName(config$model.name)
-XDFInfo &lt;- if (inAlteryx()) getXdfProperties("#1") else list(is_XDF = FALSE)
-if (XDFInfo$is_XDF){
-  the.model &lt;- processLinearXDF(inputs, config)
-  lm.out &lt;- createReportLinearXDF(the.model, config)
-  plot.out &lt;- function(){createPlotOutputsXDF()}
-} else {
-  the.model &lt;- processLinearOSR(inputs, config)
-  lm.out &lt;- createReportLinearOSR(the.model, config)
-  plot.out &lt;- function(){createPlotOutputsLinearOSR(the.model)}
-}
+AlteryxPredictive:::runLinearRegression(inputs, config)
 
-# Report
-write.Alteryx2(lm.out, nOutput = 1)
-
-# Plot Output
-# whr &lt;- graphWHR(inches = "True", in.w = 6, in.h = 6, config$resolution)
-whr &lt;- AlteryxPredictive:::graphWHR2(inches = TRUE, in.w = 6, in.h = 6,
-  config$graph.resolution)
-AlteryxGraph2(plot.out(), 2, width = whr[1], height = whr[2],
-  res = whr[3], pointsize = 9)
-
-# Model Object
-the.obj &lt;- prepModelForOutput(config$model.name, the.model)
-write.Alteryx2(the.obj, nOutput = 3) 
+ 
 </RScript>
           <UseFullUpdate value="False"/>
         </Configuration>
@@ -4711,7 +4687,7 @@ Union</Text>
       <Description>Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.)
 
 [Can be used with Oracle R In-DB workflows.]</Description>
-      <RootToolName>Linear_Regression</RootToolName>
+      <RootToolName>Linear Regression</RootToolName>
       <ToolVersion>1.0</ToolVersion>
       <ToolInDb value="False"/>
       <CategoryName>Predictive Refresh</CategoryName>
