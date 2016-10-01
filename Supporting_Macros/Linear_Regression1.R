@@ -14,9 +14,9 @@
 suppressWarnings(library(AlteryxPredictive))
 config <- list(
   `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
-  `model.name` = textInput('%Question.Model Name%'),
+  `Model Name` = textInput('%Question.Model Name%'),
   `Omit Constant` = checkboxInput('%Question.Omit Constant%' , FALSE),
-  `used.weights` = checkboxInput('%Question.Use Weights%' , FALSE),
+  `Use Weights` = checkboxInput('%Question.Use Weights%' , FALSE),
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg')
