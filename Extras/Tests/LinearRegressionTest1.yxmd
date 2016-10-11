@@ -1,0 +1,616 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.5">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="54" y="162"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="32"/>
+          <Fields>
+            <Field name="mpg"/>
+            <Field name="cyl"/>
+            <Field name="disp"/>
+            <Field name="hp"/>
+            <Field name="drat"/>
+            <Field name="wt"/>
+            <Field name="qsec"/>
+            <Field name="vs"/>
+            <Field name="am"/>
+            <Field name="gear"/>
+            <Field name="carb"/>
+          </Fields>
+          <Data>
+            <r>
+              <c>21</c>
+              <c>6</c>
+              <c>160</c>
+              <c>110</c>
+              <c>3.9</c>
+              <c>2.62</c>
+              <c>16.46</c>
+              <c>0</c>
+              <c>1</c>
+              <c>4</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>21</c>
+              <c>6</c>
+              <c>160</c>
+              <c>110</c>
+              <c>3.9</c>
+              <c>2.875</c>
+              <c>17.02</c>
+              <c>0</c>
+              <c>1</c>
+              <c>4</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>22.8</c>
+              <c>4</c>
+              <c>108</c>
+              <c>93</c>
+              <c>3.85</c>
+              <c>2.32</c>
+              <c>18.61</c>
+              <c>1</c>
+              <c>1</c>
+              <c>4</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>21.4</c>
+              <c>6</c>
+              <c>258</c>
+              <c>110</c>
+              <c>3.08</c>
+              <c>3.215</c>
+              <c>19.44</c>
+              <c>1</c>
+              <c>0</c>
+              <c>3</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>18.7</c>
+              <c>8</c>
+              <c>360</c>
+              <c>175</c>
+              <c>3.15</c>
+              <c>3.44</c>
+              <c>17.02</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>18.1</c>
+              <c>6</c>
+              <c>225</c>
+              <c>105</c>
+              <c>2.76</c>
+              <c>3.46</c>
+              <c>20.22</c>
+              <c>1</c>
+              <c>0</c>
+              <c>3</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>14.3</c>
+              <c>8</c>
+              <c>360</c>
+              <c>245</c>
+              <c>3.21</c>
+              <c>3.57</c>
+              <c>15.84</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>24.4</c>
+              <c>4</c>
+              <c>146.7</c>
+              <c>62</c>
+              <c>3.69</c>
+              <c>3.19</c>
+              <c>20</c>
+              <c>1</c>
+              <c>0</c>
+              <c>4</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>22.8</c>
+              <c>4</c>
+              <c>140.8</c>
+              <c>95</c>
+              <c>3.92</c>
+              <c>3.15</c>
+              <c>22.9</c>
+              <c>1</c>
+              <c>0</c>
+              <c>4</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>19.2</c>
+              <c>6</c>
+              <c>167.6</c>
+              <c>123</c>
+              <c>3.92</c>
+              <c>3.44</c>
+              <c>18.3</c>
+              <c>1</c>
+              <c>0</c>
+              <c>4</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>17.8</c>
+              <c>6</c>
+              <c>167.6</c>
+              <c>123</c>
+              <c>3.92</c>
+              <c>3.44</c>
+              <c>18.9</c>
+              <c>1</c>
+              <c>0</c>
+              <c>4</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>16.4</c>
+              <c>8</c>
+              <c>275.8</c>
+              <c>180</c>
+              <c>3.07</c>
+              <c>4.07</c>
+              <c>17.4</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>3</c>
+            </r>
+            <r>
+              <c>17.3</c>
+              <c>8</c>
+              <c>275.8</c>
+              <c>180</c>
+              <c>3.07</c>
+              <c>3.73</c>
+              <c>17.6</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>3</c>
+            </r>
+            <r>
+              <c>15.2</c>
+              <c>8</c>
+              <c>275.8</c>
+              <c>180</c>
+              <c>3.07</c>
+              <c>3.78</c>
+              <c>18</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>3</c>
+            </r>
+            <r>
+              <c>10.4</c>
+              <c>8</c>
+              <c>472</c>
+              <c>205</c>
+              <c>2.93</c>
+              <c>5.25</c>
+              <c>17.98</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>10.4</c>
+              <c>8</c>
+              <c>460</c>
+              <c>215</c>
+              <c>3</c>
+              <c>5.424</c>
+              <c>17.82</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>14.7</c>
+              <c>8</c>
+              <c>440</c>
+              <c>230</c>
+              <c>3.23</c>
+              <c>5.345</c>
+              <c>17.42</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>32.4</c>
+              <c>4</c>
+              <c>78.7</c>
+              <c>66</c>
+              <c>4.08</c>
+              <c>2.2</c>
+              <c>19.47</c>
+              <c>1</c>
+              <c>1</c>
+              <c>4</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>30.4</c>
+              <c>4</c>
+              <c>75.7</c>
+              <c>52</c>
+              <c>4.93</c>
+              <c>1.615</c>
+              <c>18.52</c>
+              <c>1</c>
+              <c>1</c>
+              <c>4</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>33.9</c>
+              <c>4</c>
+              <c>71.1</c>
+              <c>65</c>
+              <c>4.22</c>
+              <c>1.835</c>
+              <c>19.9</c>
+              <c>1</c>
+              <c>1</c>
+              <c>4</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>21.5</c>
+              <c>4</c>
+              <c>120.1</c>
+              <c>97</c>
+              <c>3.7</c>
+              <c>2.465</c>
+              <c>20.01</c>
+              <c>1</c>
+              <c>0</c>
+              <c>3</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>15.5</c>
+              <c>8</c>
+              <c>318</c>
+              <c>150</c>
+              <c>2.76</c>
+              <c>3.52</c>
+              <c>16.87</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>15.2</c>
+              <c>8</c>
+              <c>304</c>
+              <c>150</c>
+              <c>3.15</c>
+              <c>3.435</c>
+              <c>17.3</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>13.3</c>
+              <c>8</c>
+              <c>350</c>
+              <c>245</c>
+              <c>3.73</c>
+              <c>3.84</c>
+              <c>15.41</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>19.2</c>
+              <c>8</c>
+              <c>400</c>
+              <c>175</c>
+              <c>3.08</c>
+              <c>3.845</c>
+              <c>17.05</c>
+              <c>0</c>
+              <c>0</c>
+              <c>3</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>27.3</c>
+              <c>4</c>
+              <c>79</c>
+              <c>66</c>
+              <c>4.08</c>
+              <c>1.935</c>
+              <c>18.9</c>
+              <c>1</c>
+              <c>1</c>
+              <c>4</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>26</c>
+              <c>4</c>
+              <c>120.3</c>
+              <c>91</c>
+              <c>4.43</c>
+              <c>2.14</c>
+              <c>16.7</c>
+              <c>0</c>
+              <c>1</c>
+              <c>5</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>30.4</c>
+              <c>4</c>
+              <c>95.1</c>
+              <c>113</c>
+              <c>3.77</c>
+              <c>1.513</c>
+              <c>16.9</c>
+              <c>1</c>
+              <c>1</c>
+              <c>5</c>
+              <c>2</c>
+            </r>
+            <r>
+              <c>15.8</c>
+              <c>8</c>
+              <c>351</c>
+              <c>264</c>
+              <c>4.22</c>
+              <c>3.17</c>
+              <c>14.5</c>
+              <c>0</c>
+              <c>1</c>
+              <c>5</c>
+              <c>4</c>
+            </r>
+            <r>
+              <c>19.7</c>
+              <c>6</c>
+              <c>145</c>
+              <c>175</c>
+              <c>3.62</c>
+              <c>2.77</c>
+              <c>15.5</c>
+              <c>0</c>
+              <c>1</c>
+              <c>5</c>
+              <c>6</c>
+            </r>
+            <r>
+              <c>15</c>
+              <c>8</c>
+              <c>301</c>
+              <c>335</c>
+              <c>3.54</c>
+              <c>3.57</c>
+              <c>14.6</c>
+              <c>0</c>
+              <c>1</c>
+              <c>5</c>
+              <c>8</c>
+            </r>
+            <r>
+              <c>21.4</c>
+              <c>4</c>
+              <c>121</c>
+              <c>109</c>
+              <c>4.11</c>
+              <c>2.78</c>
+              <c>18.6</c>
+              <c>1</c>
+              <c>1</c>
+              <c>4</c>
+              <c>2</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput"/>
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="330" y="126"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5312_4fab89df34d1446cacd35cf536d5c271_\Engine_5008_5e8cd41d902f4404908704c4ae1abcce_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="330" y="198"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5312_4fab89df34d1446cacd35cf536d5c271_\Engine_5008_845f667b92244da09ec239f8ab0414fb_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100"/>
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+            <View2/>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="174" y="162"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="graph.resolution">1x</Value>
+          <Value name="Model Name">Linear_Regression_No_Weights</Value>
+          <Value name="Omit Constant">FALSE</Value>
+          <Value name="Use Weights">FALSE</Value>
+          <Value name="Weight Vec"/>
+          <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</Value>
+          <Value name="Y Var">mpg</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Linear Regression (5)</Name>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc"/>
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="42" y="42" width="732" height="60"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Test</Text>
+          <Font name="Segoe UI" size="20.25" style="0"/>
+          <TextColor name="White"/>
+          <FillColor r="22" g="145" b="198"/>
+          <Shape shape="0"/>
+          <Justification Justification="0"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="354" y="42" width="396" height="60"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This workflow is a basic test for the refreshed Linear Regression plugin.</Text>
+          <Font name="Segoe UI" size="9" style="0"/>
+          <TextColor name="White"/>
+          <FillColor r="111" g="111" b="111"/>
+          <Shape shape="3"/>
+          <Justification Justification="0"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output"/>
+      <Destination ToolID="5" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output"/>
+      <Destination ToolID="3" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Reports"/>
+      <Destination ToolID="4" Connection="Input"/>
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True"/>
+    <GlobalRecordLimit value="0"/>
+    <TempFiles default="True"/>
+    <Annotation on="True" includeToolName="False"/>
+    <ConvErrorLimit value="10"/>
+    <ConvErrorLimit_Stop value="False"/>
+    <CancelOnError value="False"/>
+    <DisableBrowse value="False"/>
+    <EnablePerformanceProfiling value="False"/>
+    <DisableAllOutput value="False"/>
+    <ShowAllMacroMessages value="False"/>
+    <ShowConnectionStatusIsOn value="True"/>
+    <ShowConnectionStatusOnlyWhenRunning value="True"/>
+    <ZoomLevel value="0"/>
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True"/>
+      <Name>SampleTest</Name>
+      <Description/>
+      <RootToolName/>
+      <ToolVersion/>
+      <ToolInDb value="False"/>
+      <CategoryName/>
+      <SearchTags/>
+      <Author/>
+      <Company/>
+      <Copyright/>
+      <DescriptionLink actual="" displayed=""/>
+      <Example>
+        <Description/>
+        <File/>
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True"/>
+    </Events>
+  </Properties>
+</AlteryxDocument>
