@@ -15,37 +15,60 @@ Linear_Regression
 </head>
 <body>
     
-<fieldset>
-<legend>Configuration</legend>
-
+<div class='page has-hint' id='page-basic'>
+  <fieldset>
+  <legend>Setup</legend>
+  <!-- <div id='intro-div'>
+    <button class='default-button primary' id='intro'>Guide Me</button>
+  </div> -->
+  <div id='mname' class="qconst">
 <!--  Model Name  -->
 <label for="Model Name">Model name</label>
 <alteryx-pluginwidget type="TextBox" password="false" id="Model Name" dataName="Model Name"></alteryx-pluginwidget>
-
-
+</div>
+  <div id='yvar' class="qconst">
 <!--  Y Var  -->
 <label for="Y Var">Select the target variable</label>
 <alteryx-pluginwidget type="DropDown" dataType="FieldSelector" inputNumber="0" connectionNumber="0" fieldType="All" id="Y Var" dataName="Y Var"></alteryx-pluginwidget>
-
-
+</div>
+  <div id='xvars' class="qconst">
 <!--  X Vars  -->
 <label for="X Vars">Select the predictor variables</label>
 <alteryx-pluginwidget type="DropDown" dataType="FieldSelectorMulti" inputNumber="0" connectionNumber="0" fieldType="All" id="X Vars" dataName="X Vars"></alteryx-pluginwidget>
-
-
+</div>
+  <button class='default-button primary' onclick="switchToCustomize()" id='switch-to-customize'>Customize</button>
+</div>
+</fieldset>
+<div class='page' id='page-customize'>
+  <fieldset>
+  <legend>Customize</legend>
+  <div class="tabs" id='header'>
+    <div class="tab is-tab-selected" data-page='advanced' id='advanced'>
+      Model
+    </div>
+    <div class="tab" data-page='graphics' id='graphics'>
+      Plots
+    </div>
+  </div>
+  <div class='tabpage has-hint' id='tabpage-advanced'>
+    <div id='div-link'>
+      
 <!--  Omit Constant  -->
 <alteryx-pluginwidget type="CheckBox" text="Omit a model constant." default="false" id="Omit Constant" dataName="Omit Constant"></alteryx-pluginwidget>
 
-
+    </div>
+    
 <!--  Use Weights  -->
 <alteryx-pluginwidget type="CheckBox" text="Use a weight variable for weighted least squares. (Optional)" default="false" id="Use Weights" dataName="Use Weights"></alteryx-pluginwidget>
 
-<div id='weight-vec'>
+  <div id='weight-vec'>
 <!--  Weight Vec  -->
 <label for="Weight Vec">Select the variable to use as weights</label>
 <alteryx-pluginwidget type="DropDown" dataType="FieldSelector" inputNumber="0" connectionNumber="0" fieldType="All" id="Weight Vec" dataName="Weight Vec"></alteryx-pluginwidget>
 </div>
-
+ </div>
+  <div class='tabpage has-hint' id='tabpage-graphics'>
+    
 <!--  graph.resolution  -->
 <label for="graph.resolution">Graph Resolution</label>
 <alteryx-pluginwidget type="DropDown" id="graph.resolution" dataName="graph.resolution">
@@ -54,7 +77,79 @@ Linear_Regression
   <alteryx-option uiobject="3x (288 dpi)">3x</alteryx-option>
 </alteryx-pluginwidget>
 
+  </div>
+  <button class='default-button primary' onclick="switchToHome()" id='switch-to-home'>Back</button>
 </fieldset>
+<script>
+function switchToCustomize(){
+  $('#page-basic').hide()
+  $('#page-customize').show()
+  $(".tabpage").hide()
+  $('#tabpage-advanced').show()
+}
+function switchToHome(){
+  $('#page-basic').show()
+  $('#page-customize').hide()
+}
+$('#page-customize').hide()
+$('#page-basic').show()
+$('#intro').show()
+$('.tab').click(function(){
+  $('.tabpage').hide()
+  var activePage = $(this).data('page')
+  $('#tabpage-' + activePage).show()
+  $('.tab').removeClass('is-tab-selected')
+  $('#' + activePage).addClass('is-tab-selected')
+})
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.2.0/intro.min.js'>
+</script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.2.0/introjs.min.css' />
+<script type="text/javascript">
+  var map_  = {
+    "Model Name": 1,
+    "Y Var": 2,
+    "X Vars": 3,
+    "Link": 4
+  }         
+  var intro = introJs();
+         intro.setOptions({
+            steps: [
+              { 
+                intro: "Welcome to Linear Regression!"
+              },
+              {
+                element: document.querySelector('#mname'),
+                intro: 'Each model needs to be given a name so it can later be identified. Model names must start with a letter and may contain letters, numbers, and the special characters period (".") and underscore ("_"). No other special characters are allowed, and R is case sensitive.'
+              },
+               {
+                element: document.querySelector('#yvar'),
+                intro: "Select the field from the data stream you want to predict."
+              },
+              {
+                element: document.querySelector("#xvars"),
+                intro: 'Choose the fields from the data stream you believe "cause" changes in the value of the target variable.'
+              },
+              {
+                element: document.querySelector("#div-link"),
+                intro: 'The link function.'
+              }
+            ],
+            showStepNumbers: false,
+            showBullets: false,
+            disableInteraction: false
+          });
+      function startIntro(){
+          console.log('starting intro')
+          intro.start();
+      }
+      $('#intro').click(startIntro)
+      $('.has-hint label').click(function(){
+        console.log('clicked...')
+        var step = map_[$(this).attr('for')]
+        intro.goToStep(step).start()
+      })
+</script>
 
   <script src="app.min.js" type="text/javascript"></script>
 </body>
