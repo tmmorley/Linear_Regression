@@ -1,0 +1,1603 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.5">
+  <Nodes>
+    <Node ToolID="3">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="198" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="graph.resolution">1x</Value>
+          <Value name="Model Name">Linear_Regression_No_Weights</Value>
+          <Value name="Omit Constant">FALSE</Value>
+          <Value name="Use Weights">FALSE</Value>
+          <Value name="Weight Vec" />
+          <Value name="X Vars">cut,color,price</Value>
+          <Value name="Y Var">carat</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="174" y="162" width="132" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Linear Regression</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="90" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="12" />
+          <Fields>
+            <Field name="Variable" />
+            <Field name="Coefficient" />
+          </Fields>
+          <Data>
+            <r>
+              <c>(Intercept)</c>
+              <c> 0.24222423</c>
+            </r>
+            <r>
+              <c>cutGood</c>
+              <c>-0.09147458</c>
+            </r>
+            <r>
+              <c>cutIdeal</c>
+              <c>-0.10395417</c>
+            </r>
+            <r>
+              <c>cutPremium</c>
+              <c>-0.08829958</c>
+            </r>
+            <r>
+              <c>cutVery Good</c>
+              <c>-0.09076976</c>
+            </r>
+            <r>
+              <c>colorE</c>
+              <c>-0.02058545</c>
+            </r>
+            <r>
+              <c>colorF</c>
+              <c> 0.00584052</c>
+            </r>
+            <r>
+              <c>colorG</c>
+              <c> 0.00255883</c>
+            </r>
+            <r>
+              <c>colorH</c>
+              <c> 0.04236050</c>
+            </r>
+            <r>
+              <c>colorI</c>
+              <c> 0.08047430</c>
+            </r>
+            <r>
+              <c>colorJ</c>
+              <c> 0.09981822</c>
+            </r>
+            <r>
+              <c>price</c>
+              <c> 0.00020726</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings>
+        <Position x="390" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Drop Down (6)">Coefficient</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="414" y="54" width="444" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Test Description</Text>
+          <Font name="Segoe UI" size="9" style="0" />
+          <TextColor name="White" />
+          <FillColor r="111" g="111" b="111" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="66" width="828" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Linear Regression Test</Text>
+          <Font name="Segoe UI" size="20.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="22" g="145" b="198" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_3532_75bf2682be724fa298b038a71b14b9de_\Engine_4176_a086cb0093af44e6911413b513eda3e3_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="66" y="162" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Input Data</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="66" y="306" width="120" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Expected Coefficients</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="438" y="66" width="444" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This workflow tests that diamonds data returns correct coefficients</Text>
+          <Font name="Segoe UI" size="9" style="0" />
+          <TextColor name="White" />
+          <FillColor r="111" g="111" b="111" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="66" y="402" width="840" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This workflow is a basic regression test that compares the coefficients from the model given by the logistic regression plugin to expected coefficients (accuracy to .001). This workflow with throw an error when the coefficients are not approximately the same.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="3" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="366" y="294" width="120" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Test Coefficients</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="90" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="200" />
+          <Fields>
+            <Field name="carat" />
+            <Field name="cut" />
+            <Field name="color" />
+            <Field name="price" />
+          </Fields>
+          <Data>
+            <r>
+              <c>0.23</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>326</c>
+            </r>
+            <r>
+              <c>0.21</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>326</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Good</c>
+              <c>E</c>
+              <c>327</c>
+            </r>
+            <r>
+              <c>0.29</c>
+              <c>Premium</c>
+              <c>I</c>
+              <c>334</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Good</c>
+              <c>J</c>
+              <c>335</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Very Good</c>
+              <c>J</c>
+              <c>336</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Very Good</c>
+              <c>I</c>
+              <c>336</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>337</c>
+            </r>
+            <r>
+              <c>0.22</c>
+              <c>Fair</c>
+              <c>E</c>
+              <c>337</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>338</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Good</c>
+              <c>J</c>
+              <c>339</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Ideal</c>
+              <c>J</c>
+              <c>340</c>
+            </r>
+            <r>
+              <c>0.22</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>342</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Ideal</c>
+              <c>J</c>
+              <c>344</c>
+            </r>
+            <r>
+              <c>0.2</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>345</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>345</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>348</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Good</c>
+              <c>J</c>
+              <c>351</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Good</c>
+              <c>J</c>
+              <c>351</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Very Good</c>
+              <c>J</c>
+              <c>351</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Good</c>
+              <c>I</c>
+              <c>351</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>352</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>353</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Very Good</c>
+              <c>J</c>
+              <c>353</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Very Good</c>
+              <c>J</c>
+              <c>353</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>G</c>
+              <c>354</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Premium</c>
+              <c>I</c>
+              <c>355</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Very Good</c>
+              <c>J</c>
+              <c>357</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>357</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>357</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Good</c>
+              <c>F</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Good</c>
+              <c>E</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Good</c>
+              <c>H</c>
+              <c>402</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.33</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.33</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.33</c>
+              <c>Ideal</c>
+              <c>J</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Good</c>
+              <c>D</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Good</c>
+              <c>D</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Good</c>
+              <c>H</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.29</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Good</c>
+              <c>H</c>
+              <c>403</c>
+            </r>
+            <r>
+              <c>0.25</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.29</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.23</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.22</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.22</c>
+              <c>Premium</c>
+              <c>D</c>
+              <c>404</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>405</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Premium</c>
+              <c>J</c>
+              <c>405</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Very Good</c>
+              <c>I</c>
+              <c>405</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Very Good</c>
+              <c>I</c>
+              <c>405</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Good</c>
+              <c>I</c>
+              <c>405</c>
+            </r>
+            <r>
+              <c>0.35</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>552</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Premium</c>
+              <c>D</c>
+              <c>552</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>552</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>552</c>
+            </r>
+            <r>
+              <c>0.42</c>
+              <c>Premium</c>
+              <c>I</c>
+              <c>552</c>
+            </r>
+            <r>
+              <c>0.28</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>553</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>553</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Very Good</c>
+              <c>G</c>
+              <c>553</c>
+            </r>
+            <r>
+              <c>0.31</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>553</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>553</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>553</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.3</c>
+              <c>Good</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.38</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.26</c>
+              <c>Good</c>
+              <c>E</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.24</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.32</c>
+              <c>Premium</c>
+              <c>I</c>
+              <c>554</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2757</c>
+            </r>
+            <r>
+              <c>0.86</c>
+              <c>Fair</c>
+              <c>E</c>
+              <c>2757</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2757</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>2759</c>
+            </r>
+            <r>
+              <c>0.78</c>
+              <c>Very Good</c>
+              <c>G</c>
+              <c>2759</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Good</c>
+              <c>E</c>
+              <c>2759</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Good</c>
+              <c>F</c>
+              <c>2759</c>
+            </r>
+            <r>
+              <c>0.96</c>
+              <c>Fair</c>
+              <c>F</c>
+              <c>2759</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.75</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.75</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.75</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.75</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2760</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>2761</c>
+            </r>
+            <r>
+              <c>0.81</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2761</c>
+            </r>
+            <r>
+              <c>0.59</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2761</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2761</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2761</c>
+            </r>
+            <r>
+              <c>0.9</c>
+              <c>Premium</c>
+              <c>I</c>
+              <c>2761</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Very Good</c>
+              <c>G</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Fair</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Fair</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>2762</c>
+            </r>
+            <r>
+              <c>0.91</c>
+              <c>Premium</c>
+              <c>H</c>
+              <c>2763</c>
+            </r>
+            <r>
+              <c>0.61</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2763</c>
+            </r>
+            <r>
+              <c>0.91</c>
+              <c>Fair</c>
+              <c>H</c>
+              <c>2763</c>
+            </r>
+            <r>
+              <c>0.91</c>
+              <c>Fair</c>
+              <c>H</c>
+              <c>2763</c>
+            </r>
+            <r>
+              <c>0.77</c>
+              <c>Ideal</c>
+              <c>H</c>
+              <c>2763</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2764</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>2764</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Very Good</c>
+              <c>E</c>
+              <c>2765</c>
+            </r>
+            <r>
+              <c>0.77</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>2765</c>
+            </r>
+            <r>
+              <c>0.63</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2765</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2765</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>2765</c>
+            </r>
+            <r>
+              <c>0.76</c>
+              <c>Ideal</c>
+              <c>H</c>
+              <c>2765</c>
+            </r>
+            <r>
+              <c>0.64</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2766</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2766</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2766</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2767</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2767</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>2767</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Good</c>
+              <c>H</c>
+              <c>2767</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Very Good</c>
+              <c>G</c>
+              <c>2768</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2768</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2768</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2768</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>D</c>
+              <c>2768</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Ideal</c>
+              <c>I</c>
+              <c>2769</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>D</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.76</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.76</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Premium</c>
+              <c>G</c>
+              <c>2770</c>
+            </r>
+            <r>
+              <c>0.72</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>2771</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2771</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2771</c>
+            </r>
+            <r>
+              <c>0.79</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2771</c>
+            </r>
+            <r>
+              <c>0.73</c>
+              <c>Very Good</c>
+              <c>H</c>
+              <c>2772</c>
+            </r>
+            <r>
+              <c>0.8</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2772</c>
+            </r>
+            <r>
+              <c>0.58</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2772</c>
+            </r>
+            <r>
+              <c>0.58</c>
+              <c>Ideal</c>
+              <c>F</c>
+              <c>2772</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Good</c>
+              <c>E</c>
+              <c>2772</c>
+            </r>
+            <r>
+              <c>0.75</c>
+              <c>Ideal</c>
+              <c>D</c>
+              <c>2773</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>D</c>
+              <c>2773</c>
+            </r>
+            <r>
+              <c>1.17</c>
+              <c>Very Good</c>
+              <c>J</c>
+              <c>2774</c>
+            </r>
+            <r>
+              <c>0.6</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2774</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2774</c>
+            </r>
+            <r>
+              <c>0.83</c>
+              <c>Good</c>
+              <c>I</c>
+              <c>2774</c>
+            </r>
+            <r>
+              <c>0.74</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2775</c>
+            </r>
+            <r>
+              <c>0.72</c>
+              <c>Very Good</c>
+              <c>G</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.54</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.54</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.72</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.72</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.72</c>
+              <c>Good</c>
+              <c>G</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Ideal</c>
+              <c>G</c>
+              <c>2776</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Very Good</c>
+              <c>D</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Very Good</c>
+              <c>F</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Good</c>
+              <c>F</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.71</c>
+              <c>Good</c>
+              <c>F</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Premium</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.7</c>
+              <c>Ideal</c>
+              <c>E</c>
+              <c>2777</c>
+            </r>
+            <r>
+              <c>0.72</c>
+              <c>Premium</c>
+              <c>F</c>
+              <c>2777</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="210" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="16" Connection="Object" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="16" Connection="Coefficients" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Reports" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>LinearTest2</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
