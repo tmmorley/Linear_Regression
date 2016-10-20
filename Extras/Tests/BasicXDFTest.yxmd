@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.5">
+  <Nodes>
+    <Node ToolID="3">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="174" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="graph.resolution">1x</Value>
+          <Value name="Weight Vec" />
+          <Value name="Use Weights">False</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="X Vars">R_G,RBI</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="Model Name">SABR</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="270" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6428_f36cceee01244afba9e3059e17849fa1_\Engine_5008_2d62fb3244eb4c3384635aba87d11b4f_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_1512_b2fc9426f45a41ebad9f411f34cfefd3_\Engine_6716_c03c0e209b884e8b859bc99848ef206c_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="270" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_1512_b2fc9426f45a41ebad9f411f34cfefd3_\Engine_6716_969732b8fd294f3aabe866a0daebfdaa_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings>
+        <Position x="174" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Model Name">SABR</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="X Vars">R_G + RBI</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec">Games</Value>
+          <Value name="graph.resolution">1x</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Predictive Tools\Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="270" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6428_f36cceee01244afba9e3059e17849fa1_\Engine_5008_871453cceeb1400b9b2fbe170318b244_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_1512_b2fc9426f45a41ebad9f411f34cfefd3_\Engine_6716_af76453ea3504f2c8e47b65a6d996cda_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="270" y="366" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_1512_b2fc9426f45a41ebad9f411f34cfefd3_\Engine_6716_04b64b533adf4be4bbf3e0e0125334c7_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="804" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Basic XDF Test</Text>
+          <Font name="Segoe UI" size="20.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="22" g="145" b="198" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="390" y="54" width="456" height="60" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>This workflow is a basic test that compares the outputs of the refreshed linear regression plugin with the original macro for xdf file input.</Text>
+          <Font name="Segoe UI" size="9" style="0" />
+          <TextColor name="White" />
+          <FillColor r="111" g="111" b="111" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="174" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Plugin</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="306" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Macro</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings>
+        <Position x="42" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="xdf.path">.\Data\SABR.xdf</Value>
+          <Value name="model">True</Value>
+          <Value name="manipulate">False</Value>
+          <Value name="num.records">256000</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Tm" size="1073741823" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="V_WString" />
+            <Field name="Games" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="Wins" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="Win_Pct" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="X_Bat" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="BatAge" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="R_G" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="PA" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="AB" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="R" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="H" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="X2B" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="X3B" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="HR" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="RBI" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="SB" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="CS" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="BB" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="SO" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="BA" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="OBP" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="SLG" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="OPS" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Double" />
+            <Field name="OPS_Adj" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="TB" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="GDP" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="HBP" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="SH" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="SF" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+            <Field name="IBB" source="{&quot;Context&quot;:&quot;XDF&quot;,&quot;File.Loc&quot;:&quot;C:/Users/dblanchard/Documents/Linear_Regression/Extras/Tests/Data/SABR.xdf&quot;}" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings Macro="Input_XDF.yxmc" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Reports" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Reports" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>BasicXDFTest</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
