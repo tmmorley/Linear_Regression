@@ -8,8 +8,8 @@
 }
 
 .alteryx-toggle-switch-outer {
-  position: absolute;
-  right: 0px;
+  position: absolute !important;
+  right: 4px;
 }
 
 #header{
@@ -29,10 +29,10 @@
 
 .tab {
   cursor: pointer;
-  padding-left: 10px; 
+  padding-left: 25px; 
   padding-top: 5px;
   padding-bottom: 5px;
-  padding-right: 50px;
+  padding-right: 25px;
   /* color: #16A2D7; */
   color: #000000;
   font-size: 12px;
@@ -46,9 +46,11 @@
 .tab.is-tab-selected {
   /* border-bottom-color: #4EBBE4; */
   background: #1691c6;
-  color: white;
+  color: #ffffff;
   font: "Segoe UI Semibold";
+  font-size: 12px;
 }
+
 #intro-div{
   position: fixed;
   bottom: 5px;
@@ -63,4 +65,11 @@
 #switch-to-home{
   margin-left: -1px;
   margin-top: 10px;
+}
+
+#div-omit-constant {
+  margin-bottom: 10px;
+}
+#xvars label {
+  margin-bottom: 5px;
 }
