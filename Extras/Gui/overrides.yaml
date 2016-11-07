@@ -1,1 +1,10 @@
 # Override Configuration Properties
+"Y Var":
+  fieldType: Numeric
+"X Vars":
+  type: MultiSelectListBox
+  dataType: MultiStringSelector
+"Weight Vec":
+  clearable: "true"
+"Omit Constant":
+  showAsToggle: "true" 
