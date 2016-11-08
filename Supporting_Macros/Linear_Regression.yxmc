@@ -4895,7 +4895,7 @@ Union</Text>
               <Questions>
                 <Question>
                   <Type>ListBox</Type>
-                  <Description>Select the variable to use as weights</Description>
+                  <Description/>
                   <Name>Weight Vec</Name>
                   <ToolId value="159"/>
                   <Multiple value="False"/>
