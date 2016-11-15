@@ -66,6 +66,8 @@
           <Value name="X Vars">R_G,RBI</Value>
           <Value name="Y Var">Win_Pct</Value>
           <Value name="Model Name">SABR</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="curPage">Home</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
