@@ -6,3 +6,4 @@
   dataType: MultiStringSelector
 "Weight Vec":
   clearable: "true"
+  fieldType: Numeric
