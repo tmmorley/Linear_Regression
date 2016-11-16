@@ -19,7 +19,9 @@ config <- list(
   `Use Weights` = checkboxInput('%Question.Use Weights%' , FALSE),
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
-  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg')
+  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
+  `regularization` = checkboxInput('%Question.regularization%', FALSE),
+  `alpha` = numericInput('%Question.alpha%', NULL)
 )
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
