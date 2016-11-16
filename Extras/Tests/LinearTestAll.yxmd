@@ -1,268 +1,9 @@
 <?xml version="1.0"?>
 <AlteryxDocument yxmdVer="10.5">
   <Nodes>
-    <Node ToolID="3">
-      <GuiSettings Plugin="Linear_Regression">
-        <Position x="198" y="174" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Value name="graph.resolution">1x</Value>
-          <Value name="Weight Vec" />
-          <Value name="Use Weights">False</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="X Vars">R_G,RBI</Value>
-          <Value name="Y Var">Win_Pct</Value>
-          <Value name="Model Name">SABR</Value>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
-    </Node>
-    <Node ToolID="11">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="174" y="162" width="132" height="24" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Linear Regression</Text>
-          <Font name="Segoe UI" size="9.75" style="0" />
-          <TextColor r="0" g="128" b="192" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="4" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="14">
+    <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
-        <Position x="90" y="318" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <NumRows value="3" />
-          <Fields>
-            <Field name="Variable" />
-            <Field name="Coefficient" />
-          </Fields>
-          <Data>
-            <r>
-              <c>(Intercept)</c>
-              <c>0.055712</c>
-            </r>
-            <r>
-              <c>R_G</c>
-              <c>0.423985</c>
-            </r>
-            <r>
-              <c>RBI</c>
-              <c>-0.002122</c>
-            </r>
-          </Data>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
-    </Node>
-    <Node ToolID="16">
-      <GuiSettings>
-        <Position x="390" y="234" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Value name="Drop Down (6)">Coefficient</Value>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
-    </Node>
-    <Node ToolID="18">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="414" y="54" width="444" height="72" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Test Description</Text>
-          <Font name="Segoe UI" size="9" style="0" />
-          <TextColor name="White" />
-          <FillColor r="111" g="111" b="111" />
-          <Shape shape="3" />
-          <Justification Justification="0" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="19">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54" y="66" width="828" height="72" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Test Title</Text>
-          <Font name="Segoe UI" size="20.25" style="0" />
-          <TextColor name="White" />
-          <FillColor r="22" g="145" b="198" />
-          <Shape shape="0" />
-          <Justification Justification="0" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="20">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="210" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4660_b693fc1d0bb54433986e98ef9286e4d4_\Engine_4176_19f7d3fa9ff442b3b9e17b31471db075_.yxdb</TempFile>
-          <Layout>
-            <ViewMode>Single</ViewMode>
-            <ViewSize value="100" />
-            <View1>
-              <DefaultTab>Report</DefaultTab>
-              <Hints>
-                <Table />
-              </Hints>
-            </View1>
-            <View2 />
-          </Layout>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
-    </Node>
-    <Node ToolID="21">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="66" y="162" width="100" height="24" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Input Data</Text>
-          <Font name="Segoe UI" size="8.25" style="0" />
-          <TextColor r="0" g="128" b="192" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="4" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="22">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="66" y="306" width="120" height="24" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Expected Coefficients</Text>
-          <Font name="Segoe UI" size="8.25" style="0" />
-          <TextColor r="0" g="128" b="192" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="4" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="23">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="438" y="66" width="444" height="72" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Test Description</Text>
-          <Font name="Segoe UI" size="9" style="0" />
-          <TextColor name="White" />
-          <FillColor r="111" g="111" b="111" />
-          <Shape shape="3" />
-          <Justification Justification="0" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="24">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="66" y="402" width="840" height="40" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>This workflow is a basic regression test that compares the coefficients from the model given by the logistic regression plugin to expected coefficients (accuracy to .001). This workflow with throw an error when the coefficients are not approximately the same.</Text>
-          <Font name="Segoe UI" size="8.25" style="0" />
-          <TextColor name="Black" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="3" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="25">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="366" y="294" width="120" height="24" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>Test Coefficients</Text>
-          <Font name="Segoe UI" size="8.25" style="0" />
-          <TextColor r="0" g="128" b="192" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="4" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
-    <Node ToolID="26">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
-        <Position x="90" y="174" />
+        <Position x="54" y="210" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1270,16 +1011,21 @@
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
     </Node>
-    <Node ToolID="27">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="210" y="318" />
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="54" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False" />
-          <SelectFields>
-            <SelectField field="*Unknown" selected="True" />
-          </SelectFields>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_98555b7f8cae43cda7b3e5ef001307ab_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_4ac7a3292aa1429292a5fc8b683fe76c_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
@@ -1287,29 +1033,307 @@
           <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_db286e95baf1490f941ffa105dfb3cb3_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_e43f550ddf3b4935b9784e319d2f22e3_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings>
+        <Position x="174" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Model Name">New Macro</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="X Vars">PA,AB</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec">Win_Pct</Value>
+          <Value name="graph.resolution">1x</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="..\..\Supporting_Macros\Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="174" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="graph.resolution">1x</Value>
+          <Value name="Weight Vec" />
+          <Value name="Use Weights">False</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="X Vars">PA,AB</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="Model Name">New Plugin</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="curPage">Home</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_9a42854918dd490b8335168e59f6dddd_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_178e00ff3d99422ea73f1f9397348820_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_eab6fa4feb5f429d83fbebc4f3f0d03b_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_16d59649f6634321ae0bd3d923be3eda_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings>
+        <Position x="174" y="366" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Model Name">Old Macro</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="X Vars">PA + AB</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec">Win_Pct</Value>
+          <Value name="graph.resolution">1x</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Predictive Tools\Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_43e4b2fc92164a42803ff22f78b03ddf_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_af83bce0940e47a19ac53a0905a45a36_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="294" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_95ecd313bf6f49c198f2384bb6b6a979_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4372_5cdaecad719641cdaa6346e66d3561b3_\Engine_4680_698c04e613704e2990f999e9ed17d94c_.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="354" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Old Macro</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="186" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[New Plugin
+]]></Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="78" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[New Macro
+]]></Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
     </Node>
   </Nodes>
   <Connections>
     <Connection>
-      <Origin ToolID="3" Connection="Output" />
-      <Destination ToolID="16" Connection="Object" />
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="27" Connection="Output" />
-      <Destination ToolID="16" Connection="Coefficients" />
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="3" Connection="Reports" />
-      <Destination ToolID="20" Connection="Input" />
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="14" Connection="Output" />
-      <Destination ToolID="27" Connection="Input" />
+      <Origin ToolID="5" Connection="Reports" />
+      <Destination ToolID="4" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="26" Connection="Output" />
+      <Origin ToolID="5" Connection="Output" />
       <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Reports" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Reports" />
+      <Destination ToolID="11" Connection="Input" />
     </Connection>
   </Connections>
   <Properties>
@@ -1323,14 +1347,14 @@
     <DisableBrowse value="False" />
     <EnablePerformanceProfiling value="False" />
     <DisableAllOutput value="False" />
-    <ShowAllMacroMessages value="True" />
+    <ShowAllMacroMessages value="False" />
     <ShowConnectionStatusIsOn value="True" />
     <ShowConnectionStatusOnlyWhenRunning value="True" />
     <ZoomLevel value="0" />
     <LayoutType>Horizontal</LayoutType>
     <MetaInfo>
       <NameIsFileName value="True" />
-      <Name>SampleTest</Name>
+      <Name>SampleTestAll</Name>
       <Description />
       <RootToolName />
       <ToolVersion />

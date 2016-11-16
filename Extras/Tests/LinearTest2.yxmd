@@ -8,12 +8,14 @@
       <Properties>
         <Configuration>
           <Value name="graph.resolution">1x</Value>
-          <Value name="Model Name">Linear_Regression_No_Weights</Value>
-          <Value name="Omit Constant">FALSE</Value>
-          <Value name="Use Weights">FALSE</Value>
           <Value name="Weight Vec" />
+          <Value name="Use Weights">False</Value>
+          <Value name="Omit Constant">False</Value>
           <Value name="X Vars">cut,color,price</Value>
           <Value name="Y Var">carat</Value>
+          <Value name="Model Name">Linear_Regression_No_Weights</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="curPage">Home</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
@@ -175,7 +177,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_3532_75bf2682be724fa298b038a71b14b9de_\Engine_4176_a086cb0093af44e6911413b513eda3e3_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5900_0e34c5b967bd47a8982a52e06f97dcf0_\Engine_4680_f682fb8764234089a8bb63e263fdf6e7_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5900_0e34c5b967bd47a8982a52e06f97dcf0_\Engine_4680_ef6ab137da994c759ca52b280292f582_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />

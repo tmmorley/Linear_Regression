@@ -3,7 +3,7 @@
   <Nodes>
     <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
-        <Position x="54" y="186" />
+        <Position x="66" y="246" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1013,7 +1013,7 @@
     </Node>
     <Node ToolID="15">
       <GuiSettings>
-        <Position x="318" y="126" />
+        <Position x="330" y="186" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1072,7 +1072,7 @@
     </Node>
     <Node ToolID="17">
       <GuiSettings>
-        <Position x="198" y="318" />
+        <Position x="210" y="378" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1094,7 +1094,7 @@
     </Node>
     <Node ToolID="18">
       <GuiSettings>
-        <Position x="318" y="294" />
+        <Position x="330" y="354" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1153,7 +1153,7 @@
     </Node>
     <Node ToolID="19">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="462" y="126" />
+        <Position x="474" y="186" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1173,7 +1173,7 @@
     </Node>
     <Node ToolID="20">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="462" y="234" />
+        <Position x="474" y="294" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1193,12 +1193,12 @@
     </Node>
     <Node ToolID="22">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="558" y="294" />
+        <Position x="570" y="354" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_7616_58a9f45861514b76bff2519722bb1be6_\Engine_8948_a1bccd3331d94c4d9d1c51fd6b22b220_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_7616_58a9f45861514b76bff2519722bb1be6_\Engine_8948_977e80daa4e14936b95be60fb6c02c4a_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_708d793ac7ee44b8988cdaf72b6cbd82_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_e3da07a4ae494ab5a3077d2c59521beb_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -1217,12 +1217,12 @@
     </Node>
     <Node ToolID="23">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="558" y="90" />
+        <Position x="570" y="150" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_7616_58a9f45861514b76bff2519722bb1be6_\Engine_8948_45d4f45998154dbc8852f680b38c9990_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_7616_58a9f45861514b76bff2519722bb1be6_\Engine_8948_dd7132ffc28c456e83e34ef0f1d9fb41_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_022ae39033c24897823889c20ee9f5d0_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_f7062cfeed8a4a0e83c80b410c07b979_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -1241,12 +1241,12 @@
     </Node>
     <Node ToolID="24">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="318" y="222" />
+        <Position x="330" y="282" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_7616_58a9f45861514b76bff2519722bb1be6_\Engine_8948_08f209f040fd45cd9b2bbf970a0632b9_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_7616_58a9f45861514b76bff2519722bb1be6_\Engine_8948_23bfbf6fe40940b1b89bbeeeb1ab5100_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_086800522b0e48cdb309edf27b6d2842_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_f67e520bc31147d4a94ce11b7f3bf43e_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -1269,7 +1269,7 @@
     </Node>
     <Node ToolID="25">
       <GuiSettings Plugin="Linear_Regression">
-        <Position x="198" y="174" />
+        <Position x="210" y="234" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1291,7 +1291,7 @@
     </Node>
     <Node ToolID="26">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Test.Test">
-        <Position x="558" y="174" />
+        <Position x="570" y="234" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1315,7 +1315,7 @@
     </Node>
     <Node ToolID="27">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="402" y="-6" width="444" height="72" />
+        <Position x="414" y="54" width="444" height="72" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1335,7 +1335,7 @@
     </Node>
     <Node ToolID="28">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="42" y="6" width="828" height="72" />
+        <Position x="54" y="66" width="828" height="72" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1355,11 +1355,11 @@
     </Node>
     <Node ToolID="29">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="426" y="6" width="444" height="72" />
+        <Position x="438" y="66" width="444" height="72" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Text>This workflow tests that mtcars data returns correct coefficients</Text>
+          <Text>This workflow tests that linear regression models created by the new version is scored the same way as that created by the older version.</Text>
           <Font name="Segoe UI" size="9" style="0" />
           <TextColor name="White" />
           <FillColor r="111" g="111" b="111" />
@@ -1375,7 +1375,7 @@
     </Node>
     <Node ToolID="30">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="162" y="162" width="132" height="24" />
+        <Position x="174" y="222" width="132" height="24" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1395,7 +1395,7 @@
     </Node>
     <Node ToolID="31">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="162" y="378" width="132" height="24" />
+        <Position x="174" y="438" width="132" height="24" />
       </GuiSettings>
       <Properties>
         <Configuration>
