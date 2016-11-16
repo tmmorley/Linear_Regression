@@ -7,7 +7,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <RScript>#' ---
+          <RScript><![CDATA[#' ---
 #' title: Linear Regression
 #' author: Dan Putler, Bridget Toomey, Ramnath Vaidyanathan
 #' output:
@@ -21,14 +21,16 @@
 #'
 ## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
 suppressWarnings(library(AlteryxPredictive))
-config &lt;- list(
+config <- list(
   `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
   `Model Name` = textInput('%Question.Model Name%'),
   `Omit Constant` = checkboxInput('%Question.Omit Constant%' , FALSE),
   `Use Weights` = checkboxInput('%Question.Use Weights%' , FALSE),
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
-  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg')
+  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
+  `regularization` = checkboxInput('%Question.regularization%', FALSE),
+  `alpha` = numericInput('%Question.alpha%', NULL)
 )
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
@@ -37,15 +39,15 @@ options(alteryx.debug = config$debug)
 #'
 #' This is a named list of all inputs that stream into the R tool.
 #' We also specify defaults for use when R code is run outside Alteryx.
-inputs &lt;- list(
+inputs <- list(
   the.data = read.Alteryx2("#1", default = mtcars),
   XDFInfo = getXdfProperties("#1", default = list(is_XDF = FALSE, xdf_path = NULL))
 )
 
 AlteryxPredictive:::runLinearRegression(inputs, config)
 
- 
-</RScript>
+
+]]></RScript>
           <UseFullUpdate value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
@@ -55,23 +57,6 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
-        <MetaInfo connection="Output1">
-          <RecordInfo>
-            <Field name="grp" size="1073741823" source="R-DATA:" type="V_WString" />
-            <Field name="out" size="1073741823" source="R-DATA:" type="V_WString" />
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output2">
-          <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output3">
-          <RecordInfo>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
-          </RecordInfo>
-        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
