@@ -61,9 +61,18 @@ Linear_Regression
 <!--  Use Weights  -->
 <alteryx-pluginwidget type="CheckBox" text="Use a weight variable for weighted least squares. (Optional)" default="false" id="Use Weights" dataName="Use Weights"></alteryx-pluginwidget>
 
-  <div id='weight-vec'>
+  <div id='weight-vec' class='indent-one'>
 <!--  Weight Vec  -->
 <alteryx-pluginwidget type="DropDown" dataType="FieldSelector" inputNumber="0" connectionNumber="0" fieldType="Numeric" clearable="true" id="Weight Vec" dataName="Weight Vec"></alteryx-pluginwidget>
+</div>
+   
+<!--  regularization  -->
+<alteryx-pluginwidget type="CheckBox" text="Use regularized regression?" default="false" id="regularization" dataName="regularization"></alteryx-pluginwidget>
+
+   <div id='div-alpha' class='indent-one'>
+<!--  alpha  -->
+<label for="alpha">Enter value of alpha</label>
+<alteryx-pluginwidget type="NumericSpinner" default="0.5" min="0" max="1" step="0.001" id="alpha" dataName="alpha"></alteryx-pluginwidget>
 </div>
  </div>
   <div class='tabpage has-hint' id='tabpage-graphics'>
