@@ -198,8 +198,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5684_8b4031b403fa4a34b020f40b55042681_\Engine_1200_924580e54dd54e61973b4c7e3b38ab5e_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5684_8b4031b403fa4a34b020f40b55042681_\Engine_1200_c900300c66164cb7bbe131bbb2fe677e_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_10212_d8d6a43231144ac7b6085c5a7d964040_\Engine_1128_2aaefccf4f574f06be048a0985f4715d_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_10212_d8d6a43231144ac7b6085c5a7d964040_\Engine_1128_585054ce03bc43188c5ee1e22000fd2c_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -339,8 +339,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5684_8b4031b403fa4a34b020f40b55042681_\Engine_1200_679e12bd4f6a4746bd3c4188164463c0_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5684_8b4031b403fa4a34b020f40b55042681_\Engine_1200_6974c60b599a4c3ca5a2fb7099556933_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_10212_d8d6a43231144ac7b6085c5a7d964040_\Engine_1128_055278b75f53466a87734dd7dcacce96_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_10212_d8d6a43231144ac7b6085c5a7d964040_\Engine_1128_fe559b10c63440f39c9fca8a58eea41b_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -4060,7 +4060,7 @@ write.Alteryx(data.frame(Class = the.class))
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="55" y="163" width="1018" height="306"/>
+        <Position x="54.99998" y="163" width="1186" height="306.0001"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4091,7 +4091,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="199.0003" y="349.9999" width="59" height="59"/>
+            <Position x="199.0003" y="350" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4117,7 +4117,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="295.0001" y="349.9998" width="59" height="59"/>
+            <Position x="295.0002" y="349.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4130,7 +4130,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="379" y="350" width="59" height="59"/>
+            <Position x="379" y="350.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4169,7 +4169,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="115" y="349.9999" width="59" height="59"/>
+            <Position x="115" y="349.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4182,7 +4182,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="115" y="247.0003" width="59" height="59"/>
+            <Position x="115" y="247.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4195,7 +4195,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="203.4998" y="242.0002" width="59" height="59"/>
+            <Position x="203.4998" y="242.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4305,6 +4305,58 @@ write.Alteryx(data.frame(Class = the.class))
             <Configuration/>
             <Annotation DisplayMode="0">
               <Name>alpha</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="183">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="966" y="330" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>standardize_pred</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="184">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="1038" y="330" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>cv.glmnet</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="185">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+            <Position x="1050" y="246" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>lambda.1se</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="186">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+            <Position x="1122" y="246" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>lambda.min</Name>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -4722,6 +4774,30 @@ Union</Text>
         <Value/>
         <IsNumeric value="True"/>
       </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>standardize_pred</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>cv.glmnet</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>lambda.1se</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>lambda.min</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
     </Constants>
     <MetaInfo>
       <NameIsFileName value="False"/>
@@ -4967,6 +5043,42 @@ Union</Text>
                   <Increment value="0.001"/>
                   <Default value="0.5"/>
                   <Decimals value="10"/>
+                </Question>
+                <Question>
+                  <Type>BooleanGroup</Type>
+                  <Description>Standardize predictor variables?</Description>
+                  <Name>standardize_pred</Name>
+                  <ToolId value="183"/>
+                  <Questions/>
+                  <Default value="True"/>
+                  <Collapsable value="False"/>
+                </Question>
+                <Question>
+                  <Type>BooleanGroup</Type>
+                  <Description>Use Cross-Validation to choose model parameters?</Description>
+                  <Name>cv.glmnet</Name>
+                  <ToolId value="184"/>
+                  <Questions/>
+                  <Default value="False"/>
+                  <Collapsable value="False"/>
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>Simpler model</Description>
+                  <Name>lambda.1se</Name>
+                  <ToolId value="185"/>
+                  <Questions/>
+                  <Default value="True"/>
+                  <Collapsable value="False"/>
+                </Question>
+                <Question>
+                  <Type>RadioGroup</Type>
+                  <Description>Model with lower in sample standard error</Description>
+                  <Name>lambda.min</Name>
+                  <ToolId value="186"/>
+                  <Questions/>
+                  <Default value="False"/>
+                  <Collapsable value="False"/>
                 </Question>
               </Questions>
               <Default value="False"/>
