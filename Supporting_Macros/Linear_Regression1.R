@@ -37,4 +37,3 @@ inputs <- list(
 
 AlteryxPredictive:::runLinearRegression(inputs, config)
 
-
