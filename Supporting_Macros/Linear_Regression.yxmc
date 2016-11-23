@@ -3,7 +3,7 @@
   <Nodes>
     <Node ToolID="4">
       <GuiSettings Plugin="AlteryxConnectorGui.R.R">
-        <Position x="846" y="1029"/>
+        <Position x="846" y="1029" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -30,8 +30,13 @@ config &lt;- list(
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
   `regularization` = checkboxInput('%Question.regularization%', FALSE),
-  `alpha` = numericInput('%Question.alpha%', NULL)
-)
+  `alpha` = numericInput('%Question.alpha%', NULL),
+  `lambda_1se` = radioInput('%Question.lambda.1se%', TRUE),
+  `lambda_min` = radioInput('%Question.lambda.min%', FALSE),
+  standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
+  `cv_glmnet` = checkboxInput('%Question.cv.glmnet%', TRUE),
+  `nfolds` = numericInput('%Question.nfolds%', NULL)
+) 
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
 ##----
@@ -45,271 +50,270 @@ inputs &lt;- list(
 )
 
 AlteryxPredictive:::runLinearRegression(inputs, config)
-#test comment
  
 </RScript>
-          <UseFullUpdate value="False"/>
+          <UseFullUpdate value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Install R and the necessary packages here:
 http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output1">
           <RecordInfo>
-            <Field name="grp" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="out" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="grp" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="out" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Output2">
           <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Output3">
           <RecordInfo>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxR"/>
+      <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
     <Node ToolID="107">
       <GuiSettings>
-        <Position x="990" y="619"/>
+        <Position x="990" y="619" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output58">
           <RecordInfo>
-            <Field name="Model_Name" size="114" source="R-Data:" type="V_String"/>
-            <Field name="Call" size="114" source="R-Data:" type="V_String"/>
-            <Field description="TextToColumns: Parsed from Fit_Stats" name="Fit_Stats2" size="2048" source="TextToColumns: Parsed from Fit_Stats" type="V_String"/>
-            <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String"/>
+            <Field name="Model_Name" size="114" source="R-Data:" type="V_String" />
+            <Field name="Call" size="114" source="R-Data:" type="V_String" />
+            <Field description="TextToColumns: Parsed from Fit_Stats" name="Fit_Stats2" size="2048" source="TextToColumns: Parsed from Fit_Stats" type="V_String" />
+            <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="2147483647" source="Report: (Multiple Sources)" type="V_String"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="2147483647" source="Report: (Multiple Sources)" type="V_String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings Macro="Supporting_Macros\Linear_Model_summary.yxmc"/>
+      <EngineSettings Macro="Supporting_Macros\Linear_Model_summary.yxmc" />
     </Node>
     <Node ToolID="108">
       <GuiSettings>
-        <Position x="990" y="812"/>
+        <Position x="990" y="812" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output69">
           <RecordInfo>
-            <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String"/>
+            <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="2147483647" source="Report: (Multiple Sources)" type="V_String"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="2147483647" source="Report: (Multiple Sources)" type="V_String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings Macro="Supporting_Macros\Linear_Model_ANOVA.yxmc"/>
+      <EngineSettings Macro="Supporting_Macros\Linear_Model_ANOVA.yxmc" />
     </Node>
     <Node ToolID="102">
       <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
-        <Position x="978" y="1017"/>
+        <Position x="978" y="1017" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Images/>
+          <Images />
           <Output>Graph_Title</Output>
-          <HeaderMode value="False"/>
-          <RawMode value="False"/>
-          <ValidatePCXML value="True"/>
-          <Message/>
-          <RichTextMode value="True"/>
+          <HeaderMode value="False" />
+          <RawMode value="False" />
+          <ValidatePCXML value="True" />
+          <Message />
+          <RichTextMode value="True" />
           <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Verdana;}}
 \viewkind4\uc1\pard\i\f0\fs24 Basic Diagnostic Plots\par
 }
 ]]></RichTextString>
           <Styles>
-            <Style Name="TextStyle"/>
+            <Style Name="TextStyle" />
           </Styles>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <DefaultAnnotationText>Basic Diagnostic Plots</DefaultAnnotationText>
-          <Left value="False"/>
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Graph_Title" size="2147483647" source="Report:Text:" type="V_String"/>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Graph_Title" size="2147483647" source="Report:Text:" type="V_String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin"/>
+      <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
     </Node>
     <Node ToolID="111">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="1086" y="1017"/>
+        <Position x="1086" y="1017" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <FormulaFields>
-            <FormulaField field="Desc" type="V_String" size="64" expression="&quot;BasicDiagnosticPlotsTitle&quot;"/>
+            <FormulaField field="Desc" type="V_String" size="64" expression="&quot;BasicDiagnosticPlotsTitle&quot;" />
           </FormulaFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <DefaultAnnotationText>Desc="BasicDiagnosticPlotsTitle"</DefaultAnnotationText>
-          <Left value="False"/>
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Graph_Title" size="2147483647" source="Report:Text:" type="V_String"/>
-            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlotsTitle&quot;" type="V_String"/>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Graph_Title" size="2147483647" source="Report:Text:" type="V_String" />
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlotsTitle&quot;" type="V_String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
     </Node>
     <Node ToolID="117">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="990" y="1282"/>
+        <Position x="990" y="1282" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8268_f9955ee7ce9a4200bd4f33e8a7350e2e_\Engine_1128_afb49ee5f0eb4d4885884e62ff1c686d_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8268_f9955ee7ce9a4200bd4f33e8a7350e2e_\Engine_1128_5beaabb3a205494ea22aebb8739166b7_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_9272_bc8cdb7cdb7246b4b18efeacdfdcd097_\Engine_8588_29efd04038774ae594b20479b8f9eb6c_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9272_bc8cdb7cdb7246b4b18efeacdfdcd097_\Engine_8588_1005985a2d9d460e8b5831b739300b78_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
-            <ViewSize value="100"/>
+            <ViewSize value="100" />
             <View1>
               <DefaultTab>Table</DefaultTab>
-              <Hints/>
+              <Hints />
             </View1>
-            <View2/>
+            <View2 />
           </Layout>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
     </Node>
     <Node ToolID="112">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="1182" y="1017"/>
+        <Position x="1182" y="1017" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="True"/>
+          <OrderChanged value="True" />
           <SelectFields>
-            <SelectField field="Desc" selected="True"/>
-            <SelectField field="Graph_Title" selected="True" rename="Report"/>
-            <SelectField field="Name" selected="True"/>
-            <SelectField field="Object" selected="True"/>
-            <SelectField field="*Unknown" selected="True"/>
+            <SelectField field="Desc" selected="True" />
+            <SelectField field="Graph_Title" selected="True" rename="Report" />
+            <SelectField field="Name" selected="True" />
+            <SelectField field="Object" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlotsTitle&quot;" type="V_String"/>
-            <Field name="Report" size="2147483647" source="Report:Text:" type="V_String"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlotsTitle&quot;" type="V_String" />
+            <Field name="Report" size="2147483647" source="Report:Text:" type="V_String" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="113">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="1086" y="1306"/>
+        <Position x="1086" y="1306" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <FormulaFields>
-            <FormulaField field="Desc" type="V_String" size="64" expression="&quot;BasicDiagnosticPlots&quot;"/>
+            <FormulaField field="Desc" type="V_String" size="64" expression="&quot;BasicDiagnosticPlots&quot;" />
           </FormulaFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <DefaultAnnotationText>Desc="BasicDiagnosticPlots"</DefaultAnnotationText>
-          <Left value="False"/>
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
-            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlots&quot;" type="V_String"/>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlots&quot;" type="V_String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
     </Node>
     <Node ToolID="114">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="1182" y="1306"/>
+        <Position x="1182" y="1306" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="True"/>
+          <OrderChanged value="True" />
           <SelectFields>
-            <SelectField field="Desc" selected="True"/>
-            <SelectField field="Graph" selected="True" rename="Report"/>
-            <SelectField field="*Unknown" selected="True"/>
+            <SelectField field="Desc" selected="True" />
+            <SelectField field="Graph" selected="True" rename="Report" />
+            <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlots&quot;" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: &quot;BasicDiagnosticPlots&quot;" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report:R-Graph:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="115">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
-        <Position x="1290" y="1017"/>
+        <Position x="1290" y="1017" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <ByName_ErrorMode>Ignore</ByName_ErrorMode>
           <ByName_OutputMode>All</ByName_OutputMode>
           <Mode>ByName</Mode>
-          <SetOutputOrder value="True"/>
+          <SetOutputOrder value="True" />
           <OutputOrder>
             <Connection>#1</Connection>
             <Connection>#2</Connection>
@@ -318,357 +322,357 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
           </OutputOrder>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
     </Node>
     <Node ToolID="116">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="2244" y="943"/>
+        <Position x="2244" y="943" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8268_f9955ee7ce9a4200bd4f33e8a7350e2e_\Engine_1128_797719c3be7c463499085274eae06263_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8268_f9955ee7ce9a4200bd4f33e8a7350e2e_\Engine_1128_59f850ad366640b98a6a4d3cbb80b9b8_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_9272_bc8cdb7cdb7246b4b18efeacdfdcd097_\Engine_8588_d1c8bc85fabf4751b0d58155a5801039_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9272_bc8cdb7cdb7246b4b18efeacdfdcd097_\Engine_8588_f5319738d52a423dada2370568bd9169_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
-            <ViewSize value="100"/>
+            <ViewSize value="100" />
             <View1>
               <DefaultTab>Report</DefaultTab>
-              <Hints/>
+              <Hints />
             </View1>
-            <View2/>
+            <View2 />
           </Layout>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
     </Node>
     <Node ToolID="125">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
-        <Position x="162" y="1005"/>
+        <Position x="162" y="1005" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <DetourRight value="False"/>
+          <DetourRight value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Detour based on whether sample weights are used.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Left">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Right">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
     </Node>
     <Node ToolID="126">
       <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
-        <Position x="666" y="1029"/>
+        <Position x="666" y="1029" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd" />
     </Node>
     <Node ToolID="127">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="282" y="499"/>
+        <Position x="282" y="499" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="y" selected="True"/>
-            <SelectField field="*Unknown" selected="False"/>
+            <SelectField field="y" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Select the target variable, no weights.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
+            <Field name="y" source="TextInput:" type="Double" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="128">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="282" y="764"/>
+        <Position x="282" y="764" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="y" selected="False"/>
-            <SelectField field="*Unknown" selected="True"/>
+            <SelectField field="y" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Select the predictors, no weights.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="129">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="390" y="764"/>
+        <Position x="390" y="764" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="*Unknown" selected="True"/>
+            <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>If the target is included in the list of predictor fields, then remove it, no weights.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="130">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
-        <Position x="522" y="583"/>
+        <Position x="522" y="583" />
       </GuiSettings>
       <Properties>
         <Configuration joinByRecordPos="True">
           <SelectConfiguration>
             <Configuration outputConnection="Join">
-              <OrderChanged value="False"/>
+              <OrderChanged value="False" />
               <SelectFields>
-                <SelectField field="*Unknown" selected="True"/>
+                <SelectField field="*Unknown" selected="True" />
               </SelectFields>
             </Configuration>
           </SelectConfiguration>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Join the target and predictor, no weights.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Left">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
+            <Field name="y" source="TextInput:" type="Double" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Join">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Right">
           <RecordInfo>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
     </Node>
     <Node ToolID="131">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="282" y="1246"/>
+        <Position x="282" y="1246" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="y" selected="True"/>
-            <SelectField field="*Unknown" selected="False"/>
+            <SelectField field="y" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Select the target variable, weights used.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
+            <Field name="y" source="TextInput:" type="Double" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="132">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="282" y="1499"/>
+        <Position x="282" y="1499" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="y" selected="False"/>
-            <SelectField field="x2" selected="False"/>
-            <SelectField field="*Unknown" selected="True"/>
+            <SelectField field="y" selected="False" />
+            <SelectField field="x2" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Select the predictors, weights used.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="133">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="282" y="1764"/>
+        <Position x="282" y="1764" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="x2" selected="True"/>
-            <SelectField field="*Unknown" selected="False"/>
+            <SelectField field="x2" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Select the field with the weights.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="x2" source="TextInput:" type="Double"/>
+            <Field name="x2" source="TextInput:" type="Double" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="134">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="378" y="1499"/>
+        <Position x="378" y="1499" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="*Unknown" selected="True"/>
+            <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>If the target is included in the list of predictor fields, then remove it, weights used.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54" y="54" width="876" height="96"/>
+        <Position x="54" y="54" width="876" height="96" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Text>Alteryx Macro:
 Linear Regression</Text>
-          <Font name="Microsoft Sans Serif" size="18" style="0"/>
-          <TextColor name="White"/>
-          <FillColor r="95" g="152" b="171"/>
-          <Shape shape="0"/>
-          <Justification Justification="0"/>
+          <Font name="Microsoft Sans Serif" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="95" g="152" b="171" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
     </Node>
     <Node ToolID="143">
       <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicSelect.DynamicSelect">
-        <Position x="738" y="1029"/>
+        <Position x="738" y="1029" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -676,94 +680,94 @@ Linear Regression</Text>
           <FieldTypes>Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString</FieldTypes>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Filter out disallowed field types that are not properly screened by the selection of predictor fields actions</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDynamicSelect" />
     </Node>
     <Node ToolID="155">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Label.Label">
-        <Position x="0" y="0" width="59" height="59"/>
+        <Position x="0" y="0" width="59" height="59" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
     </Node>
     <Node ToolID="161">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
-        <Position x="0" y="0" width="59" height="59"/>
+        <Position x="0" y="0" width="59" height="59" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
     </Node>
     <Node ToolID="163">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
-        <Position x="0" y="0" width="59" height="59"/>
+        <Position x="0" y="0" width="59" height="59" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
     </Node>
     <Node ToolID="164">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
-        <Position x="0" y="0" width="59" height="59"/>
+        <Position x="0" y="0" width="59" height="59" />
       </GuiSettings>
       <Properties>
-        <Configuration/>
+        <Configuration />
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
     </Node>
     <Node ToolID="165">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
-        <Position x="78" y="1005"/>
+        <Position x="78" y="1005" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <UseFileInput value="False"/>
+          <UseFileInput value="False" />
           <Name>Input</Name>
           <Abbrev>
-            <Abbrev/>
+            <Abbrev />
           </Abbrev>
-          <ShowFieldMap value="False"/>
+          <ShowFieldMap value="False" />
           <TextInput>
             <Configuration>
-              <NumRows value="501"/>
+              <NumRows value="501" />
               <Fields>
-                <Field name="y"/>
-                <Field name="x1"/>
-                <Field name="x2"/>
-                <Field name="d1"/>
+                <Field name="y" />
+                <Field name="x1" />
+                <Field name="x2" />
+                <Field name="d1" />
               </Fields>
               <Data>
                 <r>
@@ -3772,23 +3776,23 @@ Linear Regression</Text>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name>Input</Name>
-          <DefaultAnnotationText/>
-          <Left value="True"/>
+          <DefaultAnnotationText />
+          <Left value="True" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="y" source="TextInput:" type="Double"/>
-            <Field name="x1" source="TextInput:" type="Double"/>
-            <Field name="x2" source="TextInput:" type="Double"/>
-            <Field name="d1" size="3" source="TextInput:" type="String"/>
+            <Field name="y" source="TextInput:" type="Double" />
+            <Field name="x1" source="TextInput:" type="Double" />
+            <Field name="x2" source="TextInput:" type="Double" />
+            <Field name="d1" size="3" source="TextInput:" type="String" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
     </Node>
     <Node ToolID="166">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="990" y="1354"/>
+        <Position x="990" y="1354" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3797,15 +3801,15 @@ Linear Regression</Text>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name>Output</Name>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
     </Node>
     <Node ToolID="167">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="2244" y="1063"/>
+        <Position x="2244" y="1063" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3814,63 +3818,63 @@ Linear Regression</Text>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name>Reports</Name>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
     </Node>
     <Node ToolID="168">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
-        <Position x="540" y="1327"/>
+        <Position x="540" y="1327" />
       </GuiSettings>
       <Properties>
         <Configuration joinByRecordPos="True">
           <SelectConfiguration>
             <Configuration outputConnection="Join">
-              <OrderChanged value="False"/>
+              <OrderChanged value="False" />
               <SelectFields>
-                <SelectField field="*Unknown" selected="True"/>
+                <SelectField field="*Unknown" selected="True" />
               </SelectFields>
             </Configuration>
           </SelectConfiguration>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Join the target and predictor.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
     </Node>
     <Node ToolID="169">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
-        <Position x="600" y="1531"/>
+        <Position x="600" y="1531" />
       </GuiSettings>
       <Properties>
         <Configuration joinByRecordPos="True">
           <SelectConfiguration>
             <Configuration outputConnection="Join">
-              <OrderChanged value="False"/>
+              <OrderChanged value="False" />
               <SelectFields>
-                <SelectField field="*Unknown" selected="True"/>
+                <SelectField field="*Unknown" selected="True" />
               </SelectFields>
             </Configuration>
           </SelectConfiguration>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Join the weight field to the other data.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
     </Node>
     <Node ToolID="170">
       <GuiSettings Plugin="AlteryxRPluginGui.R">
-        <Position x="1356" y="1075"/>
+        <Position x="1356" y="1075" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3879,486 +3883,512 @@ mod.obj <- unserializeObject(as.character(mod.df$Object[1]))
 the.class <- class(mod.obj)[1]
 write.Alteryx(data.frame(Class = the.class))
 ]]></RScript>
-          <UseFullUpdate value="False"/>
+          <UseFullUpdate value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Get the model class, to determine if it is a lm or rxLinMod model.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output1">
           <RecordInfo>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR"/>
+      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
     <Node ToolID="171">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
-        <Position x="1536" y="1039"/>
+        <Position x="1536" y="1039" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <CartesianMode>Error</CartesianMode>
           <SelectConfiguration>
             <Configuration outputConnection="Output">
-              <OrderChanged value="False"/>
+              <OrderChanged value="False" />
               <SelectFields>
-                <SelectField field="*Unknown" selected="True"/>
+                <SelectField field="*Unknown" selected="True" />
               </SelectFields>
             </Configuration>
           </SelectConfiguration>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Add the model class field to the report snippets</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
     </Node>
     <Node ToolID="172">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
-        <Position x="1668" y="1039"/>
+        <Position x="1668" y="1039" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Expression>[Class] == "rxLinMod"</Expression>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Fork depending on whether the models is a rxLinMod or lm model:
 [Class] == "rxLinMod"</AnnotationText>
           <DefaultAnnotationText>[Class] == "rxLinMod"</DefaultAnnotationText>
-          <Left value="False"/>
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="True">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="False">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
     </Node>
     <Node ToolID="173">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="2088" y="1063"/>
+        <Position x="2088" y="1063" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <OrderChanged value="False"/>
+          <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="Desc" selected="True"/>
-            <SelectField field="Report" selected="True"/>
-            <SelectField field="*Unknown" selected="False"/>
+            <SelectField field="Desc" selected="True" />
+            <SelectField field="Report" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
           </SelectFields>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Remove the "Class" field.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
     </Node>
     <Node ToolID="174">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
-        <Position x="1956" y="1063"/>
+        <Position x="1956" y="1063" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <ByName_ErrorMode>Warning</ByName_ErrorMode>
           <ByName_OutputMode>All</ByName_OutputMode>
           <Mode>ByName</Mode>
-          <SetOutputOrder value="False"/>
+          <SetOutputOrder value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Unioning the elements back together, but only one of the two inputs will have data.</AnnotationText>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
     </Node>
     <Node ToolID="175">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
-        <Position x="1800" y="1003"/>
+        <Position x="1800" y="1003" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Expression>[Desc] == "ResidualsTitle" OR [Desc] == "ANOVAAnalysisTitle" OR [Desc] == "ANOVAAnalysis" OR [Desc] == "BasicDiagnosticPlotsTitle" OR [Desc] == "BasicDiagnosticPlots"</Expression>
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
+          <Name />
           <AnnotationText>Filter out the report elements that aren't available for rxLinMod models:
 [Desc] == "ResidualsTitle" OR [Desc] == "ANOVAAnalysisTitle" O...</AnnotationText>
           <DefaultAnnotationText>[Desc] == "ResidualsTitle" OR [Desc] == "ANOVAAnalysisTitle" ...</DefaultAnnotationText>
-          <Left value="False"/>
+          <Left value="False" />
         </Annotation>
         <MetaInfo connection="True">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="False">
           <RecordInfo>
-            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
-            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter"/>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="188">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>lambda</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="55" y="163" width="1186" height="306.0001"/>
+        <Position x="55" y="162.9999" width="1198" height="306.0001" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Caption>Interface Tools</Caption>
-          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="25" Margin="60"/>
-          <Disabled value="False"/>
-          <Folded value="False"/>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="25" Margin="60" />
+          <Disabled value="False" />
+          <Folded value="False" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="475" y="350" width="59" height="59"/>
+            <Position x="475" y="350" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>weights.used</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="199.0003" y="350.0001" width="59" height="59"/>
+            <Position x="199.0004" y="350.0001" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>get.y.A</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="559" y="350" width="59" height="59"/>
+            <Position x="559" y="350" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>get.x.A</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="295.0003" y="349.9999" width="59" height="59"/>
+            <Position x="295.0005" y="350" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>remove.y.from.x.A</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="379" y="350" width="59" height="59"/>
+            <Position x="379" y="349.9999" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>get.y.B</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="643" y="350" width="59" height="59"/>
+            <Position x="643" y="350" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>get.x.B</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="811" y="350" width="59" height="59"/>
+            <Position x="811" y="350" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>get.weights</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="115" y="349.9996" width="59" height="59"/>
+            <Position x="115" y="349.9995" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>remove.y.from.x.B</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="115" y="247.0002" width="59" height="59"/>
+            <Position x="115" y="247.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>Model Name</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="203.4997" y="242.0003" width="59" height="59"/>
+            <Position x="203.4997" y="242.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>Y Var</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="646" y="242" width="59" height="59"/>
+            <Position x="646" y="242" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>X Vars</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="292.0001" y="242.0001" width="59" height="59"/>
+            <Position x="292.0002" y="241.9999" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>Omit Constant</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="380.5" y="242.0001" width="59" height="59"/>
+            <Position x="380.5" y="242.0001" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>Weight Vec</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="469" y="242" width="59" height="59"/>
+            <Position x="469" y="242" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>Use Weights</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="557.5" y="242" width="59" height="59"/>
+            <Position x="557.5" y="242" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>graph.resolution</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="727" y="350" width="59" height="59"/>
+            <Position x="727" y="350" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
-              <Name/>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="178">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="870" y="246" width="59" height="59"/>
+            <Position x="870" y="246" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>regularization</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="182">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="954" y="246" width="59" height="59"/>
+            <Position x="954" y="246" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>alpha</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="183">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="966" y="330" width="59" height="59"/>
+            <Position x="966" y="330" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
               <Name>standardize_pred</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="184">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="1038" y="330" width="59" height="59"/>
+            <Position x="1038" y="330" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
-              <Name>cv.glmnet</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <Name>cv_glmnet</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="185">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
-            <Position x="1050" y="246" width="59" height="59"/>
+            <Position x="1050" y="246" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
-              <Name>lambda.1se</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <Name>lambda_1se</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
         <Node ToolID="186">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
-            <Position x="1122" y="246" width="59" height="59"/>
+            <Position x="1122" y="246" width="59" height="59" />
           </GuiSettings>
           <Properties>
-            <Configuration/>
+            <Configuration />
             <Annotation DisplayMode="0">
-              <Name>lambda.min</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <Name>lambda_min</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="189">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="1134" y="330" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>nfolds</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
@@ -4366,39 +4396,39 @@ write.Alteryx(data.frame(Class = the.class))
     </Node>
     <Node ToolID="138">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="757" y="74" width="138.6955" height="19"/>
+        <Position x="757" y="74" width="138.6955" height="19" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Caption>Module Description</Caption>
-          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10"/>
-          <Disabled value="False"/>
-          <Folded value="True"/>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
       <ChildNodes>
         <Node ToolID="137">
           <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-            <Position x="767" y="103" width="132" height="204"/>
+            <Position x="767" y="103" width="132" height="204" />
           </GuiSettings>
           <Properties>
             <Configuration>
               <Text><![CDATA[Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.) ]]></Text>
-              <Font name="Microsoft Sans Serif" size="9.75" style="0"/>
-              <TextColor name="Black"/>
-              <FillColor name="White"/>
-              <Shape shape="0"/>
-              <Justification Justification="0"/>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
             </Configuration>
             <Annotation DisplayMode="0">
-              <Name/>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
@@ -4406,25 +4436,25 @@ write.Alteryx(data.frame(Class = the.class))
     </Node>
     <Node ToolID="140">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="795" y="111" width="98.89567" height="19"/>
+        <Position x="795" y="111" width="98.89567" height="19" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Caption>Tools Used</Caption>
-          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10"/>
-          <Disabled value="False"/>
-          <Folded value="True"/>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
         </Configuration>
         <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
         </Annotation>
       </Properties>
       <ChildNodes>
         <Node ToolID="139">
           <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-            <Position x="805" y="140" width="223" height="218"/>
+            <Position x="805" y="140" width="223" height="218" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -4441,16 +4471,16 @@ Linear Model Summary Macro
 Text Input
 Tool Container
 Union</Text>
-              <Font name="Microsoft Sans Serif" size="9.75" style="0"/>
-              <TextColor name="Black"/>
-              <FillColor r="255" g="243" b="196"/>
-              <Shape shape="0"/>
-              <Justification Justification="2"/>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="255" g="243" b="196" />
+              <Shape shape="0" />
+              <Justification Justification="2" />
             </Configuration>
             <Annotation DisplayMode="0">
-              <Name/>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
@@ -4459,368 +4489,374 @@ Union</Text>
   </Nodes>
   <Connections>
     <Connection>
-      <Origin ToolID="4" Connection="Output1"/>
-      <Destination ToolID="107" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="107" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output1"/>
-      <Destination ToolID="108" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="108" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output2"/>
-      <Destination ToolID="113" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output2" />
+      <Destination ToolID="113" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="166" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="166" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="117" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="117" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="102" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="102" Connection="Input" />
     </Connection>
     <Connection name="#1">
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="170" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output3" />
+      <Destination ToolID="170" Connection="Input" />
     </Connection>
     <Connection name="#1">
-      <Origin ToolID="107" Connection="Output"/>
-      <Destination ToolID="115" Connection="Input"/>
+      <Origin ToolID="107" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
     </Connection>
     <Connection name="#2">
-      <Origin ToolID="108" Connection="Output"/>
-      <Destination ToolID="115" Connection="Input"/>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
     </Connection>
     <Connection name="#3">
-      <Origin ToolID="112" Connection="Output"/>
-      <Destination ToolID="115" Connection="Input"/>
+      <Origin ToolID="112" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
     </Connection>
     <Connection name="#4">
-      <Origin ToolID="114" Connection="Output"/>
-      <Destination ToolID="115" Connection="Input"/>
+      <Origin ToolID="114" Connection="Output" />
+      <Destination ToolID="115" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="102" Connection="Output"/>
-      <Destination ToolID="111" Connection="Input"/>
+      <Origin ToolID="102" Connection="Output" />
+      <Destination ToolID="111" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="111" Connection="Output"/>
-      <Destination ToolID="112" Connection="Input"/>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="113" Connection="Output"/>
-      <Destination ToolID="114" Connection="Input"/>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="114" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="115" Connection="Output"/>
-      <Destination ToolID="171" Connection="Targets"/>
+      <Origin ToolID="115" Connection="Output" />
+      <Destination ToolID="171" Connection="Targets" />
     </Connection>
     <Connection>
-      <Origin ToolID="170" Connection="Output1"/>
-      <Destination ToolID="171" Connection="Source"/>
+      <Origin ToolID="170" Connection="Output1" />
+      <Destination ToolID="171" Connection="Source" />
     </Connection>
     <Connection>
-      <Origin ToolID="125" Connection="Left"/>
-      <Destination ToolID="127" Connection="Input"/>
+      <Origin ToolID="125" Connection="Left" />
+      <Destination ToolID="127" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="145" Connection="Action"/>
-      <Destination ToolID="127" Connection="Action"/>
+      <Origin ToolID="145" Connection="Action" />
+      <Destination ToolID="127" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="125" Connection="Left"/>
-      <Destination ToolID="128" Connection="Input"/>
+      <Origin ToolID="125" Connection="Left" />
+      <Destination ToolID="128" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="146" Connection="Action"/>
-      <Destination ToolID="128" Connection="Action"/>
+      <Origin ToolID="146" Connection="Action" />
+      <Destination ToolID="128" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="125" Connection="Right"/>
-      <Destination ToolID="131" Connection="Input"/>
+      <Origin ToolID="125" Connection="Right" />
+      <Destination ToolID="131" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="148" Connection="Action"/>
-      <Destination ToolID="131" Connection="Action"/>
+      <Origin ToolID="148" Connection="Action" />
+      <Destination ToolID="131" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="125" Connection="Right"/>
-      <Destination ToolID="132" Connection="Input"/>
+      <Origin ToolID="125" Connection="Right" />
+      <Destination ToolID="132" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="149" Connection="Action"/>
-      <Destination ToolID="132" Connection="Action"/>
+      <Origin ToolID="149" Connection="Action" />
+      <Destination ToolID="132" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="125" Connection="Right"/>
-      <Destination ToolID="133" Connection="Input"/>
+      <Origin ToolID="125" Connection="Right" />
+      <Destination ToolID="133" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="150" Connection="Action"/>
-      <Destination ToolID="133" Connection="Action"/>
+      <Origin ToolID="150" Connection="Action" />
+      <Destination ToolID="133" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="126" Connection="Output"/>
-      <Destination ToolID="143" Connection="Input"/>
+      <Origin ToolID="126" Connection="Output" />
+      <Destination ToolID="143" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="127" Connection="Output"/>
-      <Destination ToolID="130" Connection="Left"/>
+      <Origin ToolID="127" Connection="Output" />
+      <Destination ToolID="130" Connection="Left" />
     </Connection>
     <Connection>
-      <Origin ToolID="129" Connection="Output"/>
-      <Destination ToolID="130" Connection="Right"/>
+      <Origin ToolID="129" Connection="Output" />
+      <Destination ToolID="130" Connection="Right" />
     </Connection>
     <Connection>
-      <Origin ToolID="128" Connection="Output"/>
-      <Destination ToolID="129" Connection="Input"/>
+      <Origin ToolID="128" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="147" Connection="Action"/>
-      <Destination ToolID="129" Connection="Action"/>
+      <Origin ToolID="147" Connection="Action" />
+      <Destination ToolID="129" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="130" Connection="Join"/>
-      <Destination ToolID="126" Connection="Left"/>
+      <Origin ToolID="130" Connection="Join" />
+      <Destination ToolID="126" Connection="Left" />
     </Connection>
     <Connection>
-      <Origin ToolID="169" Connection="Join"/>
-      <Destination ToolID="126" Connection="Right"/>
+      <Origin ToolID="169" Connection="Join" />
+      <Destination ToolID="126" Connection="Right" />
     </Connection>
     <Connection>
-      <Origin ToolID="131" Connection="Output"/>
-      <Destination ToolID="168" Connection="Left"/>
+      <Origin ToolID="131" Connection="Output" />
+      <Destination ToolID="168" Connection="Left" />
     </Connection>
     <Connection>
-      <Origin ToolID="134" Connection="Output"/>
-      <Destination ToolID="168" Connection="Right"/>
+      <Origin ToolID="134" Connection="Output" />
+      <Destination ToolID="168" Connection="Right" />
     </Connection>
     <Connection>
-      <Origin ToolID="132" Connection="Output"/>
-      <Destination ToolID="134" Connection="Input"/>
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="134" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="151" Connection="Action"/>
-      <Destination ToolID="134" Connection="Action"/>
+      <Origin ToolID="151" Connection="Action" />
+      <Destination ToolID="134" Connection="Action" />
     </Connection>
     <Connection>
-      <Origin ToolID="133" Connection="Output"/>
-      <Destination ToolID="169" Connection="Right"/>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="169" Connection="Right" />
     </Connection>
     <Connection>
-      <Origin ToolID="168" Connection="Join"/>
-      <Destination ToolID="169" Connection="Left"/>
+      <Origin ToolID="168" Connection="Join" />
+      <Destination ToolID="169" Connection="Left" />
     </Connection>
     <Connection name="#1">
-      <Origin ToolID="143" Connection="Output"/>
-      <Destination ToolID="4" Connection="Input"/>
+      <Origin ToolID="143" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="165" Connection="Output"/>
-      <Destination ToolID="125" Connection="Input"/>
+      <Origin ToolID="165" Connection="Output" />
+      <Destination ToolID="125" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="144" Connection="Action"/>
-      <Destination ToolID="125" Connection="Action"/>
+      <Origin ToolID="144" Connection="Action" />
+      <Destination ToolID="125" Connection="Action" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="165" Connection="Question"/>
-      <Destination ToolID="156" Connection="Question Input"/>
+      <Origin ToolID="165" Connection="Question" />
+      <Destination ToolID="156" Connection="Question Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="165" Connection="Question"/>
-      <Destination ToolID="157" Connection="Question Input"/>
+      <Origin ToolID="165" Connection="Question" />
+      <Destination ToolID="157" Connection="Question Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="165" Connection="Question"/>
-      <Destination ToolID="159" Connection="Question Input"/>
+      <Origin ToolID="165" Connection="Question" />
+      <Destination ToolID="159" Connection="Question Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="171" Connection="Output"/>
-      <Destination ToolID="172" Connection="Input"/>
+      <Origin ToolID="171" Connection="Output" />
+      <Destination ToolID="172" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="172" Connection="True"/>
-      <Destination ToolID="175" Connection="Input"/>
+      <Origin ToolID="172" Connection="True" />
+      <Destination ToolID="175" Connection="Input" />
     </Connection>
     <Connection name="#1">
-      <Origin ToolID="172" Connection="False"/>
-      <Destination ToolID="174" Connection="Input"/>
+      <Origin ToolID="172" Connection="False" />
+      <Destination ToolID="174" Connection="Input" />
     </Connection>
     <Connection name="#2">
-      <Origin ToolID="175" Connection="False"/>
-      <Destination ToolID="174" Connection="Input"/>
+      <Origin ToolID="175" Connection="False" />
+      <Destination ToolID="174" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="173" Connection="Output"/>
-      <Destination ToolID="167" Connection="Input"/>
+      <Origin ToolID="173" Connection="Output" />
+      <Destination ToolID="167" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="173" Connection="Output"/>
-      <Destination ToolID="116" Connection="Input"/>
+      <Origin ToolID="173" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="174" Connection="Output"/>
-      <Destination ToolID="173" Connection="Input"/>
+      <Origin ToolID="174" Connection="Output" />
+      <Destination ToolID="173" Connection="Input" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="156" Connection="Question"/>
-      <Destination ToolID="145" Connection="Question"/>
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="145" Connection="Question" />
     </Connection>
     <Connection name="Y Var" Wireless="True">
-      <Origin ToolID="156" Connection="Question"/>
-      <Destination ToolID="147" Connection="Question"/>
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="147" Connection="Question" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="156" Connection="Question"/>
-      <Destination ToolID="148" Connection="Question"/>
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="148" Connection="Question" />
     </Connection>
     <Connection name="Y Var" Wireless="True">
-      <Origin ToolID="156" Connection="Question"/>
-      <Destination ToolID="151" Connection="Question"/>
+      <Origin ToolID="156" Connection="Question" />
+      <Destination ToolID="151" Connection="Question" />
     </Connection>
     <Connection name="X Vars" Wireless="True">
-      <Origin ToolID="157" Connection="Question"/>
-      <Destination ToolID="146" Connection="Question"/>
+      <Origin ToolID="157" Connection="Question" />
+      <Destination ToolID="146" Connection="Question" />
     </Connection>
     <Connection name="X Vars" Wireless="True">
-      <Origin ToolID="157" Connection="Question"/>
-      <Destination ToolID="149" Connection="Question"/>
+      <Origin ToolID="157" Connection="Question" />
+      <Destination ToolID="149" Connection="Question" />
     </Connection>
     <Connection name="X Vars" Wireless="True">
-      <Origin ToolID="157" Connection="Question"/>
-      <Destination ToolID="176" Connection="Question"/>
+      <Origin ToolID="157" Connection="Question" />
+      <Destination ToolID="176" Connection="Question" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="159" Connection="Question"/>
-      <Destination ToolID="150" Connection="Question"/>
+      <Origin ToolID="159" Connection="Question" />
+      <Destination ToolID="150" Connection="Question" />
     </Connection>
     <Connection Wireless="True">
-      <Origin ToolID="160" Connection="Question"/>
-      <Destination ToolID="144" Connection="Question"/>
+      <Origin ToolID="160" Connection="Question" />
+      <Destination ToolID="144" Connection="Question" />
     </Connection>
   </Connections>
   <Properties>
-    <Memory default="True"/>
-    <GlobalRecordLimit value="0"/>
-    <TempFiles default="True"/>
-    <Annotation on="False" includeToolName="False"/>
-    <ConvErrorLimit value="10"/>
-    <ConvErrorLimit_Stop value="False"/>
-    <CancelOnError value="False"/>
-    <DisableBrowse value="False"/>
-    <EnablePerformanceProfiling value="False"/>
-    <DisableAllOutput value="False"/>
-    <ShowAllMacroMessages value="False"/>
-    <ShowConnectionStatusIsOn value="True"/>
-    <ShowConnectionStatusOnlyWhenRunning value="True"/>
-    <ZoomLevel value="0"/>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
     <LayoutType>Horizontal</LayoutType>
     <Constants>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>Model Name</Name>
         <Value>Test_Model</Value>
-        <IsNumeric value="False"/>
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>Y Var</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>X Vars</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>Omit Constant</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>Weight Vec</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>Use Weights</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>graph.resolution</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>regularization</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>alpha</Name>
-        <Value/>
-        <IsNumeric value="True"/>
+        <Value />
+        <IsNumeric value="True" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>standardize_pred</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>cv.glmnet</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Name>cv_glmnet</Name>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>lambda.1se</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Name>lambda_1se</Name>
+        <Value />
+        <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>lambda.min</Name>
-        <Value/>
-        <IsNumeric value="False"/>
+        <Name>lambda_min</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>nfolds</Name>
+        <Value />
+        <IsNumeric value="True" />
       </Constant>
     </Constants>
     <MetaInfo>
-      <NameIsFileName value="False"/>
+      <NameIsFileName value="False" />
       <Name>Linear Regression</Name>
       <Description>Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.)
 
 [Can be used with Oracle R In-DB workflows.]</Description>
       <RootToolName>Linear_Regression</RootToolName>
       <ToolVersion>1.1</ToolVersion>
-      <ToolInDb value="False"/>
+      <ToolInDb value="False" />
       <CategoryName>Predictive</CategoryName>
       <SearchTags>predictive, macro, R, linear, model, least, squares, variable, regression, predictive category</SearchTags>
       <Author>Dan Putler</Author>
       <Company>Alteryx</Company>
       <Copyright>2012 Alteryx</Copyright>
-      <DescriptionLink actual="" displayed=""/>
+      <DescriptionLink actual="" displayed="" />
       <Example>
-        <Description/>
-        <File/>
+        <Description />
+        <File />
       </Example>
     </MetaInfo>
     <Events>
-      <Enabled value="True"/>
+      <Enabled value="True" />
     </Events>
     <RuntimeProperties>
       <Actions>
@@ -4831,89 +4867,89 @@ Union</Text>
             <Action>
               <Type>UpdateValue</Type>
               <Description>weights.used</Description>
-              <ToolId value="144"/>
+              <ToolId value="144" />
               <Mode>Simple</Mode>
               <Variable>Use Weights</Variable>
-              <Replace value="False"/>
+              <Replace value="False" />
               <Destination>125/DetourRight/@value</Destination>
             </Action>
             <Action>
               <Type>UpdateValue</Type>
               <Description>get.y.A</Description>
-              <ToolId value="145"/>
+              <ToolId value="145" />
               <Mode>Simple</Mode>
               <Variable>Y Var</Variable>
-              <Replace value="False"/>
+              <Replace value="False" />
               <Destination>127/SelectFields/SelectField[@field='y']/@field</Destination>
             </Action>
             <Action>
               <Type>UpdateRawXml</Type>
-              <Description/>
-              <ToolId value="146"/>
+              <Description />
+              <ToolId value="146" />
               <Expression>'  &lt;SelectFields&gt;
     &lt;SelectField field="' + replace(EscapeXMLMetacharacters([X Vars]), ",", '" selected="True" /&gt;
     &lt;SelectField field="') + '" selected="True" /&gt;
     &lt;SelectField field="*Unknown" selected="False" /&gt;
   &lt;/SelectFields&gt;'</Expression>
               <Destination>128/SelectFields</Destination>
-              <OuterXml value="True"/>
+              <OuterXml value="True" />
             </Action>
             <Action>
               <Type>UpdateRawXml</Type>
               <Description>remove.y.from.x.A</Description>
-              <ToolId value="147"/>
+              <ToolId value="147" />
               <Expression>'  &lt;SelectFields&gt;
     &lt;SelectField field="' + EscapeXMLMetacharacters([Y Var]) + '" selected="False" /&gt;
     &lt;SelectField field="*Unknown" selected="True" /&gt;
   &lt;/SelectFields&gt;'</Expression>
               <Destination>129/SelectFields</Destination>
-              <OuterXml value="False"/>
+              <OuterXml value="False" />
             </Action>
             <Action>
               <Type>UpdateValue</Type>
               <Description>get.y.B</Description>
-              <ToolId value="148"/>
+              <ToolId value="148" />
               <Mode>Simple</Mode>
               <Variable>Y Var</Variable>
-              <Replace value="False"/>
+              <Replace value="False" />
               <Destination>131/SelectFields/SelectField[@field='y']/@field</Destination>
             </Action>
             <Action>
               <Type>UpdateRawXml</Type>
-              <Description/>
-              <ToolId value="149"/>
+              <Description />
+              <ToolId value="149" />
               <Expression>'  &lt;SelectFields&gt;
     &lt;SelectField field="' + replace(EscapeXMLMetacharacters([X Vars]), ",", '" selected="True" /&gt;
     &lt;SelectField field="') + '" selected="True" /&gt;
     &lt;SelectField field="*Unknown" selected="False" /&gt;
   &lt;/SelectFields&gt;'</Expression>
               <Destination>132/SelectFields</Destination>
-              <OuterXml value="True"/>
+              <OuterXml value="True" />
             </Action>
             <Action>
               <Type>UpdateValue</Type>
               <Description>get.weights</Description>
-              <ToolId value="150"/>
+              <ToolId value="150" />
               <Mode>Simple</Mode>
               <Variable>Weight Vec</Variable>
-              <Replace value="False"/>
+              <Replace value="False" />
               <Destination>133/SelectFields/SelectField[@field='x2']/@field</Destination>
             </Action>
             <Action>
               <Type>UpdateRawXml</Type>
               <Description>remove.y.from.x.B</Description>
-              <ToolId value="151"/>
+              <ToolId value="151" />
               <Expression>'  &lt;SelectFields&gt;
     &lt;SelectField field="' + EscapeXMLMetacharacters([Y Var]) + '" selected="False" /&gt;
     &lt;SelectField field="*Unknown" selected="True" /&gt;
   &lt;/SelectFields&gt;'</Expression>
               <Destination>134/SelectFields</Destination>
-              <OuterXml value="False"/>
+              <OuterXml value="False" />
             </Action>
             <Action>
               <Type>Error</Type>
               <Description>At least one predictor variable must be selected</Description>
-              <ToolId value="176"/>
+              <ToolId value="176" />
               <Expression>[X Vars] == ""</Expression>
             </Action>
           </True>
@@ -4924,25 +4960,25 @@ Union</Text>
           <Type>Tab</Type>
           <Description>Input</Description>
           <Name>Tab (164)</Name>
-          <ToolId value="164"/>
+          <ToolId value="164" />
           <Questions>
             <Question>
               <Type>MacroInput</Type>
               <Description>Input</Description>
               <Name>Input</Name>
-              <ToolId value="165"/>
+              <ToolId value="165" />
             </Question>
             <Question>
               <Type>MacroOutput</Type>
               <Description>Output</Description>
               <Name>Output</Name>
-              <ToolId value="166"/>
+              <ToolId value="166" />
             </Question>
             <Question>
               <Type>MacroOutput</Type>
               <Description>Reports</Description>
               <Name>Reports</Name>
-              <ToolId value="167"/>
+              <ToolId value="167" />
             </Question>
           </Questions>
         </Question>
@@ -4950,139 +4986,159 @@ Union</Text>
           <Type>Tab</Type>
           <Description>Configuration</Description>
           <Name>Tab (161)</Name>
-          <ToolId value="161"/>
+          <ToolId value="161" />
           <Questions>
             <Question>
               <Type>TextBox</Type>
               <Description>Model name</Description>
               <Name>Model Name</Name>
-              <ToolId value="154"/>
-              <Default/>
-              <Password value="False"/>
-              <Multiline value="False"/>
-              <Hidden value="False"/>
+              <ToolId value="154" />
+              <Default />
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
             </Question>
             <Question>
               <Type>Label</Type>
               <Description><![CDATA[ ]]></Description>
               <Name>Label (155)</Name>
-              <ToolId value="155"/>
+              <ToolId value="155" />
             </Question>
             <Question>
               <Type>ListBox</Type>
               <Description>Select the target variable</Description>
               <Name>Y Var</Name>
-              <ToolId value="156"/>
-              <Multiple value="False"/>
-              <Default/>
+              <ToolId value="156" />
+              <Multiple value="False" />
+              <Default />
               <Mode>MacroField</Mode>
-              <MacroField_InputTool value="1"/>
-              <Field_IncludeNone value="False"/>
+              <MacroField_InputTool value="1" />
+              <Field_IncludeNone value="False" />
               <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
             </Question>
             <Question>
               <Type>ListBox</Type>
               <Description>Select the predictor variables</Description>
               <Name>X Vars</Name>
-              <ToolId value="157"/>
-              <Multiple value="True"/>
-              <Multiple_Custom value="True"/>
-              <Multiple_Start/>
+              <ToolId value="157" />
+              <Multiple value="True" />
+              <Multiple_Custom value="True" />
+              <Multiple_Start />
               <Multiple_Separator>,</Multiple_Separator>
-              <Multiple_End/>
-              <Multiple_Default value="False"/>
+              <Multiple_End />
+              <Multiple_Default value="False" />
               <Mode>MacroField</Mode>
-              <MacroField_InputTool value="1"/>
-              <Field_IncludeNone value="False"/>
+              <MacroField_InputTool value="1" />
+              <Field_IncludeNone value="False" />
               <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString</MacroField_FilterTypes>
             </Question>
             <Question>
               <Type>BooleanGroup</Type>
               <Description>Omit a model constant.</Description>
               <Name>Omit Constant</Name>
-              <ToolId value="158"/>
-              <Questions/>
-              <Default value="False"/>
-              <Collapsable value="False"/>
+              <ToolId value="158" />
+              <Questions />
+              <Default value="False" />
+              <Collapsable value="False" />
             </Question>
             <Question>
               <Type>BooleanGroup</Type>
               <Description>Use a weight variable for weighted least squares. (Optional)</Description>
               <Name>Use Weights</Name>
-              <ToolId value="160"/>
+              <ToolId value="160" />
               <Questions>
                 <Question>
                   <Type>ListBox</Type>
-                  <Description/>
+                  <Description />
                   <Name>Weight Vec</Name>
-                  <ToolId value="159"/>
-                  <Multiple value="False"/>
-                  <Default/>
+                  <ToolId value="159" />
+                  <Multiple value="False" />
+                  <Default />
                   <Mode>MacroField</Mode>
-                  <MacroField_InputTool value="1"/>
-                  <Field_IncludeNone value="False"/>
+                  <MacroField_InputTool value="1" />
+                  <Field_IncludeNone value="False" />
                   <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
                 </Question>
               </Questions>
-              <Default value="False"/>
-              <Collapsable value="True"/>
+              <Default value="False" />
+              <Collapsable value="True" />
             </Question>
             <Question>
               <Type>BooleanGroup</Type>
               <Description>Use regularized regression?</Description>
               <Name>regularization</Name>
-              <ToolId value="178"/>
+              <ToolId value="178" />
               <Questions>
                 <Question>
                   <Type>NumericUpDown</Type>
                   <Description>Enter value of alpha (0 is ridge regression, and 1 is lasso)</Description>
                   <Name>alpha</Name>
-                  <ToolId value="182"/>
-                  <Minimum value="0"/>
-                  <Maximum value="1"/>
-                  <Increment value="0.001"/>
-                  <Default value="0.5"/>
-                  <Decimals value="10"/>
+                  <ToolId value="182" />
+                  <Minimum value="0" />
+                  <Maximum value="1" />
+                  <Increment value="0.001" />
+                  <Default value="0.5" />
+                  <Decimals value="10" />
                 </Question>
                 <Question>
                   <Type>BooleanGroup</Type>
                   <Description>Standardize predictor variables?</Description>
                   <Name>standardize_pred</Name>
-                  <ToolId value="183"/>
-                  <Questions/>
-                  <Default value="True"/>
-                  <Collapsable value="False"/>
+                  <ToolId value="183" />
+                  <Questions />
+                  <Default value="True" />
+                  <Collapsable value="False" />
                 </Question>
                 <Question>
                   <Type>BooleanGroup</Type>
                   <Description>Use Cross-Validation to choose model parameters?</Description>
-                  <Name>cv.glmnet</Name>
-                  <ToolId value="184"/>
-                  <Questions/>
-                  <Default value="False"/>
-                  <Collapsable value="False"/>
+                  <Name>cv_glmnet</Name>
+                  <ToolId value="184" />
+                  <Questions>
+                    <Question>
+                      <Type>NumericUpDown</Type>
+                      <Description>Number of folds to use in cross-validation</Description>
+                      <Name>nfolds</Name>
+                      <ToolId value="189" />
+                      <Minimum value="1" />
+                      <Maximum value="100" />
+                      <Increment value="1" />
+                      <Default value="5" />
+                      <Decimals value="0" />
+                    </Question>
+                  </Questions>
+                  <Default value="False" />
+                  <Collapsable value="False" />
                 </Question>
                 <Question>
-                  <Type>RadioGroup</Type>
-                  <Description>Simpler model</Description>
-                  <Name>lambda.1se</Name>
-                  <ToolId value="185"/>
-                  <Questions/>
-                  <Default value="True"/>
-                  <Collapsable value="False"/>
-                </Question>
-                <Question>
-                  <Type>RadioGroup</Type>
-                  <Description>Model with lower in sample standard error</Description>
-                  <Name>lambda.min</Name>
-                  <ToolId value="186"/>
-                  <Questions/>
-                  <Default value="False"/>
-                  <Collapsable value="False"/>
+                  <Type>LabelGroup</Type>
+                  <Description>Which type of model?</Description>
+                  <Name>lambda</Name>
+                  <ToolId value="188" />
+                  <Questions>
+                    <Question>
+                      <Type>RadioGroup</Type>
+                      <Description>Simpler model</Description>
+                      <Name>lambda_1se</Name>
+                      <ToolId value="185" />
+                      <Questions />
+                      <Default value="True" />
+                      <Collapsable value="False" />
+                    </Question>
+                    <Question>
+                      <Type>RadioGroup</Type>
+                      <Description>Model with lower in sample standard error</Description>
+                      <Name>lambda_min</Name>
+                      <ToolId value="186" />
+                      <Questions />
+                      <Default value="False" />
+                      <Collapsable value="False" />
+                    </Question>
+                  </Questions>
                 </Question>
               </Questions>
-              <Default value="False"/>
-              <Collapsable value="True"/>
+              <Default value="False" />
+              <Collapsable value="True" />
             </Question>
           </Questions>
         </Question>
@@ -5090,14 +5146,14 @@ Union</Text>
           <Type>Tab</Type>
           <Description>Graphics Options</Description>
           <Name>Tab (163)</Name>
-          <ToolId value="163"/>
+          <ToolId value="163" />
           <Questions>
             <Question>
               <Type>ListBox</Type>
               <Description>Graph Resolution</Description>
               <Name>graph.resolution</Name>
-              <ToolId value="162"/>
-              <Multiple value="False"/>
+              <ToolId value="162" />
+              <Multiple value="False" />
               <Default>1x</Default>
               <Mode>Manual</Mode>
               <Manual_Values><![CDATA[1x (96 dpi):1x
@@ -5109,28 +5165,28 @@ Union</Text>
         </Question>
       </Questions>
       <ModuleType>Macro</ModuleType>
-      <MacroCustomHelp value="True"/>
+      <MacroCustomHelp value="True" />
       <MacroCustomHelpLink>AlteryxHelp:lm</MacroCustomHelpLink>
-      <MacroDynamicOutputFields value="False"/>
+      <MacroDynamicOutputFields value="False" />
       <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAADbmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMwNjcgNzkuMTU3NzQ3LCAyMDE1LzAzLzMwLTIzOjQwOjQyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjkzQzNFMjlFMzU0NkUyMTE4RUUzQ0FDNkFGMUVEODMxIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjhCOTNCMUU5MjNGODExRTU4NzIyQ0VCNEE2RUZFN0EwIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjhCOTNCMUU4MjNGODExRTU4NzIyQ0VCNEE2RUZFN0EwIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE0IChXaW5kb3dzKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOmI5YTJiMzQ2LTI3MjgtNzA0MC1hYTM3LWM4ODlkY2U4MjU1OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5M0MzRTI5RTM1NDZF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</MacroImage>
-      <MacroInputs/>
-      <MacroOutputs/>
-      <Wiz_CustomHelp value="False"/>
-      <Wiz_CustomGraphic value="False"/>
-      <Wiz_ShowOutput value="True"/>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
       <Wiz_OpenOutputTools>
-        <Tool ToolId="4" Selected="True"/>
-        <Tool ToolId="107" Selected="True"/>
-        <Tool ToolId="108" Selected="True"/>
-        <Tool ToolId="117" Selected="False"/>
-        <Tool ToolId="116" Selected="False"/>
-        <Tool ToolId="165" Selected="True"/>
-        <Tool ToolId="166" Selected="True"/>
-        <Tool ToolId="167" Selected="True"/>
+        <Tool ToolId="4" Selected="True" />
+        <Tool ToolId="107" Selected="True" />
+        <Tool ToolId="108" Selected="True" />
+        <Tool ToolId="117" Selected="False" />
+        <Tool ToolId="116" Selected="False" />
+        <Tool ToolId="165" Selected="True" />
+        <Tool ToolId="166" Selected="True" />
+        <Tool ToolId="167" Selected="True" />
       </Wiz_OpenOutputTools>
-      <Wiz_OutputMessage/>
-      <Wiz_NoOutputFilesMessage/>
-      <Wiz_ChainRunWizard/>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
     </RuntimeProperties>
   </Properties>
 </AlteryxDocument>

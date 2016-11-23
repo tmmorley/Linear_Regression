@@ -21,8 +21,13 @@ config <- list(
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
   `regularization` = checkboxInput('%Question.regularization%', FALSE),
-  `alpha` = numericInput('%Question.alpha%', NULL)
-)
+  `alpha` = numericInput('%Question.alpha%', NULL),
+  `lambda_1se` = radioInput('%Question.lambda.1se%', TRUE),
+  `lambda_min` = radioInput('%Question.lambda.min%', FALSE),
+  standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
+  `cv_glmnet` = checkboxInput('%Question.cv.glmnet%', TRUE),
+  `nfolds` = numericInput('%Question.nfolds%', NULL)
+) 
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
 ##----
