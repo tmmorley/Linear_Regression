@@ -29,10 +29,15 @@
   <div id='weight-vec' class='indent-one'>{{ `Weight Vec` }}</div>
    {{ regularization }}
    <div id = 'show-on-regularization' class='indent-one'> 
-     {{ `lambda` }}
      {{ standardize_pred }}
-     {{ `cv_glmnet` }}
-     <div id = 'show-on-cv' class = 'indent-one'> {{ nfolds }}</div>
+     {{ internal_cv }}
+     <div id = 'show-on-cv' class = 'indent-one'> 
+       {{ nfolds }}
+       {{ lambda }}
+     </div>
+      <div id = 'show-on-no-cv' class = 'indent-one'> 
+       {{ lambda_no_cv }}
+     </div>
      {{ alpha }}
    </div>
  </div>
