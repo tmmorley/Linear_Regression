@@ -80,3 +80,8 @@ input[type="checkbox"]{
 .indent-one {
   margin-left: 30px;
 }
+
+
+.alteryx-numeric-slider .comboslider-controls b{
+  font-weight: normal !important;
+}
