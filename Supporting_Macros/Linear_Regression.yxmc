@@ -204,8 +204,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_9288_a2c8228b8bc1419792050190c279ba33_\Engine_7428_6e694f886d7c4d15b16424c484fce3d9_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9288_a2c8228b8bc1419792050190c279ba33_\Engine_7428_7f3adff2657c430eae8f6a0061a56fa2_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_50ff6b44a1094be78c29222da644953f_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_cfd1c23c31b74f58ad2007f026252426_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -345,8 +345,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_9288_a2c8228b8bc1419792050190c279ba33_\Engine_7428_e2b9c89a23fd4f759977f53a07755980_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9288_a2c8228b8bc1419792050190c279ba33_\Engine_7428_226befd02c494c35b3963ad830511410_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_7c210dc13e1a4967ae0dd837ad990a96_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_cc40032f7f614ddd96bc61aa19ea5672_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -653,7 +653,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00002" y="54" width="876" height="96"/>
+        <Position x="54" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4064,9 +4064,22 @@ write.Alteryx(data.frame(Class = the.class))
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter"/>
     </Node>
+    <Node ToolID="195">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
+        <Position x="0" y="0" width="59" height="59"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration/>
+        <Annotation DisplayMode="0">
+          <Name>lambda</Name>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+    </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="114" y="162" width="1331" height="498.0002"/>
+        <Position x="53.99998" y="239" width="1223" height="366"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4084,7 +4097,7 @@ write.Alteryx(data.frame(Class = the.class))
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="533.9988" y="523.0004" width="59" height="59"/>
+            <Position x="473.9988" y="477.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4097,7 +4110,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="257.9993" y="523.0005" width="59" height="59"/>
+            <Position x="197.9992" y="477.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4110,7 +4123,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="617.9991" y="523.0004" width="59" height="59"/>
+            <Position x="557.999" y="477.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4123,7 +4136,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="353.9999" y="523.0004" width="59" height="59"/>
+            <Position x="293.9999" y="477.0006" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4136,7 +4149,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="437.9993" y="523.0001" width="59" height="59"/>
+            <Position x="377.9991" y="477.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4149,7 +4162,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="701.999" y="523.0003" width="59" height="59"/>
+            <Position x="641.999" y="477.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4162,7 +4175,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="869.999" y="523.0003" width="59" height="59"/>
+            <Position x="809.999" y="477.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4175,7 +4188,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="174" y="523.0001" width="59" height="59"/>
+            <Position x="114" y="477" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4188,7 +4201,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="174.0001" y="420.0008" width="59" height="59"/>
+            <Position x="114.0001" y="374.0006" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4201,7 +4214,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="262.4994" y="415.0002" width="59" height="59"/>
+            <Position x="202.4994" y="369.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4214,7 +4227,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="704.999" y="415.0002" width="59" height="59"/>
+            <Position x="644.999" y="369.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4227,7 +4240,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="351.0006" y="414.9995" width="59" height="59"/>
+            <Position x="291.0006" y="368.9995" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4240,7 +4253,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="439.5005" y="414.9994" width="59" height="59"/>
+            <Position x="379.5004" y="368.9994" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4253,7 +4266,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="527.999" y="415.0002" width="59" height="59"/>
+            <Position x="467.999" y="369.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4266,7 +4279,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="616.499" y="415.0002" width="59" height="59"/>
+            <Position x="556.499" y="369.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4279,7 +4292,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="785.999" y="523.0003" width="59" height="59"/>
+            <Position x="725.999" y="477.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4292,7 +4305,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="178">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="942.0001" y="421.0001" width="59" height="59"/>
+            <Position x="882.0001" y="375.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4305,7 +4318,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="182">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="1050" y="433.0001" width="59" height="59"/>
+            <Position x="990" y="402" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4318,7 +4331,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="183">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="1050" y="529.0002" width="59" height="59"/>
+            <Position x="990" y="483.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4331,7 +4344,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="185">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
-            <Position x="1218" y="433.0001" width="59" height="59"/>
+            <Position x="1074" y="402" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4344,7 +4357,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="186">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
-            <Position x="1218" y="541.0002" width="59" height="59"/>
+            <Position x="1074" y="486" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4357,7 +4370,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="189">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="1302" y="529.0002" width="59" height="59"/>
+            <Position x="1158" y="486" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4368,22 +4381,9 @@ write.Alteryx(data.frame(Class = the.class))
             </Annotation>
           </Properties>
         </Node>
-        <Node ToolID="188">
-          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.LabelGroup.LabelGroup">
-            <Position x="870" y="378" width="59" height="59"/>
-          </GuiSettings>
-          <Properties>
-            <Configuration/>
-            <Annotation DisplayMode="0">
-              <Name>lambda</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
-            </Annotation>
-          </Properties>
-        </Node>
         <Node ToolID="192">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="1326" y="450" width="59" height="59"/>
+            <Position x="1158" y="402" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4394,56 +4394,51 @@ write.Alteryx(data.frame(Class = the.class))
             </Annotation>
           </Properties>
         </Node>
-        <Node ToolID="138">
-          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-            <Position x="1206" y="241" width="138.6955" height="19"/>
+        <Node ToolID="194">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="990" y="318" width="59" height="59"/>
           </GuiSettings>
           <Properties>
-            <Configuration>
-              <Caption>Module Description</Caption>
-              <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10"/>
-              <Disabled value="False"/>
-              <Folded value="True"/>
-            </Configuration>
+            <Configuration/>
             <Annotation DisplayMode="0">
-              <Name/>
+              <Name>internal_cv</Name>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
           </Properties>
-          <ChildNodes>
-            <Node ToolID="137">
-              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-                <Position x="1216" y="270" width="132" height="204"/>
-              </GuiSettings>
-              <Properties>
-                <Configuration>
-                  <Text><![CDATA[Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.) ]]></Text>
-                  <Font name="Microsoft Sans Serif" size="9.75" style="0"/>
-                  <TextColor name="Black"/>
-                  <FillColor name="White"/>
-                  <Shape shape="0"/>
-                  <Justification Justification="0"/>
-                </Configuration>
-                <Annotation DisplayMode="0">
-                  <Name/>
-                  <DefaultAnnotationText/>
-                  <Left value="False"/>
-                </Annotation>
-              </Properties>
-            </Node>
-          </ChildNodes>
         </Node>
-        <Node ToolID="140">
-          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-            <Position x="1242" y="301" width="98.89567" height="19"/>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="138">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="774" y="66" width="138.6955" height="19"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Module Description</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10"/>
+          <Disabled value="False"/>
+          <Folded value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="137">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="784" y="94.99997" width="132" height="204"/>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <Caption>Tools Used</Caption>
-              <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10"/>
-              <Disabled value="False"/>
-              <Folded value="True"/>
+              <Text><![CDATA[Relate a variable of interest (target variable) to one or more variables (predictor variables) that are expected to have an influence on the target variable. (Also known as a linear model or a least-squares regression.) ]]></Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0"/>
+              <TextColor name="Black"/>
+              <FillColor name="White"/>
+              <Shape shape="0"/>
+              <Justification Justification="0"/>
             </Configuration>
             <Annotation DisplayMode="0">
               <Name/>
@@ -4451,14 +4446,34 @@ write.Alteryx(data.frame(Class = the.class))
               <Left value="False"/>
             </Annotation>
           </Properties>
-          <ChildNodes>
-            <Node ToolID="139">
-              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-                <Position x="1252" y="330" width="223" height="218"/>
-              </GuiSettings>
-              <Properties>
-                <Configuration>
-                  <Text>TOOLS USED:
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="140">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="810" y="102" width="98.89567" height="19"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Tools Used</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10"/>
+          <Disabled value="False"/>
+          <Folded value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="139">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="820" y="131" width="223" height="218"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>TOOLS USED:
 Select
 Browse
 Output
@@ -4471,29 +4486,14 @@ Linear Model Summary Macro
 Text Input
 Tool Container
 Union</Text>
-                  <Font name="Microsoft Sans Serif" size="9.75" style="0"/>
-                  <TextColor name="Black"/>
-                  <FillColor r="255" g="243" b="196"/>
-                  <Shape shape="0"/>
-                  <Justification Justification="2"/>
-                </Configuration>
-                <Annotation DisplayMode="0">
-                  <Name/>
-                  <DefaultAnnotationText/>
-                  <Left value="False"/>
-                </Annotation>
-              </Properties>
-            </Node>
-          </ChildNodes>
-        </Node>
-        <Node ToolID="194">
-          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="1134" y="438" width="59" height="59"/>
-          </GuiSettings>
-          <Properties>
-            <Configuration/>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0"/>
+              <TextColor name="Black"/>
+              <FillColor r="255" g="243" b="196"/>
+              <Shape shape="0"/>
+              <Justification Justification="2"/>
+            </Configuration>
             <Annotation DisplayMode="0">
-              <Name>internal_cv</Name>
+              <Name/>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -5092,7 +5092,7 @@ Union</Text>
               <Questions>
                 <Question>
                   <Type>NumericUpDown</Type>
-                  <Description>Enter value of alpha (0 is ridge regression, and 1 is lasso)</Description>
+                  <Description>Enter value of alpha</Description>
                   <Name>alpha</Name>
                   <ToolId value="182"/>
                   <Minimum value="0"/>
@@ -5132,9 +5132,9 @@ Union</Text>
                 </Question>
                 <Question>
                   <Type>LabelGroup</Type>
-                  <Description>Which type of model?</Description>
+                  <Description>What type of model?</Description>
                   <Name>lambda</Name>
-                  <ToolId value="188"/>
+                  <ToolId value="195"/>
                   <Questions>
                     <Question>
                       <Type>RadioGroup</Type>
