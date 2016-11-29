@@ -1,6 +1,5 @@
 <div class='page has-hint' id='page-basic'>
-  <fieldset>
-  <legend>Setup</legend>
+  <fieldset style='border-top:0;'>
   <!-- <div id='intro-div'>
     <button class='default-button primary' id='intro'>Guide Me</button>
   </div> -->
@@ -30,15 +29,16 @@
    {{ regularization }}
    <div id = 'show-on-regularization' class='indent-one'> 
      {{ standardize_pred }}
+     {{ alpha }}
+     <p>0 is ridge regression, and 1 is lasso</p>
      {{ internal_cv }}
      <div id = 'show-on-cv' class = 'indent-one'> 
        {{ nfolds }}
        {{ lambda }}
      </div>
-      <div id = 'show-on-no-cv' class = 'indent-one'> 
+      <div id = 'show-on-no-cv'> 
        {{ lambda_no_cv }}
      </div>
-     {{ alpha }}
    </div>
  </div>
   <div class='tabpage has-hint' id='tabpage-graphics'>
