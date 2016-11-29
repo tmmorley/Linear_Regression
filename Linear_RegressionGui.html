@@ -16,8 +16,7 @@ Linear_Regression
 <body>
     
 <div class='page has-hint' id='page-basic'>
-  <fieldset>
-  <legend>Setup</legend>
+  <fieldset style='border-top:0;'>
   <!-- <div id='intro-div'>
     <button class='default-button primary' id='intro'>Guide Me</button>
   </div> -->
@@ -75,6 +74,11 @@ Linear_Regression
 <alteryx-pluginwidget type="CheckBox" text="Standardize predictor variables?" default="true" id="standardize_pred" dataName="standardize_pred"></alteryx-pluginwidget>
 
      
+<!--  alpha  -->
+<alteryx-pluginwidget label="Enter value of alpha" type="NumericSlider" min="0" max="1" step="0.001" id="alpha" dataName="alpha" initialValue="0.5"></alteryx-pluginwidget>
+
+     <p>0 is ridge regression, and 1 is lasso</p>
+     
 <!--  internal_cv  -->
 <alteryx-pluginwidget type="CheckBox" text="Use Cross-Validation to determine model parameters?" default="true" id="internal_cv" dataName="internal_cv"></alteryx-pluginwidget>
 
@@ -86,24 +90,20 @@ Linear_Regression
 
        
 <!--  lambda  -->
-<label for="lambda">Which type of model?</label>
+<label for="lambda">What type of model?</label>
 <alteryx-pluginwidget type="RadioGroup" group="lambda" id="lambda" dataName="lambda">
   <alteryx-option uiobject="Simpler model" default="true">lambda_1se</alteryx-option>
   <alteryx-option uiobject="Model with lower in sample standard error">lambda_min</alteryx-option>
 </alteryx-pluginwidget>
 
      </div>
-      <div id = 'show-on-no-cv' class = 'indent-one'> 
+      <div id = 'show-on-no-cv'> 
        
 <!--  lambda_no_cv  -->
 <label for="lambda_no_cv">Value of lambda used for predictions</label>
 <alteryx-pluginwidget type="NumericSpinner" default="0.5" min="0" max="10" step="1" id="lambda_no_cv" dataName="lambda_no_cv"></alteryx-pluginwidget>
 
      </div>
-     
-<!--  alpha  -->
-<alteryx-pluginwidget label="Enter value of alpha (0 is ridge regression, and 1 is lasso)" type="NumericSlider" min="0" max="1" step="0.001" id="alpha" dataName="alpha" initialValue="0.5"></alteryx-pluginwidget>
-
    </div>
  </div>
   <div class='tabpage has-hint' id='tabpage-graphics'>
