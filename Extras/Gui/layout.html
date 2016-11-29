@@ -28,7 +28,18 @@
     {{ `Use Weights` }}
   <div id='weight-vec' class='indent-one'>{{ `Weight Vec` }}</div>
    {{ regularization }}
-   <div id='div-alpha' class='indent-one'>{{ alpha }}</div>
+   <div id = 'show-on-regularization' class='indent-one'> 
+     {{ standardize_pred }}
+     {{ internal_cv }}
+     <div id = 'show-on-cv' class = 'indent-one'> 
+       {{ nfolds }}
+       {{ lambda }}
+     </div>
+      <div id = 'show-on-no-cv' class = 'indent-one'> 
+       {{ lambda_no_cv }}
+     </div>
+     {{ alpha }}
+   </div>
  </div>
   <div class='tabpage has-hint' id='tabpage-graphics'>
     {{ `graph.resolution` }}

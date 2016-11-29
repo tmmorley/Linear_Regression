@@ -20,9 +20,16 @@ config <- list(
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
-  `regularization` = checkboxInput('%Question.regularization%', FALSE),
-  `alpha` = numericInput('%Question.alpha%', NULL)
-)
+  regularization = checkboxInput('%Question.regularization%', FALSE),
+  alpha = numericInput('%Question.alpha%', NULL),
+  lambda_1se = radioInput('%Question.lambda.1se%', TRUE),
+  lambda_min = radioInput('%Question.lambda.min%', FALSE),
+  standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
+  cv_glmnet = radioInput('%Question.cv_glmnet%', TRUE),
+  no_cv_glmnet = radioInput('%Question.no_cv_glmnet%', TRUE),
+  nfolds = numericInput('%Question.nfolds%', NULL),
+  lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL)
+) 
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
 ##----
@@ -36,5 +43,4 @@ inputs <- list(
 )
 
 AlteryxPredictive:::runLinearRegression(inputs, config)
-
 
