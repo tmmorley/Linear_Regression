@@ -37,7 +37,8 @@ config &lt;- list(
   cv_glmnet = radioInput('%Question.cv_glmnet%', TRUE),
   no_cv_glmnet = radioInput('%Question.no_cv_glmnet%', TRUE),
   nfolds = numericInput('%Question.nfolds%', NULL),
-  lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL)
+  lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL),
+  display_graphs = checkboxInput('%Question.display_graphs%', TRUE)
 ) 
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
@@ -204,8 +205,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_50ff6b44a1094be78c29222da644953f_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_cfd1c23c31b74f58ad2007f026252426_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_c7c0ae6f1c654aca8dde435f03fe6f49_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_83dc1d22738d41bca1a1bf0da0aa2bdd_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -345,8 +346,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_7c210dc13e1a4967ae0dd837ad990a96_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5904_0419247ef4a04221b8d6ada4693fdbdc_\Engine_5716_cc40032f7f614ddd96bc61aa19ea5672_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_9c4f1e7e5a8e4366b56230f9d9129833_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_ececbe3f06ab459cb8fa96fc2dd25807_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -653,7 +654,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54" y="54" width="876" height="96"/>
+        <Position x="54.00004" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4214,7 +4215,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4994" y="369.0002" width="59" height="59"/>
+            <Position x="202.4993" y="369.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4402,6 +4403,19 @@ write.Alteryx(data.frame(Class = the.class))
             <Configuration/>
             <Annotation DisplayMode="0">
               <Name>internal_cv</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="196">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="726" y="366" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>display_graphs</Name>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -4855,6 +4869,12 @@ Union</Text>
         <Value/>
         <IsNumeric value="False"/>
       </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>display_graphs</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
     </Constants>
     <MetaInfo>
       <NameIsFileName value="False"/>
@@ -5191,6 +5211,15 @@ Union</Text>
 2x (192 dpi):2x
 3x (288 dpi):3x
 ]]></Manual_Values>
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Display graphs?</Description>
+              <Name>display_graphs</Name>
+              <ToolId value="196"/>
+              <Questions/>
+              <Default value="True"/>
+              <Collapsable value="False"/>
             </Question>
           </Questions>
         </Question>
