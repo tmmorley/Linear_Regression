@@ -53,12 +53,12 @@ Linear_Regression
     <div id='div-omit-constant'>
       
 <!--  Omit Constant  -->
-<alteryx-pluginwidget type="CheckBox" text="Omit a model constant." id="Omit Constant" dataName="Omit Constant" defaultValue="false"></alteryx-pluginwidget>
+<alteryx-pluginwidget type="CheckBox" text="Omit a model constant." default="false" id="Omit Constant" dataName="Omit Constant"></alteryx-pluginwidget>
 
     </div>
     
 <!--  Use Weights  -->
-<alteryx-pluginwidget type="CheckBox" text="Use a weight variable for weighted least squares. (Optional)" id="Use Weights" dataName="Use Weights" defaultValue="false"></alteryx-pluginwidget>
+<alteryx-pluginwidget type="CheckBox" text="Use a weight variable for weighted least squares. (Optional)" default="false" id="Use Weights" dataName="Use Weights"></alteryx-pluginwidget>
 
   <div id='weight-vec' class='indent-one'>
 <!--  Weight Vec  -->
@@ -66,12 +66,12 @@ Linear_Regression
 </div>
    
 <!--  regularization  -->
-<alteryx-pluginwidget type="CheckBox" text="Use regularized regression?" id="regularization" dataName="regularization" defaultValue="false"></alteryx-pluginwidget>
+<alteryx-pluginwidget type="CheckBox" text="Use regularized regression?" default="false" id="regularization" dataName="regularization"></alteryx-pluginwidget>
 
    <div id = 'show-on-regularization' class='indent-one'> 
      
 <!--  standardize_pred  -->
-<alteryx-pluginwidget type="CheckBox" text="Standardize predictor variables?" id="standardize_pred" dataName="standardize_pred" defaultValue="true"></alteryx-pluginwidget>
+<alteryx-pluginwidget type="CheckBox" text="Standardize predictor variables?" default="true" id="standardize_pred" dataName="standardize_pred"></alteryx-pluginwidget>
 
      
 <!--  alpha  -->
@@ -80,7 +80,7 @@ Linear_Regression
      <p>0 is ridge regression, and 1 is lasso</p>
      
 <!--  internal_cv  -->
-<alteryx-pluginwidget type="CheckBox" text="Use Cross-Validation to determine model parameters?" id="internal_cv" dataName="internal_cv" defaultValue="true"></alteryx-pluginwidget>
+<alteryx-pluginwidget type="CheckBox" text="Use Cross-Validation to determine model parameters?" default="true" id="internal_cv" dataName="internal_cv"></alteryx-pluginwidget>
 
      <div id = 'show-on-cv' class = 'indent-one'> 
        
@@ -115,6 +115,10 @@ Linear_Regression
   <alteryx-option uiobject="2x (192 dpi)">2x</alteryx-option>
   <alteryx-option uiobject="3x (288 dpi)">3x</alteryx-option>
 </alteryx-pluginwidget>
+
+    
+<!--  display_graphs  -->
+<alteryx-pluginwidget type="CheckBox" text="Display graphs?" default="true" id="display_graphs" dataName="display_graphs"></alteryx-pluginwidget>
 
   </div>
   <button class='default-button primary' id='switch-to-home'>Back</button>

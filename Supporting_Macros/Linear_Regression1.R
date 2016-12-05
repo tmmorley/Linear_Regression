@@ -25,10 +25,10 @@ config <- list(
   lambda_1se = radioInput('%Question.lambda.1se%', TRUE),
   lambda_min = radioInput('%Question.lambda.min%', FALSE),
   standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
-  cv_glmnet = radioInput('%Question.cv_glmnet%', TRUE),
-  no_cv_glmnet = radioInput('%Question.no_cv_glmnet%', TRUE),
+  internal_cv = checkboxInput('%Question.internal_cv%', TRUE),
   nfolds = numericInput('%Question.nfolds%', NULL),
-  lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL)
+  lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL),
+  display_graphs = checkboxInput('%Question.display_graphs%', TRUE)
 ) 
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
