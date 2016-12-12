@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.5">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="4">
       <GuiSettings Plugin="AlteryxConnectorGui.R.R">
-        <Position x="894" y="1149"/>
+        <Position x="894" y="1146"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -23,20 +23,19 @@
 suppressWarnings(library(AlteryxPredictive))
 config &lt;- list(
   `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
-  `Model Name` = textInput('%Question.Model Name%'),
+  `Model Name` = textInput('%Question.Model Name%', "mtcars"),
   `Omit Constant` = checkboxInput('%Question.Omit Constant%' , FALSE),
   `Use Weights` = checkboxInput('%Question.Use Weights%' , FALSE),
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
-  regularization = checkboxInput('%Question.regularization%', FALSE),
-  alpha = numericInput('%Question.alpha%', NULL),
+  regularization = checkboxInput('%Question.regularization%', TRUE),
+  alpha = numericInput('%Question.alpha%', .5),
   lambda_1se = radioInput('%Question.lambda.1se%', TRUE),
   lambda_min = radioInput('%Question.lambda.min%', FALSE),
   standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
-  cv_glmnet = radioInput('%Question.cv_glmnet%', TRUE),
-  no_cv_glmnet = radioInput('%Question.no_cv_glmnet%', TRUE),
-  nfolds = numericInput('%Question.nfolds%', NULL),
+  internal_cv = checkboxInput('%Question.internal_cv%', TRUE),
+  nfolds = numericInput('%Question.nfolds%', 5),
   lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL),
   display_graphs = checkboxInput('%Question.display_graphs%', TRUE)
 ) 
@@ -66,8 +65,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
         </Annotation>
         <MetaInfo connection="Output1">
           <RecordInfo>
-            <Field name="grp" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="out" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Names_of_nonzero_coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Coefficient_values" source="R-DATA:" type="Double"/>
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Output2">
@@ -81,12 +80,22 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
             <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
           </RecordInfo>
         </MetaInfo>
+        <MetaInfo connection="Output5">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output4">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxConnectorEngine.dll" EngineDllEntryPoint="AlteryxR"/>
     </Node>
     <Node ToolID="107">
       <GuiSettings>
-        <Position x="1038" y="739"/>
+        <Position x="1086" y="738"/>
       </GuiSettings>
       <Properties>
         <Configuration/>
@@ -114,7 +123,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="108">
       <GuiSettings>
-        <Position x="1038" y="932"/>
+        <Position x="1086" y="846"/>
       </GuiSettings>
       <Properties>
         <Configuration/>
@@ -139,7 +148,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="102">
       <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
-        <Position x="1026" y="1137"/>
+        <Position x="1086" y="1134"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -175,7 +184,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="111">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="1134" y="1137"/>
+        <Position x="1158" y="1137"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -201,20 +210,18 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="117">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="1038" y="1402"/>
+        <Position x="918" y="1450"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_c7c0ae6f1c654aca8dde435f03fe6f49_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_83dc1d22738d41bca1a1bf0da0aa2bdd_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_af41460b4d6f46c1a7e7a21cdcbcb968_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
-            <ViewMode>Single</ViewMode>
-            <ViewSize value="100"/>
             <View1>
-              <DefaultTab>Table</DefaultTab>
-              <Hints/>
+              <Hints>
+                <Table/>
+              </Hints>
             </View1>
-            <View2/>
           </Layout>
         </Configuration>
         <Annotation DisplayMode="0">
@@ -227,7 +234,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="112">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="1230" y="1137"/>
+        <Position x="1254" y="1137"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -258,7 +265,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="113">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
-        <Position x="1134" y="1426"/>
+        <Position x="1134" y="1258"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -282,7 +289,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="114">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="1230" y="1426"/>
+        <Position x="1230" y="1258"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -309,7 +316,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="115">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
-        <Position x="1338" y="1137"/>
+        <Position x="1338" y="1134"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -346,14 +353,16 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_9c4f1e7e5a8e4366b56230f9d9129833_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8040_b0e7124633724f2b9b994ba575672d05_\Engine_1404_ececbe3f06ab459cb8fa96fc2dd25807_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_ae9f4dcd23fc49148ebf677d3eda9e09_.yxdb</TempFileDataProfiling>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1928_dca23a337a924221baae8a064c292e74_\Engine_8412_67f36ec0c15f403b87d5f044116c46bf_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
             <View1>
               <DefaultTab>Report</DefaultTab>
-              <Hints/>
+              <Hints>
+                <Table/>
+              </Hints>
             </View1>
             <View2/>
           </Layout>
@@ -423,7 +432,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="127">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="330" y="619"/>
+        <Position x="330" y="678"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -654,7 +663,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00004" y="54" width="876" height="96"/>
+        <Position x="54" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3795,7 +3804,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="166">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="1038" y="1474"/>
+        <Position x="1026" y="1518"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3812,7 +3821,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="167">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="2292" y="1183"/>
+        <Position x="2430" y="1278"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3877,7 +3886,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="170">
       <GuiSettings Plugin="AlteryxRPluginGui.R">
-        <Position x="1404" y="1195"/>
+        <Position x="1290" y="1206"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3894,11 +3903,6 @@ write.Alteryx(data.frame(Class = the.class))
           <DefaultAnnotationText/>
           <Left value="False"/>
         </Annotation>
-        <MetaInfo connection="Output1">
-          <RecordInfo>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
-          </RecordInfo>
-        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR"/>
     </Node>
@@ -3943,6 +3947,7 @@ write.Alteryx(data.frame(Class = the.class))
       <Properties>
         <Configuration>
           <Expression>[Class] == "rxLinMod"</Expression>
+          <Mode>Custom</Mode>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name/>
@@ -4078,9 +4083,967 @@ write.Alteryx(data.frame(Class = the.class))
         </Annotation>
       </Properties>
     </Node>
+    <Node ToolID="197">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1074" y="1086"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_d93d99d4b2454a71ad01da295f2f18bb_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="198">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1146" y="1038"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_bc0d07c4a831479b83134e22fdb94b88_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100"/>
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+            <View2/>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="199">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1002" y="1314"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_599f4468b9a746888d5eb89fc62b83b0_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100"/>
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+            <View2/>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="200">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="906" y="1374"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_b43050d528934e9f9aaf7b07b8358cc1_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100"/>
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+            <View2/>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="201">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="978" y="774"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Names_of_nonzero_coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Coefficient_values" source="R-DATA:" type="Double"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Names_of_nonzero_coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Coefficient_values" source="R-DATA:" type="Double"/>
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+    </Node>
+    <Node ToolID="205">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="1002" y="1158"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+    </Node>
+    <Node ToolID="207">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="1134" y="1506"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+    </Node>
+    <Node ToolID="231">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+        <Position x="2334" y="1326"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration/>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String"/>
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd"/>
+    </Node>
+    <Node ToolID="240">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="882" y="1758"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+    </Node>
+    <Node ToolID="244">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="1278" y="1518"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="True"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+    </Node>
+    <Node ToolID="238">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1050" y="1607" width="1475" height="739"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 238</Caption>
+          <Style TextColor="#314c4a" FillColor="#ff8080" BorderColor="#314c4a" Transparency="25" Margin="60"/>
+          <Disabled value="False"/>
+          <Folded value="False"/>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="213">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="1374" y="1813"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Expression><![CDATA[[Record ID] = 1
+
+// [Graph] = ""
+]]></Expression>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Field>Record ID</Field>
+                <Operator>=</Operator>
+                <Operands>
+                  <Operand>1</Operand>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>[Record ID] = 1</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="Record ID" source="RecordID: Starting Value=1" type="Int32"/>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+              <SortInfo>
+                <Field field="Record ID" order="Asc"/>
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="Record ID" source="RecordID: Starting Value=1" type="Int32"/>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+              <SortInfo>
+                <Field field="Record ID" order="Asc"/>
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter"/>
+        </Node>
+        <Node ToolID="214">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+            <Position x="1278" y="1777"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Position>First Column</Position>
+              <FieldSize>6</FieldSize>
+              <FieldType>Int32</FieldType>
+              <StartValue>1</StartValue>
+              <FieldName>Record ID</FieldName>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Record ID" source="RecordID: Starting Value=1" type="Int32"/>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+              <SortInfo>
+                <Field field="Record ID" order="Asc"/>
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID"/>
+        </Node>
+        <Node ToolID="215">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="1566" y="1753"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images/>
+              <HeaderMode value="True"/>
+              <HeaderField>Graph</HeaderField>
+              <Position>Above</Position>
+              <RawMode value="False"/>
+              <ValidatePCXML value="True"/>
+              <Message/>
+              <RichTextMode value="True"/>
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Verdana;}}
+\viewkind4\uc1\pard\i\f0\fs24 Absolute value of individual coefficients vs L1 norm of all coefficients\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle"/>
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>Absolute value of individual c...</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin"/>
+        </Node>
+        <Node ToolID="216">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="1602" y="1849"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images/>
+              <HeaderMode value="True"/>
+              <HeaderField>Graph</HeaderField>
+              <Position>Above</Position>
+              <RawMode value="False"/>
+              <ValidatePCXML value="True"/>
+              <Message/>
+              <RichTextMode value="True"/>
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Verdana;}}
+\viewkind4\uc1\pard\i\f0\fs24 Absolute value of individual coefficients vs log of lambda\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle"/>
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>Absolute value of individual c...</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin"/>
+        </Node>
+        <Node ToolID="218">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="1542" y="2046"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images/>
+              <HeaderMode value="True"/>
+              <HeaderField>Graph</HeaderField>
+              <Position>Above</Position>
+              <RawMode value="False"/>
+              <ValidatePCXML value="True"/>
+              <Message/>
+              <RichTextMode value="True"/>
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Verdana;}}
+\viewkind4\uc1\pard\i\f0\fs24 Mean-Squared Error vs log of lambda\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle"/>
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>Mean-Squared Error vs log of l...</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin"/>
+        </Node>
+        <Node ToolID="219">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="1782" y="1765"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ByName</Mode>
+              <SetOutputOrder value="True"/>
+              <OutputOrder>
+                <Connection>#3</Connection>
+                <Connection>#1</Connection>
+                <Connection>#2</Connection>
+              </OutputOrder>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion"/>
+        </Node>
+        <Node ToolID="220">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="1926" y="1765"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_3e0bfa16453b4c29979d8d90a8964bca_.yxdb</TempFile>
+              <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8900_3a1d425cd94440f68aebe93f9bf4c87f_\Engine_7288_ece1b767df7344ab85fa34e6f1aaafe7_.yxdb</TempFileDataProfiling>
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100"/>
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints>
+                    <Table/>
+                  </Hints>
+                </View1>
+                <View2/>
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+        </Node>
+        <Node ToolID="225">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1470" y="1753"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False"/>
+              <SelectFields>
+                <SelectField field="Record ID" selected="False"/>
+                <SelectField field="*Unknown" selected="True"/>
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+        </Node>
+        <Node ToolID="226">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1470" y="1861"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False"/>
+              <SelectFields>
+                <SelectField field="Record ID" selected="False"/>
+                <SelectField field="*Unknown" selected="True"/>
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect"/>
+        </Node>
+        <Node ToolID="232">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+            <Position x="1182" y="1770"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <DetourRight value="True"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+        </Node>
+        <Node ToolID="236">
+          <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+            <Position x="1734" y="1897" width="479" height="389"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Caption>Container 236</Caption>
+              <Style TextColor="#314c4a" FillColor="#8080ff" BorderColor="#314c4a" Transparency="25" Margin="60"/>
+              <Disabled value="False"/>
+              <Folded value="False"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+          <ChildNodes>
+            <Node ToolID="227">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+                <Position x="1794" y="1976"/>
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <DetourRight value="True"/>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name/>
+                  <DefaultAnnotationText/>
+                  <Left value="False"/>
+                </Annotation>
+                <MetaInfo connection="Left">
+                  <RecordInfo>
+                    <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+                  </RecordInfo>
+                </MetaInfo>
+                <MetaInfo connection="Right">
+                  <RecordInfo>
+                    <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+            </Node>
+            <Node ToolID="229">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+                <Position x="1998" y="2072"/>
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <ByName_ErrorMode>Warning</ByName_ErrorMode>
+                  <ByName_OutputMode>All</ByName_OutputMode>
+                  <Mode>ByName</Mode>
+                  <SetOutputOrder value="False"/>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name/>
+                  <DefaultAnnotationText/>
+                  <Left value="False"/>
+                </Annotation>
+                <MetaInfo connection="Output">
+                  <RecordInfo>
+                    <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion"/>
+            </Node>
+            <Node ToolID="234">
+              <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+                <Position x="2094" y="2000"/>
+              </GuiSettings>
+              <Properties>
+                <Configuration/>
+                <Annotation DisplayMode="0">
+                  <Name/>
+                  <DefaultAnnotationText/>
+                  <Left value="False"/>
+                </Annotation>
+                <MetaInfo connection="Output">
+                  <RecordInfo>
+                    <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+                  </RecordInfo>
+                </MetaInfo>
+              </Properties>
+              <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd"/>
+            </Node>
+            <Node ToolID="237">
+              <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+                <Position x="1830" y="2161" width="288" height="65"/>
+              </GuiSettings>
+              <Properties>
+                <Configuration>
+                  <Text>We're in the regularization and display_graphs case here. If internal_cv is selected, we detour to the right to union the CV graph with the other graphs. If not, we detour to the left and skip this union.</Text>
+                  <Font name="Segoe UI" size="8.25" style="0"/>
+                  <TextColor name="Black"/>
+                  <FillColor name="White"/>
+                  <Shape shape="0"/>
+                  <Justification Justification="4"/>
+                </Configuration>
+                <Annotation DisplayMode="0">
+                  <Name/>
+                  <DefaultAnnotationText/>
+                  <Left value="False"/>
+                </Annotation>
+              </Properties>
+            </Node>
+          </ChildNodes>
+        </Node>
+        <Node ToolID="239">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="1110" y="1842" width="232" height="96"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>We're in the regularization case here. If display_graphs is selected, we detour to the right to complete the necessary steps for preparing the plots for the report. If not, we detour to the left and skip through these steps.</Text>
+              <Font name="Segoe UI" size="8.25" style="0"/>
+              <TextColor name="Black"/>
+              <FillColor name="White"/>
+              <Shape shape="0"/>
+              <Justification Justification="4"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="217">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="1686" y="1698"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images/>
+              <HeaderMode value="True"/>
+              <HeaderField>Graph</HeaderField>
+              <Position>Above</Position>
+              <RawMode value="False"/>
+              <ValidatePCXML value="True"/>
+              <Message/>
+              <RichTextMode value="True"/>
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Verdana;}}
+\viewkind4\uc1\pard\i\f0\fs24 Absolute value of individual coefficients vs fraction of deviance explained\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle"/>
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>Absolute value of individual c...</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin"/>
+        </Node>
+        <Node ToolID="242">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+            <Position x="1170" y="2010"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <DetourRight value="True"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+        </Node>
+        <Node ToolID="246">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+            <Position x="1542" y="1686"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <DetourRight value="True"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+        </Node>
+        <Node ToolID="248">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+            <Position x="2310" y="1962"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <AutoResetMode>Custom</AutoResetMode>
+              <MultiMetaInfo>
+                <MetaInfo name="#1">
+                  <RecordInfo>
+                    <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" column="1"/>
+                  </RecordInfo>
+                </MetaInfo>
+                <MetaInfo name="#2">
+                  <RecordInfo>
+                    <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" column="1"/>
+                  </RecordInfo>
+                </MetaInfo>
+              </MultiMetaInfo>
+              <ByName_ErrorMode>Warning</ByName_ErrorMode>
+              <ByName_OutputMode>All</ByName_OutputMode>
+              <Mode>ManualDelayed</Mode>
+              <SetOutputOrder value="False"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion"/>
+        </Node>
+        <Node ToolID="250">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+            <Position x="2214" y="1806"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <DetourRight value="False"/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String"/>
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
+        </Node>
+        <Node ToolID="249">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+            <Position x="2406" y="1890"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd"/>
+        </Node>
+        <Node ToolID="252">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerTable.PortfolioComposerTable">
+            <Position x="2022" y="1794"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TableMode>Basic</TableMode>
+              <GroupingFields orderChanged="False"/>
+              <Width>100%</Width>
+              <ShowHeader value="True"/>
+              <ShowBarGraph value="False"/>
+              <TableFields orderChanged="False">
+                <Field name="Names_of_nonzero_coefficients" selected="True" Alignment="Left"/>
+                <Field name="Coefficient_values" selected="True" Alignment="Right"/>
+                <Field name="*Unknown" selected="True" Alignment="Right"/>
+              </TableFields>
+              <TableStyles>
+                <Style Name="Data" Font="Arial" Size="8" TextColor="#000000" BackColor="#ffffff" AltColor="#f0f0f0" RowGroup="1"/>
+                <Style Name="Header" Font="Arial" Size="10" TextColor="#000000" BackColor="#dbdbdb"/>
+                <Style Name="Borders" Width="1" DataColor="#000000" HeaderColor="#000000" RowBorder="None" BasicColBorder="Default (Use Per Column Setting)"/>
+                <Style Name="Table" CellPadding="0" ColumnPadding="0" TableBorder="true" Width="1" BorderColor="#000000"/>
+              </TableStyles>
+              <StyleRules/>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>Basic Table</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTablePlugin"/>
+        </Node>
+        <Node ToolID="253">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="2118" y="1806"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images/>
+              <HeaderMode value="True"/>
+              <HeaderField>Table</HeaderField>
+              <Position>Above</Position>
+              <RawMode value="False"/>
+              <ValidatePCXML value="True"/>
+              <Message/>
+              <RichTextMode value="True"/>
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+\viewkind4\uc1\pard\i\f0\fs29 Table of non-zero coefficients\i0\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle"/>
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText>Table of non-zero coefficients</DefaultAnnotationText>
+              <Left value="False"/>
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String"/>
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin"/>
+        </Node>
+      </ChildNodes>
+    </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="53.99998" y="239" width="1223" height="366"/>
+        <Position x="54" y="155" width="1475" height="558"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4098,7 +5061,7 @@ write.Alteryx(data.frame(Class = the.class))
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="473.9988" y="477.0004" width="59" height="59"/>
+            <Position x="473.9988" y="400.0005" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4111,7 +5074,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9992" y="477.0001" width="59" height="59"/>
+            <Position x="197.9983" y="400.001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4124,7 +5087,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="477.0003" width="59" height="59"/>
+            <Position x="557.999" y="400.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4137,7 +5100,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="293.9999" y="477.0006" width="59" height="59"/>
+            <Position x="294" y="400.0014" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4150,7 +5113,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="377.9991" y="477.0001" width="59" height="59"/>
+            <Position x="377.9991" y="400.0007" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4163,7 +5126,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="477.0002" width="59" height="59"/>
+            <Position x="641.999" y="400.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4176,7 +5139,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="809.999" y="477.0002" width="59" height="59"/>
+            <Position x="461.9998" y="510" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4189,7 +5152,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="114" y="477" width="59" height="59"/>
+            <Position x="114" y="400.0006" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4202,7 +5165,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0001" y="374.0006" width="59" height="59"/>
+            <Position x="114.0001" y="297.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4215,7 +5178,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4993" y="369.0002" width="59" height="59"/>
+            <Position x="202.4993" y="292.0006" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4228,7 +5191,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="644.999" y="369.0002" width="59" height="59"/>
+            <Position x="644.999" y="292.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4241,7 +5204,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.0006" y="368.9995" width="59" height="59"/>
+            <Position x="291.0002" y="291.9988" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4254,7 +5217,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5004" y="368.9994" width="59" height="59"/>
+            <Position x="379.5004" y="291.9992" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4267,7 +5230,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="467.999" y="369.0002" width="59" height="59"/>
+            <Position x="467.999" y="292.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4280,7 +5243,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.499" y="369.0002" width="59" height="59"/>
+            <Position x="556.499" y="291.9999" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4293,7 +5256,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.999" y="477.0002" width="59" height="59"/>
+            <Position x="725.999" y="400.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4306,7 +5269,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="178">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="882.0001" y="375.0001" width="59" height="59"/>
+            <Position x="1038" y="246" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4319,7 +5282,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="182">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="990" y="402" width="59" height="59"/>
+            <Position x="1254" y="397" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4332,7 +5295,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="183">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="990" y="483.0001" width="59" height="59"/>
+            <Position x="1254" y="478.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4345,7 +5308,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="185">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
-            <Position x="1074" y="402" width="59" height="59"/>
+            <Position x="1326" y="397" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4358,7 +5321,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="186">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
-            <Position x="1074" y="486" width="59" height="59"/>
+            <Position x="1326" y="481" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4371,7 +5334,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="189">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="1158" y="486" width="59" height="59"/>
+            <Position x="1410" y="481" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4384,7 +5347,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="192">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="1158" y="402" width="59" height="59"/>
+            <Position x="1410" y="397" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4397,7 +5360,7 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="194">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="990" y="318" width="59" height="59"/>
+            <Position x="1266" y="258" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -4410,12 +5373,142 @@ write.Alteryx(data.frame(Class = the.class))
         </Node>
         <Node ToolID="196">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="726" y="366" width="59" height="59"/>
+            <Position x="750" y="234" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
             <Annotation DisplayMode="0">
               <Name>display_graphs</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="202">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="942" y="414" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="206">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="1050" y="510" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="209">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="978" y="534" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="228">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="1194" y="366" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="233">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="762" y="486" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="241">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="870" y="534" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="243">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="810" y="546" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="245">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="1134" y="522" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="247">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="714.0001" y="594" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="251">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="678" y="534" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -4518,32 +5611,68 @@ Union</Text>
   </Nodes>
   <Connections>
     <Connection>
-      <Origin ToolID="4" Connection="Output1"/>
-      <Destination ToolID="107" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output3"/>
+      <Destination ToolID="117" Connection="Input"/>
     </Connection>
     <Connection>
       <Origin ToolID="4" Connection="Output1"/>
-      <Destination ToolID="108" Connection="Input"/>
+      <Destination ToolID="197" Connection="Input"/>
     </Connection>
     <Connection>
       <Origin ToolID="4" Connection="Output2"/>
-      <Destination ToolID="113" Connection="Input"/>
+      <Destination ToolID="198" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output4"/>
+      <Destination ToolID="199" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output5"/>
+      <Destination ToolID="200" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output1"/>
+      <Destination ToolID="201" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="202" Connection="Action"/>
+      <Destination ToolID="201" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output3"/>
+      <Destination ToolID="205" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="206" Connection="Action"/>
+      <Destination ToolID="205" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output2"/>
+      <Destination ToolID="207" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="209" Connection="Action"/>
+      <Destination ToolID="207" Connection="Action"/>
     </Connection>
     <Connection>
       <Origin ToolID="4" Connection="Output3"/>
       <Destination ToolID="166" Connection="Input"/>
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="117" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output5"/>
+      <Destination ToolID="240" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="241" Connection="Action"/>
+      <Destination ToolID="240" Connection="Action"/>
     </Connection>
     <Connection>
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="102" Connection="Input"/>
+      <Origin ToolID="4" Connection="Output4"/>
+      <Destination ToolID="244" Connection="Input"/>
     </Connection>
-    <Connection name="#1">
-      <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="170" Connection="Input"/>
+    <Connection name="#2">
+      <Origin ToolID="245" Connection="Action"/>
+      <Destination ToolID="244" Connection="Action"/>
     </Connection>
     <Connection name="#1">
       <Origin ToolID="107" Connection="Output"/>
@@ -4715,15 +5844,171 @@ Union</Text>
     </Connection>
     <Connection>
       <Origin ToolID="173" Connection="Output"/>
-      <Destination ToolID="167" Connection="Input"/>
+      <Destination ToolID="116" Connection="Input"/>
     </Connection>
     <Connection>
       <Origin ToolID="173" Connection="Output"/>
-      <Destination ToolID="116" Connection="Input"/>
+      <Destination ToolID="231" Connection="Left"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="249" Connection="Output"/>
+      <Destination ToolID="231" Connection="Right"/>
     </Connection>
     <Connection>
       <Origin ToolID="174" Connection="Output"/>
       <Destination ToolID="173" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="201" Connection="Left"/>
+      <Destination ToolID="107" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="201" Connection="Left"/>
+      <Destination ToolID="108" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="201" Connection="Right"/>
+      <Destination ToolID="252" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="205" Connection="Left"/>
+      <Destination ToolID="102" Connection="Input"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="205" Connection="Left"/>
+      <Destination ToolID="170" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="207" Connection="Left"/>
+      <Destination ToolID="113" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="207" Connection="Right"/>
+      <Destination ToolID="232" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="233" Connection="Action"/>
+      <Destination ToolID="232" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="231" Connection="Output"/>
+      <Destination ToolID="167" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="240" Connection="Right"/>
+      <Destination ToolID="242" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="243" Connection="Action"/>
+      <Destination ToolID="242" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="244" Connection="Right"/>
+      <Destination ToolID="246" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="247" Connection="Action"/>
+      <Destination ToolID="246" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="213" Connection="True"/>
+      <Destination ToolID="225" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="213" Connection="False"/>
+      <Destination ToolID="226" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="214" Connection="Output"/>
+      <Destination ToolID="213" Connection="Input"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="215" Connection="Output"/>
+      <Destination ToolID="219" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="216" Connection="Output"/>
+      <Destination ToolID="219" Connection="Input"/>
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="217" Connection="Output"/>
+      <Destination ToolID="219" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="218" Connection="Output"/>
+      <Destination ToolID="229" Connection="Input"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="227" Connection="Right"/>
+      <Destination ToolID="229" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="219" Connection="Output"/>
+      <Destination ToolID="220" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="219" Connection="Output"/>
+      <Destination ToolID="227" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="228" Connection="Action"/>
+      <Destination ToolID="227" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="225" Connection="Output"/>
+      <Destination ToolID="215" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="226" Connection="Output"/>
+      <Destination ToolID="216" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="232" Connection="Right"/>
+      <Destination ToolID="214" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="227" Connection="Left"/>
+      <Destination ToolID="234" Connection="Left"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="229" Connection="Output"/>
+      <Destination ToolID="234" Connection="Right"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="234" Connection="Output"/>
+      <Destination ToolID="248" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="250" Connection="Right"/>
+      <Destination ToolID="248" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="242" Connection="Right"/>
+      <Destination ToolID="218" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="246" Connection="Right"/>
+      <Destination ToolID="217" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="248" Connection="Output"/>
+      <Destination ToolID="249" Connection="Right"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="250" Connection="Left"/>
+      <Destination ToolID="249" Connection="Left"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="252" Connection="Output"/>
+      <Destination ToolID="253" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="253" Connection="Output"/>
+      <Destination ToolID="250" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="251" Connection="Action"/>
+      <Destination ToolID="250" Connection="Action"/>
     </Connection>
     <Connection Wireless="True">
       <Origin ToolID="156" Connection="Question"/>
@@ -4760,6 +6045,46 @@ Union</Text>
     <Connection Wireless="True">
       <Origin ToolID="160" Connection="Question"/>
       <Destination ToolID="144" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="178" Connection="Question"/>
+      <Destination ToolID="202" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="178" Connection="Question"/>
+      <Destination ToolID="206" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="178" Connection="Question"/>
+      <Destination ToolID="209" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="178" Connection="Question"/>
+      <Destination ToolID="241" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="178" Connection="Question"/>
+      <Destination ToolID="245" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="194" Connection="Question"/>
+      <Destination ToolID="228" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="196" Connection="Question"/>
+      <Destination ToolID="233" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="196" Connection="Question"/>
+      <Destination ToolID="243" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="196" Connection="Question"/>
+      <Destination ToolID="247" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="196" Connection="Question"/>
+      <Destination ToolID="251" Connection="Question"/>
     </Connection>
   </Connections>
   <Properties>
@@ -4817,62 +6142,62 @@ Union</Text>
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
+        <Name>alpha</Name>
+        <Value>.5</Value>
+        <IsNumeric value="True"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>standardize_pred</Name>
+        <Value>True</Value>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>internal_cv</Name>
+        <Value>True</Value>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>nfolds</Name>
+        <Value>5</Value>
+        <IsNumeric value="True"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>lambda_1se</Name>
+        <Value>True</Value>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>lambda_min</Name>
+        <Value>False</Value>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>lambda_no_cv</Name>
+        <Value>1</Value>
+        <IsNumeric value="True"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>regularization</Name>
+        <Value>True</Value>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
         <Name>graph.resolution</Name>
         <Value/>
         <IsNumeric value="False"/>
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>regularization</Name>
-        <Value/>
-        <IsNumeric value="False"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>alpha</Name>
-        <Value/>
-        <IsNumeric value="True"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>standardize_pred</Name>
-        <Value/>
-        <IsNumeric value="False"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>lambda_1se</Name>
-        <Value/>
-        <IsNumeric value="False"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>lambda_min</Name>
-        <Value/>
-        <IsNumeric value="False"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>nfolds</Name>
-        <Value/>
-        <IsNumeric value="True"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>lambda_no_cv</Name>
-        <Value/>
-        <IsNumeric value="True"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>internal_cv</Name>
-        <Value/>
-        <IsNumeric value="False"/>
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
         <Name>display_graphs</Name>
-        <Value/>
+        <Value>True</Value>
         <IsNumeric value="False"/>
       </Constant>
     </Constants>
@@ -4992,6 +6317,116 @@ Union</Text>
               <Description>At least one predictor variable must be selected</Description>
               <ToolId value="176"/>
               <Expression>[X Vars] == ""</Expression>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="202"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>201/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="206"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>205/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="209"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>207/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="228"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>227/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="233"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>232/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="241"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>240/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="243"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>242/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="245"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>244/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="247"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>246/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description/>
+              <ToolId value="251"/>
+              <Expression>{{INPUT}}</Expression>
+              <Destination>250/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration/>
+              <DefaultConfiguration value="True"/>
             </Action>
           </True>
         </NoCondition>
@@ -5243,6 +6678,11 @@ Union</Text>
         <Tool ToolId="165" Selected="True"/>
         <Tool ToolId="166" Selected="True"/>
         <Tool ToolId="167" Selected="True"/>
+        <Tool ToolId="197" Selected="False"/>
+        <Tool ToolId="198" Selected="False"/>
+        <Tool ToolId="199" Selected="False"/>
+        <Tool ToolId="200" Selected="False"/>
+        <Tool ToolId="220" Selected="False"/>
       </Wiz_OpenOutputTools>
       <Wiz_OutputMessage/>
       <Wiz_NoOutputFilesMessage/>
