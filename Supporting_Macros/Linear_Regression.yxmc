@@ -29,7 +29,7 @@ config &lt;- list(
   `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
   `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
-  regularization = checkboxInput('%Question.regularization%', TRUE),
+  regularization = checkboxInput('%Question.regularization%', FALSE),
   alpha = numericInput('%Question.alpha%', .5),
   lambda_1se = radioInput('%Question.lambda.1se%', TRUE),
   lambda_min = radioInput('%Question.lambda.min%', FALSE),
@@ -65,8 +65,8 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
         </Annotation>
         <MetaInfo connection="Output1">
           <RecordInfo>
-            <Field name="Names_of_nonzero_coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Coefficient_values" source="R-DATA:" type="Double"/>
+            <Field name="Coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Values" source="R-DATA:" type="Double"/>
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Output2">
@@ -214,7 +214,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_af41460b4d6f46c1a7e7a21cdcbcb968_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4432_167a1458e3444fb48e3ce531b09b8661_\Engine_8788_c737356d91174c98832015b9cc821523_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4089,7 +4089,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_d93d99d4b2454a71ad01da295f2f18bb_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4432_167a1458e3444fb48e3ce531b09b8661_\Engine_8788_545c88cb46d943fa8de041e77863da17_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4113,7 +4113,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_bc0d07c4a831479b83134e22fdb94b88_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4432_167a1458e3444fb48e3ce531b09b8661_\Engine_8788_e1f49196ba134171871ce7170447ee60_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4141,7 +4141,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_599f4468b9a746888d5eb89fc62b83b0_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4432_167a1458e3444fb48e3ce531b09b8661_\Engine_8788_0830ad8e20ec40b984a76cf4a82d3378_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4169,7 +4169,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_b43050d528934e9f9aaf7b07b8358cc1_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4432_167a1458e3444fb48e3ce531b09b8661_\Engine_8788_f9790559efbd4e18bed94b260cdf3c31_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4206,14 +4206,14 @@ write.Alteryx(data.frame(Class = the.class))
         </Annotation>
         <MetaInfo connection="Left">
           <RecordInfo>
-            <Field name="Names_of_nonzero_coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Coefficient_values" source="R-DATA:" type="Double"/>
+            <Field name="Coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Values" source="R-DATA:" type="Double"/>
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Right">
           <RecordInfo>
-            <Field name="Names_of_nonzero_coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Coefficient_values" source="R-DATA:" type="Double"/>
+            <Field name="Coefficients" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Values" source="R-DATA:" type="Double"/>
           </RecordInfo>
         </MetaInfo>
       </Properties>
@@ -4576,7 +4576,7 @@ write.Alteryx(data.frame(Class = the.class))
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8204_b219b33539ac46a29c629cf4cd3bb2e0_\Engine_8788_3e0bfa16453b4c29979d8d90a8964bca_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4432_167a1458e3444fb48e3ce531b09b8661_\Engine_8788_b5b5f85e54854ff19f1ed94bf0c4a171_.yxdb</TempFile>
               <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8900_3a1d425cd94440f68aebe93f9bf4c87f_\Engine_7288_ece1b767df7344ab85fa34e6f1aaafe7_.yxdb</TempFileDataProfiling>
               <Layout>
                 <ViewMode>Single</ViewMode>
@@ -4979,8 +4979,8 @@ write.Alteryx(data.frame(Class = the.class))
               <ShowHeader value="True"/>
               <ShowBarGraph value="False"/>
               <TableFields orderChanged="False">
-                <Field name="Names_of_nonzero_coefficients" selected="True" Alignment="Left"/>
-                <Field name="Coefficient_values" selected="True" Alignment="Right"/>
+                <Field name="Coefficients" selected="True" Alignment="Right"/>
+                <Field name="Values" selected="True" Alignment="Right" Places="6" Width=""/>
                 <Field name="*Unknown" selected="True" Alignment="Right"/>
               </TableFields>
               <TableStyles>
@@ -6618,7 +6618,7 @@ Union</Text>
                   <ToolId value="192"/>
                   <Minimum value="0"/>
                   <Maximum value="10"/>
-                  <Increment value="1"/>
+                  <Increment value="0.01"/>
                   <Default value="0.5"/>
                   <Decimals value="10"/>
                 </Question>
