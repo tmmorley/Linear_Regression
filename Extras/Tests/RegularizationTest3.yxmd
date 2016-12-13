@@ -295,7 +295,7 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
           <Left value="False" />
         </Annotation>
       </Properties>
-      <EngineSettings Macro="C:\Users\btoomey\Desktop\Linear_Regression\Extras\Tests\Helpers\test_coefficients.yxmc" />
+      <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
     </Node>
     <Node ToolID="35">
       <GuiSettings Plugin="Linear_Regression">
