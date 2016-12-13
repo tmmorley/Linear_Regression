@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.5">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="3">
       <GuiSettings Plugin="Linear_Regression">
@@ -7,15 +7,25 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="graph.resolution">1x</Value>
-          <Value name="Weight Vec" />
-          <Value name="Use Weights">False</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="X Vars">R_G,RBI</Value>
-          <Value name="Y Var">Win_Pct</Value>
-          <Value name="Model Name">SABR</Value>
-          <Value name="curTab">advanced</Value>
           <Value name="curPage">Home</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="standardize_pred">True</Value>
+          <Value name="internal_cv">True</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="lambda_min">False</Value>
+          <Value name="lambda_1se">True</Value>
+          <Value name="Model Name">SABR</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="X Vars">R_G,RBI</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec" />
+          <Value name="regularization">False</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="lambda_no_cv">0.5</Value>
+          <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
@@ -141,8 +151,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9020_86e2bb4d731049e3b638a4f898ce63db_\Engine_7600_4e416839630d4f1b9e47ffe165cb02b4_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6128_9628f9b771fb44f8b1fd6908d9c5c454_\Engine_4680_7ef8693dc56e45d69cd8b1119e8f48da_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_6128_9628f9b771fb44f8b1fd6908d9c5c454_\Engine_4680_710c4a27b0014f23a8d91e8c8086cfb5_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -1333,7 +1343,7 @@
     <LayoutType>Horizontal</LayoutType>
     <MetaInfo>
       <NameIsFileName value="True" />
-      <Name>SampleTest</Name>
+      <Name>LinearTest3</Name>
       <Description />
       <RootToolName />
       <ToolVersion />

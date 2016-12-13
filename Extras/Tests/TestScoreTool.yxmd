@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.5">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
@@ -1198,7 +1198,7 @@
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_708d793ac7ee44b8988cdaf72b6cbd82_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_e3da07a4ae494ab5a3077d2c59521beb_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7636_c63b6a3459474f00a71ec8397d2eeabf_\Engine_7600_e69c123939854f66ba23468938c37c79_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -1222,7 +1222,7 @@
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_022ae39033c24897823889c20ee9f5d0_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_f7062cfeed8a4a0e83c80b410c07b979_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7636_c63b6a3459474f00a71ec8397d2eeabf_\Engine_7600_69f32e8be8e44eff92e0c42a2ef7f5e9_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -1245,8 +1245,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7636_c63b6a3459474f00a71ec8397d2eeabf_\Engine_7600_0f6310ff27464d5384148b614b3e15ad_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_086800522b0e48cdb309edf27b6d2842_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_f67e520bc31147d4a94ce11b7f3bf43e_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -1273,13 +1273,25 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="graph.resolution">1x</Value>
-          <Value name="Weight Vec" />
-          <Value name="Use Weights">False</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="X Vars">PA,AB</Value>
-          <Value name="Y Var">Win_Pct</Value>
+          <Value name="curPage">Customize</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="standardize_pred">True</Value>
+          <Value name="internal_cv">True</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="lambda_min">False</Value>
+          <Value name="lambda_1se">True</Value>
           <Value name="Model Name">New_Plugin</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="X Vars">PA,AB</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec" />
+          <Value name="regularization">False</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="lambda_no_cv">0.5</Value>
+          <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
