@@ -305,6 +305,8 @@ write.Alteryx(as.data.frame(LifeCycleSavings), 1)
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">False</Value>
           <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
           <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
           <Value name="Model Name">test1</Value>
@@ -313,10 +315,15 @@ write.Alteryx(as.data.frame(LifeCycleSavings), 1)
           <Value name="Omit Constant">False</Value>
           <Value name="Use Weights">False</Value>
           <Value name="Weight Vec" />
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
           <Value name="regularization">True</Value>
           <Value name="alpha">0.75</Value>
           <Value name="nfolds">5</Value>
           <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
           <Value name="lambda_no_cv">0.5</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
