@@ -220,7 +220,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3740_d76766c3a0ba49a789e89d280f01061b_\Engine_5356_e99dee1d89f84b358bdd17fee7de749d_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_e4dd91359340496a9b06ff32289f1dab_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -322,7 +322,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="115">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
-        <Position x="1338" y="1134"/>
+        <Position x="1398" y="1134"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -360,7 +360,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_ae9f4dcd23fc49148ebf677d3eda9e09_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_476_fed360dacd4e4152b181ed29d7af18b3_\Engine_5356_7daafda3692c46cc82bcec6c832d9d36_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5584_3e95c0551b48458fa978755a9bf0c705_\Engine_2828_ac135b2bd0e3406bbebba828e5f42c0b_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -3895,10 +3895,775 @@ Linear Regression</Text>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <RScript><![CDATA[mod.df <- read.Alteryx("#1")
-mod.obj <- unserializeObject(as.character(mod.df$Object[1]))
-the.class <- class(mod.obj)[1]
-write.Alteryx(data.frame(Class = the.class))
+          <RScript><![CDATA[suppressWarnings(library(AlteryxPredictive))
+outer_config <- list(
+  `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
+  `Model Name` = textInput('%Question.Model Name%', "mtcars"),
+  `Omit Constant` = checkboxInput('%Question.Omit Constant%' , FALSE),
+  `Use Weights` = checkboxInput('%Question.Use Weights%' , FALSE),
+  `Weight Vec` = dropdownInput('%Question.Weight Vec%'),
+  `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
+  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
+  regularization = checkboxInput('%Question.regularization%', FALSE),
+  alpha = numericInput('%Question.alpha%', .5),
+  lambda_1se = radioInput('%Question.lambda.1se%', TRUE),
+  lambda_min = radioInput('%Question.lambda.min%', FALSE),
+  standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
+  internal_cv = checkboxInput('%Question.internal_cv%', TRUE),
+  set_seed_internal_cv = checkboxInput('%Question.set_seed_internal_cvv%', TRUE),
+  seed_internal_cv = numericInput('%Question.seed_internal_cv%', 1),
+  nfolds = numericInput('%Question.nfolds%', 5),
+  lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL),
+  display_graphs = checkboxInput('%Question.display_graphs%', TRUE),
+  external_cv = checkboxInput('%Question.external_cv%', FALSE),
+  nfolds_external = numericInput('%Question.nfolds_external%', NULL),
+  set_seed_external_cv = checkboxInput('%Question.set_seed_external_cv%', FALSE),
+  external_seed_value = numericInput('%Question.external_seed_value%', NULL)
+) 
+options(alteryx.wd = '%Engine.WorkflowDirectory%')
+options(alteryx.debug = outer_config)
+
+
+if (!(outer_config$regularization)) {
+  mod.df <- read.Alteryx("#1")
+  mod.obj <- unserializeObject(as.character(mod.df$Object[1]))
+  the.class <- class(mod.obj)[1]
+  write.Alteryx(data.frame(Class = the.class))
+}
+if (outer_config$external_cv) {
+  ###########################################
+  #' ---
+  #' title: Cross Validation Macro
+  #' author: Bridget Toomey
+  #' ---
+  #' 
+  #' 
+  #' Utility function to check to see if the necessary packages are
+  #' installed and install them if they're not.
+  #'
+  #'
+  #' @param packages vector of package names to check and install.
+  #' @export
+  #' @author Bridget Toomey, Dan Putler
+  checkInstalls <- function(packages) {
+    # See if the desired packages are installed, and install if they're not
+    if (!all(packages %in% row.names(installed.packages()))) {
+      # Use the IE based "Internet2" since it is most reliable for this action,
+      # it will be switched back at the end
+      setInternet2(use = TRUE)
+      # Make sure the path to the users library is in place and create it if it
+      # is not
+      minor_ver <- strsplit(R.Version()$minor, "\\.")[[1]][1]
+      R_ver <- paste(R.Version()$major, minor_ver, sep = ".")
+      the_path <- paste0(normalizePath("~"), "\\R\\win-library\\", R_ver)
+      # Create the user's personal folder if it doesn't already exist
+      if (!dir.exists(the_path)) {
+        dir.create(the_path, recursive = TRUE, showWarnings = FALSE)
+      }
+      # The set of possible repositories to use
+      repos <- c("http://cran.revolutionanalytics.com", "https://cran.rstudio.com")
+      # Select a particular repository
+      repo <- sample(repos, 1)
+      repo <- c(repo, "https://alteryx.github.io/drat")
+      missingPackages <- packages[which(!(packages %in% row.names(installed.packages())))]
+      install.packages(missingPackages, lib = the_path, repos = repo)
+      setInternet2(use = FALSE)
+    }
+  }
+  
+  checkInstalls(c("ROCR", "plyr", "TunePareto", "sm", "vioplot", "ggplot2", "AlteryxPredictive"))
+  library(ROCR)
+  library("TunePareto")
+  library("sm")
+  library("vioplot")
+  library("ggplot2")
+  
+  #Make sure the user has at least AlteryxPredictive 0.3.1, since that version
+  #contains scoreModel2
+  if (packageVersion("AlteryxPredictive") < '0.3.2') {
+    setInternet2(use = TRUE)
+    the_path <- paste0(normalizePath("~"), "\\R\\win-library\\", R.Version()$major, ".", substr(R.Version()$minor, start = 1, stop = 1))
+    install.packages("AlteryxPredictive", lib = the_path, repos = "https://alteryx.github.io/drat")
+    setInternet2(use = FALSE)
+  }
+  
+  #' ### Read Configuration
+  #' ## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
+  suppressWarnings(library(AlteryxPredictive))
+  config <- list(
+    `classification` = FALSE,
+    `modelType` = NULL,
+    `numberFolds` = numericInput('%Question.nfolds_external%' , 5),
+    `numberTrials` = numericInput('%Question.numberTrials%' , 3),
+    #This should be added as a config option in Logistic Regression, but it's irrelevant
+    #here, since we're solving a regression problem
+    `posClass` = NULL,
+    `predFields` = listInput('%Question.predFields%'),
+    `regression` = TRUE,
+    `stratified` = FALSE,
+    `seed` = numericInput('%Question.seed%', 1)
+  )
+  options(alteryx.wd = '%Engine.WorkflowDirectory%')
+  options(alteryx.debug = config$debug)
+  ##----
+  
+  
+  library(plyr)
+  #' ### Defaults
+  #' These defaults are used when the R code is run outside Alteryx
+  if (!inAlteryx()){
+    macroDirectory <- textInput('%Engine.WorkflowDirectory%', "Supporting_Macros")
+    dataDir <- file.path(macroDirectory, "Data")
+    defaults <- list(
+      data = readRDS(file.path(dataDir, "data.rds")),
+      models = readRDS(file.path(dataDir, "models.rds"))
+    )
+  }
+  
+  print("str of input #1")
+  print(str(read.Alteryx("#1")))
+  #' ### Inputs
+  #' 
+  #' This is a named list of all inputs that stream into the R tool.
+  inputs <- list(
+    data = read.Alteryx2("#2", default = defaults$data),
+    models = readModelObjects("#1", default = defaults$models)
+  )
+  
+  ##---- Inputs/Config Complete
+  
+  #' ### Helper Functions
+  areIdentical <- function(v1, v2){
+    identical(sort(v1), sort(v2))
+  }
+  
+  #' Helper Functions For Tests
+  makePayload <- function(csvFile, modelsFile){
+    test_data <- read.csv(csvFile)
+    list(
+      #data = test_data[, c(targetVar, setdiff(names(test_data), targetVar))],
+      data = test_data,
+      models = AlteryxPredictive::readModelObjects("2", readRDS(modelsFile))
+    )
+  }
+  
+  runTest <- function(modelName, payload){
+    inputs <- list(data = payload$data, models = payload$models[modelName])
+    message(paste(modelName, 'passes'))
+    test_that(paste(modelName, 'passes'), {
+      expect_that(invisible(getResultsCrossValidation(inputs, config)), throws_error(NA) )
+    })
+  }
+  
+  #' ## Check predictor variables
+  #' 
+  #' Check if predictor variables in the models and input data are identical.
+  checkXVars <- function(inputs){
+    numModels <- length(inputs$models)
+    modelNames <- names(inputs$models)
+    modelXVars <-  if (packageVersion('AlteryxPredictive') <= '0.3.2'){
+      print("package version is <= 0.3.2")
+      lapply(inputs$models, getXVars2)
+    } else {
+      print("package version is > 0.3.2")
+      lapply(inputs$models, getXVars)
+    }
+    dataXVars <- names(inputs$data)[which(names(inputs$data) %in% unlist(modelXVars))]
+    errorMsg <- NULL
+    if (numModels > 1) {
+      for (i in 1:(numModels - 1)){
+        mvars1 <- modelXVars[[i]]
+        mvars2 <- modelXVars[[i + 1]]
+        if (!areIdentical(mvars1, mvars2)){
+          errorMsg <- paste("Models", modelNames[i] , "and", modelNames[i + 1],
+                            "were created using different predictor variables.")
+          stopMsg <- "Please ensure all models were created using the same predictors."
+        } 
+        else if (!all(mvars1 %in% dataXVars)){
+          errorMsg <- paste("Model ", modelNames[i], 
+                            "used predictor variables which were not contained in the input data.")
+          stopMsg <- paste("Please ensure input data contains all the data",
+                           "used to create the models and try again.")
+        }
+        if (!is.null(errorMsg)){
+          AlteryxMessage2(errorMsg, iType = 2, iPriority = 3)
+          stop.Alteryx2(stopMsg)
+        }
+      }
+    } else {
+      mvars1 <- modelXVars[[1]]
+      if (!all(mvars1 %in% dataXVars)){
+        errorMsg <- paste("Model ", modelNames[1], 
+                          "used predictor variables which were not contained in the input data.")
+        stopMsg <- paste("Please ensure input data contains all the data",
+                         "used to create the models and try again.")
+      }
+      if (!is.null(errorMsg)){
+        AlteryxMessage2(errorMsg, iType = 2, iPriority = 3)
+        stop.Alteryx2(stopMsg)
+      }
+    }
+  }
+  
+  #' Given a factor variable and a set of records in a fixed trial and fold,
+  #' return the list of classes not present in that trial and fold.
+  getMissingClasses <- function(currentClasses, currentRecords) {
+    currentClasses[(!(currentClasses %in% currentRecords))]
+  }
+  
+  #' For each factor variable, check to see if all levels are present in each fold. 
+  #' If not, warn the user.
+  #' 
+  
+  checkFactorVars <- function(data, folds, config) {
+    #All of the discrete variables will be some type of string in Alteryx. So they'll be read as factors, since stringsAsFactors is TRUE in read.Alteryx.
+    factorVars <- data[,sapply(data, FUN = is.factor), drop = FALSE]
+    #We only need to check if there's at least one factor variable. If all variables are continuous, we don't need to do anything.
+    if (NCOL(factorVars) > 0) {
+      for (k in 1:NCOL(factorVars)) {
+        uniqueClasses <- unique(factorVars[,k])
+        currentVar <- factorVars[,k]
+        #We want to check if one of the folds on one of the trials is missing any classes.
+        #If a class is missing from a fold, we output a warning suggesting that the user check their data/try to collect more data.
+        #If a training set is missing a class, we output a fatal error telling the user they must ensure
+        #that each training set contains all classes.
+        for (i in 1: (config$numberTrials)) {
+          for (j in 1:(config$numberFolds)) {
+            currentTestRecords <- currentVar[unlist(folds[[i]][j])]
+            currentTrainingRecords <- currentVar[unlist(folds[[i]][-j])]
+            missingTestClasses <- getMissingClasses(currentClasses = uniqueClasses, currentRecords = currentTestRecords)
+            missingTrainingClasses <- getMissingClasses(currentClasses = uniqueClasses, currentRecords = currentTrainingRecords)
+            #testing if all classes are represented in trial i, fold j
+            if (length(missingTestClasses) > 0) {
+              currentColumnName <- colnames(factorVars)[k]
+              if (length(missingTestClasses) > 1) {
+                warningMessage1 <- paste0("Classes ", missingTestClasses, " were not present in variable ", currentColumnName, " of the test set.")
+                warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on these classes."
+              } else {
+                warningMessage1 <- paste0("Class ", missingTestClasses, " was not present in variable ", currentColumnName, " of the test set.")
+                warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on this class."
+              }
+              AlteryxMessage2(warningMessage1)
+              AlteryxMessage2(warningMessage2)
+            }
+            #testing if all classes are represented in the training set when trial i, fold j is the test set. 
+            #So the training set here is trial i, all folds except fold j.
+            if (length(missingTrainingClasses) > 0) {
+              currentColumnName <- colnames(factorVars)[k]
+              if (length(missingTrainingClasses) > 1) {
+                warningMessage1 <- paste0("Classes ", missingTrainingClasses, " were not present in variable ", currentColumnName," of the training set.")
+                warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on these classes."
+                errorMessage <- "It is very difficult to create an accurate model when the training set is missing a class."
+              } else {
+                warningMessage1 <- paste0("Class ", missingTrainingClasses, " was not present in variable ", currentColumnName, " of the training set.")
+                warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on this class."
+                errorMessage <- "It is very difficult to create an accurate model when the training set is missing classes."
+              }
+              AlteryxMessage2(warningMessage1)
+              AlteryxMessage2(warningMessage2)
+              AlteryxMessage2(errorMessage)
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  
+  #Create the list of cross-validation folds and output warnings/errors as appropriate
+  createFolds <- function(data, config) {
+    target <- data[, 1]
+    set.seed(config$seed)
+    foldList <- generateCVRuns(labels = target, ntimes = config$numberTrials, nfold = config$numberFolds, stratified = config$stratified)
+    checkFactorVars(data = data, folds = foldList, config = config)
+    return(foldList)
+  }
+  
+  
+  
+  #Check if response variable is the same in the pre-built model(s) and the input data.
+  #If so, output this variable.
+  getYvars <- function(data, models) {
+    # Get the names of the target fields and make sure they are all same. If not,
+    # throw an error.
+    print("about to sapply getyvar")
+    y_names <- sapply(models, AlteryxPredictive:::getYVar)
+    print("got y var")
+    if (!all(y_names == y_names[1])) {
+      stop.Alteryx2("More than one target variable are present in the provided models")
+    } else if (!(y_names[1] %in% colnames(data))) {
+      stop.Alteryx2("The target variable from the models is different than the target chosen in the configuration. Please check your configuration settings and try again.")
+    }
+    # get the target variable name
+    y_name <- y_names[1]
+    print("set y_name")
+    # Get the target variable
+    return(list(y_col = data[[y_name]], y_name = y_name))
+    print("got data[[y_name]]")
+  }
+  
+  #In the 2-class classification case, get the positive class. Otherwise, do nothing.
+  getPosClass <- function(config, yVar) {
+    
+    #Use the function from the Model Comparison tool to get/set positive class:
+    setPositiveClass <- function(tar_lev) {
+      # Set the postive class for two-class classification.
+      # The setPositiveClass function is only triggered if the user leaves the
+      # question on positive class (target level) blank.
+      #   1) if there's "yes/Yes/YES ..." in the target variable, then use "yes/Yes/YES"
+      #   2) if there's "true/True/TRUE..." in the target variable, then use "true/True/TRUE"
+      #   3) otherwise: use the first level by alphabetical order.
+      #
+      # Parameters:
+      #   tar_lev: a vector of string
+      #            the levels of the target variable.
+      #
+      # Returns:
+      #   no_name: a string, the name of the positive class.
+      
+      yes_id <- match("yes", tolower(tar_lev))
+      true_id <- match("true", tolower(tar_lev))
+      if (!is.na(yes_id)) {
+        return (tar_lev[yes_id])
+      } else if (!is.na(true_id)) {
+        return (tar_lev[true_id])
+      } else {
+        return (tar_lev[1])
+      }
+    }
+    return(setPositiveClass(yVar))
+  }
+  
+  adjustGbmModel <- function(model){
+    method <- if (model$cv.folds > 1){
+      "cv"
+    } else if (model$train.function < 1){
+      "test"
+    } else {
+      "OOB"
+    }
+    model$best.trees <- gbm.perf(model, method = method)
+    return(model)
+  }
+  
+  naiveBayesUpdate <- function(model, trainingData, currentYvar) {
+    if (is.null(model$laplace)) {
+      model$laplace <- 0
+      AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
+      AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
+    }
+    predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+    response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
+    naiveBayes.default <- getS3method("naiveBayes", "default")
+    currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
+    return(currentModel)
+  }
+  
+  #' Given a model, a dataset and index of test cases, return actual and response
+  getActualandResponse <- function(model, data, testIndices, extras, mid){
+    trainingData <- data[-testIndices,]
+    testData <- data[testIndices,]
+    testData <- matchLevels(testData, getXlevels(model))
+    currentYvar <- extras$y_name
+    #Check if the model is Naive Bayes and lacking a Laplace parameter.
+    #If so, set the Laplace parameter to 0 and warn the user.
+    print("about to do the updates")
+    if (inherits(model, "naiveBayes")) {
+      currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
+    } else {
+      print("in the non-naive bayes case")
+      currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
+    }
+    print("did the updates")
+    if (inherits(currentModel, 'gbm')){
+      currentModel <- adjustGbmModel(currentModel)
+    }
+    pred <- if (packageVersion('AlteryxPredictive') <= '0.3.2') {
+      AlteryxPredictive::scoreModel2(currentModel, new.data = testData)
+    } else {
+      AlteryxPredictive::scoreModel(currentModel, new.data = testData)
+    }
+    actual <- (extras$yVar)[testIndices]
+    recordID <- (data[testIndices,])$recordID
+    if (config$classification) {
+      response <- gsub("Score_", "", names(pred)[max.col(pred)])
+      d <- data.frame(recordID = recordID, response = response, actual = actual)
+      return(cbind(d, pred))
+    } else {
+      response <- pred$Score
+      return(data.frame(recordID = recordID, response = response, actual = actual))
+    }
+  }
+  
+  safeGetActualAndResponse <- failwith(NULL, getActualandResponse, quiet = FALSE)
+  
+  #' 
+  getCrossValidatedResults <- function(inputs, allFolds, extras, config){
+    function(mid, trial, fold){
+      model <- inputs$models[[mid]]
+      testIndices <- allFolds[[trial]][[fold]]
+      print("about to create out")
+      out <- (safeGetActualAndResponse(model, inputs$data, testIndices, extras, mid))
+      if (is.null(out)) {
+        AlteryxMessage2(paste0("For model ", mid, " trial ", trial, " fold ", fold, " the data could not be scored."), iType = 2, iPriority = 3)
+      } else {
+        out <- cbind(trial = trial, fold = fold, mid = mid, out)
+      }
+      return(out)
+    }
+  }
+  
+  getPkgListForModels <- function(models){
+    print("about to get the model classes")
+    modelClasses <- unlist(lapply(models, class))
+    print("got the model classes")
+    pkgMap = list(
+      gbm = "gbm", rpart = "rpart", svm.formula = "e1071", svm = "e1071",
+      naiveBayes = "e1071", svyglm = "survey", nnet.formula = "nnet",
+      randomForest.formula = "randomForest", earth = "earth", glmnet = "glmnet",
+      elnet = "glmnet", cv.glmnet = "glmnet", lognet = "glmnet"
+    )
+    unique(unlist(pkgMap[modelClasses]))
+  }
+  
+  #Get the necessary measures in the regression case
+  getMeasuresRegression <- function(outData, extras) {
+    actual <- unlist(outData$actual)
+    predicted <- unlist(outData$response)
+    modelIndic <- outData$mid
+    trialIndic <- outData$trial
+    foldIndic <- outData$fold
+    err <- actual - predicted
+    rmse <- sqrt(mean(err*err))
+    mae <- mean(abs(err))
+    # When there are values near 0 in the target variable, it can lead to an attempt to divide by 0
+    # In this case, use the weighted version.
+    if (any(abs(actual) < 0.001)) {
+      AlteryxMessage("The target variable contains values very close to 0 (-0.001, 0.001). WPE and WAPE are being used instead of MPE and MAPE.", iType = 2, iPriority = 3)
+      mpe <- 100 * sum(err) / sum(actual)
+      mape <- 100 * sum(abs(err)) / sum(actual)
+    } else {
+      mpe <- 100*mean(err/actual)
+      mape <- 100*mean(abs(err/actual))
+    }
+    data.frame(
+      Correlation = cor(predicted, actual), RMSE = rmse, MAE = mae, MPE= mpe, MAPE = mape
+    )
+  }
+  
+  #Get the necessary measures in the classification case
+  getMeasuresClassification <- function(outData, extras) {
+    actual <- as.character(outData$actual)
+    scoredData <- outData[,7:8]
+    scoredOutput <- as.character(outData$response)
+    posClass <- extras$posClass
+    modelIndic <- unique(outData$mid)
+    trialIndic <- unique(outData$trial)
+    foldIndic <- unique(outData$fold)
+    overallAcc <- sum(actual == scoredOutput)/length(actual)
+    if (length(extras$levels) == 2) {
+      true_y <- factor(TRUE*(actual == posClass)) # if levels are strings rather than TRUE/FALSE
+      #We need to know which column of scoredData corresponds to the positive class in order to set up the needed intermediate steps for obtaining the AUC
+      posClassCol <- which((extras$levels) == posClass)
+      negClassCol <- which((extras$levels) != posClass)
+      predictions <- scoredData[,posClassCol]
+      predictionObj <- prediction(predictions = predictions, labels = actual)
+      
+      # =================================================================
+      # Quick Reference:
+      #       precision = tp / (tp + fp)
+      #          recall = tp / (tp + fn)
+      #             tpr = tp / (tp + fn)
+      #             fpr = fp / (fp + tn)
+      #              f1 = 2 * precision * recall / (precision + recall)
+      # ==================================================================
+      
+      #     perf_acc <- performance(predictionObj, "acc", "cutoff")
+      #     perf_lift <- performance(predictionObj, "lift", "rpp")
+      #     perf_gain <- performance(predictionObj, "tpr", "rpp")
+      #     perf_roc <- performance(predictionObj, "tpr", "fpr")
+      #     perf_pr <- performance(predictionObj, "prec", "rec")
+      actualPosIndic <- which(actual == posClass)
+      nActualPos <- length(actualPosIndic)
+      nCorrectPos <- sum(scoredOutput[actualPosIndic] == posClass)
+      nPredPos <- sum(scoredOutput == posClass)
+      precision <- nCorrectPos/nPredPos
+      recall <- nCorrectPos/nActualPos
+      F1 <- 2*(precision*recall)/(precision + recall)
+      AUC <- performance(prediction.obj = predictionObj, measure = "auc")
+      AUC <- unlist(AUC@y.values)
+      percentClass1Right <- sum(scoredOutput[which(actual == (extras$levels)[1])] == (extras$levels)[[1]])/length(which(actual == (extras$levels)[1]))
+      percentClass2Right <- sum(scoredOutput[which(actual == (extras$levels)[2])] == (extras$levels)[[2]])/length(which(actual == (extras$levels)[2]))
+      outVec <- c(mid = modelIndic, trial = trialIndic, fold = foldIndic, Accuracy_Overall = overallAcc, Accuracy_Class_1 = percentClass1Right, Accuracy_Class_2 = percentClass2Right, F1 = F1, AUC = AUC)
+    } else {
+      #Compute accuracy by class
+      outVec <- vector(length = length((extras$levels)))
+      for (l in 1:length((extras$levels))) {
+        tempPred <- scoredOutput[actual == (extras$levels)[[l]]]
+        nCorrect <- sum(tempPred == (extras$levels)[[l]])
+        thisAcc <- nCorrect/sum(actual == (extras$levels)[[l]])
+        outVec[l] <- thisAcc
+        names(outVec)[l] <- paste0("Accuracy_Class_", l)
+      }
+      outVec <- c(mid = modelIndic, trial = trialIndic, fold = foldIndic, Accuracy_Overall = overallAcc, outVec)
+    }
+    return(outVec)
+  }
+  
+  #' ### Functions to Generate Output
+  #' 
+  generateConfusionMatrices <- function(outData, extras) {
+    outvec <- vector(length = length(extras$levels))
+    pasteClass <- function(nameOfClass) {
+      paste0("Class_", nameOfClass)
+    }
+    names(outvec) <- sapply(X = (extras$levels), FUN = pasteClass, simplify = TRUE)
+    for (i in 1:length(extras$levels)) {
+      outvec[i] <- length(which((outData$actual) == ((extras$levels)[i])))
+    }
+    return(c(mid = unique(outData$mid), trial = unique(outData$trial), fold = unique(outData$fold), Predicted_class = as.character(unique(outData$response)), outvec))
+  }
+  
+  generateOutput3 <- function(data, extras, modelNames) {
+    d <- ddply(data, .(trial, fold, mid, response), generateConfusionMatrices, 
+               extras = extras
+    )
+    d$Model <- modelNames[as.numeric(d$mid)]
+    d$Type <- rep.int('Classification', times = length(d$Model))
+    d <- subset(d, select = -c(mid, response))
+    d <- reshape2::melt(d, id = c('trial', 'fold', 'Model', 'Type', 'Predicted_class'))
+    colnames(d) <- c('Trial', 'Fold', 'Model', 'Type', 'Predicted_class', 'Variable', 'Value')
+    return(d)
+  }
+  
+  generateOutput2 <- function(data, extras, modelNames) {
+    fun <- if (is.null(extras$levels)) {
+      getMeasuresRegression 
+    } else {
+      getMeasuresClassification
+    }
+    d <- ddply(data, .(trial, fold, mid), fun, extras = extras)
+    d$Model <- modelNames[as.numeric(d$mid)]
+    d <- subset(d, select = -c(mid))
+    return(d)
+  }
+  
+  generateOutput1 <- function(inputs, config, extras){
+    pkgsToLoad <- getPkgListForModels(inputs$models)
+    for (pkg in pkgsToLoad) library(pkg, character.only = TRUE)
+    allFolds <- extras$allFolds
+    g <- expand.grid(
+      mid = seq_along(inputs$models),
+      trial = seq_along(allFolds),
+      fold = seq_along(allFolds[[1]])
+    )
+    print("about to getcrossvalidatedresults")
+    return(mdply(g, getCrossValidatedResults(inputs, allFolds, extras, config)))
+  }
+  
+  computeBinaryMetrics <- function(pred_prob, actual, threshold){
+    #Pred_prob gives the predicted probability of belonging to the positive class
+    #Actual is true if the record belongs to the positive class and negative if not
+    actualPosIndic <- which(actual == TRUE)
+    actualNegIndic <- which(actual == FALSE)
+    nActualPos <- length(actualPosIndic)
+    thresholdedPredictions <- (pred_prob >= threshold)
+    nCorrectPos <- sum(thresholdedPredictions[actualPosIndic])
+    nPredPos <- sum(thresholdedPredictions)
+    nPredNeg <- length(actual) - length(nPredPos)
+    nCorrectNeg <- sum(1 - (thresholdedPredictions[-actualPosIndic]))
+    overallAcc <- sum(thresholdedPredictions == actual)/length(actual)
+    PosAcc <- length(intersect(which(thresholdedPredictions == TRUE), actualPosIndic))/length(actualPosIndic)
+    NegAcc <- length(intersect(which(thresholdedPredictions == FALSE), actualNegIndic))/length(actualNegIndic)
+    precision <- nCorrectPos/nPredPos
+    recall <- nCorrectPos/nActualPos
+    F1 <- 2*(precision*recall)/(precision + recall)
+    tpr <- recall
+    rpp <- nPredPos/length(pred_prob)
+    lift <- tpr/rpp
+    fpr <- (nPredPos - nCorrectPos)/length(actualNegIndic)
+    pred <- prediction(predictions = pred_prob, labels = actual)
+    auc <- performance(pred, "auc")
+    auc <- unlist(auc@y.values)
+    data.frame(threshold = threshold, recall = recall, F1 = F1, lift = lift, Rate_Pos_Predictions = rpp, True_Pos_Rate = tpr, False_Pos_Rate = fpr, Precision = precision)
+  }
+  
+  generateDataForPlots <- function(d, extras, config){
+    if (config$classification) {
+      if (length(extras$levels) == 2) {
+        thresholds <- seq(0, 1, 0.05)
+        ldply(thresholds, computeBinaryMetrics, 
+              actual = ifelse(d$actual == extras$posClass, TRUE, FALSE), 
+              pred_prob = d[[paste0('Score_', extras$posClass)]]
+        )
+      } else{
+        data.frame()
+      }
+    } else {
+      data.frame(response = d$response, actual = d$actual)
+    }
+  }
+  
+  generateLabels <- function(plotData, config) {
+    trials <- c()
+    for (i in 1:length(unique(plotData$trial))) {
+      trials <- c(trials, paste0("Trial ", unique(plotData$trial))[i])
+    }
+    models <- c()
+    for (i in 1:length(unique(plotData$mid))) {
+      models <- c(models, paste0("Model ", unique(plotData$model))[i])
+    }
+    list(trials = trials, models = models)
+  }
+  
+  plotBinaryData <- function(plotData, config, modelNames) {
+    labels <- generateLabels(plotData, config)
+    modelVec <- modelNames[plotData$mid]
+    trialVec <- paste0('Trial ', plotData$trial)
+    plotData <- cbind(plotData, modelVec, trialVec)
+    liftdf <- data.frame(Rate_positive_predictions = plotData$Rate_Pos_Predictions, lift = plotData$lift, fold = paste0("Fold", plotData$fold), 
+                         models = plotData$modelVec, trial = plotData$trialVec)
+    gaindf <- data.frame(Rate_positive_predictions = plotData$Rate_Pos_Predictions, True_Pos_Rate = plotData$True_Pos_Rate, fold = paste0("Fold", plotData$fold),
+                         models = plotData$modelVec, trial = plotData$trialVec)
+    prec_recalldf <- data.frame(recall = plotData$recall, precision = plotData$Precision, fold = paste0("Fold", plotData$fold),
+                                models = plotData$modelVec, trial = plotData$trialVec)
+    rocdf <- data.frame(False_Pos_Rate = plotData$False_Pos_Rate, True_Pos_Rate = plotData$True_Pos_Rate, fold = paste0("Fold", plotData$fold),
+                        models = plotData$modelVec, trial = plotData$trialVec)
+    
+    liftPlotObj <- ggplot(data = liftdf, aes(x = Rate_positive_predictions, y = lift)) + 
+      geom_smooth(aes(colour=models)) + ggtitle("Lift curves") 
+    gainPlotObj <- ggplot(data = gaindf, aes(x = Rate_positive_predictions, y = True_Pos_Rate)) + 
+      geom_smooth(aes(colour=models)) + ggtitle('Gain Charts')
+    PrecRecallPlotObj <- ggplot(data = prec_recalldf, aes(x = recall, y = precision)) + 
+      geom_smooth(aes(colour=models)) + ggtitle('Precision and Recall Curves')
+    ROCPlotObj <- ggplot(data = rocdf, aes(x = False_Pos_Rate, y = True_Pos_Rate)) +
+      geom_smooth(aes(colour=models)) + ggtitle('ROC Curves')
+    AlteryxGraph2(liftPlotObj, nOutput = 4)
+    AlteryxGraph2(gainPlotObj, nOutput = 4)
+    AlteryxGraph2(PrecRecallPlotObj, nOutput = 4)
+    AlteryxGraph2(ROCPlotObj, nOutput = 4)
+  }
+  
+  plotRegressionData <- function(plotData, config, modelNames) {
+    modelVec <- modelNames[plotData$mid]
+    trialVec <- paste0('Trial ', plotData$trial)
+    plotData <- cbind(plotData, modelVec, trialVec)
+    plotdf <- data.frame(Actual = plotData$actual, Predicted = plotData$response, fold = paste0("Fold", plotData$fold), 
+                         models = plotData$modelVec, trial = plotData$trialVec)
+    plotObj <- ggplot(data = plotdf, aes(x = Actual, y = Predicted)) + 
+      geom_smooth(aes(colour=models)) + ggtitle("Predicted value vs actual values")
+    AlteryxGraph2(plotObj, nOutput = 4)
+  }
+  
+  # Helper Functions End ----
+  getResultsCrossValidation <- function(inputs, config){
+    print("creating recordid")
+    inputs$data$recordID <- 1:NROW(inputs$data)
+    print("created recordid")
+    if (!is.null(config$modelType)){
+      config$classification = (config$modelType == "classification")
+      config$regression = !config$classification
+    }
+    print("about to set yvar")
+    yVarList <- getYvars(inputs$data, inputs$models)
+    yVar <- yVarList$y_col
+    y_name <- yVarList$y_name
+    print("set yvar")
+    if ((config$classification) && (length(unique(yVar)) == 2)) {
+      if (config$posClass == "") {
+        config$posClass <- as.character(getPosClass(config, levels(yVar)))
+      }
+    }
+    print("setting modelnames")
+    inputs$modelNames <- names(inputs$models)
+    modelNames <- names(inputs$models)
+    print("checking xvars")
+    checkXVars(inputs)
+    print("creating extras")
+    extras <- list(
+      yVar = yVar,
+      y_name = y_name,
+      posClass = config$posClass,
+      allFolds = createFolds(data = inputs$data, config = config),
+      levels = if (config$classification) levels(yVar) else NULL
+    )
+    print("getting dataoutput1")
+    dataOutput1 <- generateOutput1(inputs, config, extras)
+    if ((config$regression) && ("Score" %in% colnames(dataOutput1))) {
+      dataOutput1 <- data.frame(trial = dataOutput1$trial, fold = dataOutput1$fold, 
+                                mid = dataOutput1$mid, recordID = dataOutput1$recordID,
+                                response = dataOutput1$Score, actual = dataOutput1$actual)
+    }
+    print('getting prepped output1')
+    preppedOutput1 <- if (config$regression) {
+      data.frame(RecordID = dataOutput1$recordID, 
+                 Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
+                 Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
+                 Actual = dataOutput1$actual
+      )
+    } else {
+      data.frame(RecordID = dataOutput1$recordID, 
+                 Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
+                 Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
+                 Actual = dataOutput1$actual
+      )
+    }
+    #write.Alteryx2(preppedOutput1, nOutput = 1)
+    print('getting dataoutput2')
+    dataOutput2 <- generateOutput2(dataOutput1, extras, modelNames)
+    print('getting preppedoutput2')
+    preppedOutput2 <- reshape2::melt(dataOutput2, id = c('trial', 'fold', 'Model'))
+    #write.Alteryx2(preppedOutput2, nOutput = 2)
+    print('getting confmats')
+    confMats <- if (config$classification) {
+      generateOutput3(dataOutput1, extras, modelNames)
+      #write.Alteryx2(confMats, 3)
+    } else {
+      #Provide garbage data that'll get filtered out on the Alteryx side.
+      data.frame(Trial = 1, Fold = 1, Model = 'model', Type = 'Regression', 
+                 Predicted_class = 'no', Variable = "Classno", Value = 50
+      )
+    }
+    print('getting plotdata')
+    plotData <- ddply(dataOutput1, .(trial, fold, mid), generateDataForPlots, 
+                      extras = extras, config = config
+    )
+    print('making outputplot')
+    outputPlot <- if (config$classification) {
+      if (length(extras$levels) == 2) {
+        plotBinaryData(plotData, config, modelNames)
+      } else {
+        # Generate an empty plot
+        empty_df <- data.frame()
+        emptyPlot <- ggplot(empty_df) + geom_point() + xlim(0, 1) + ylim(0, 1) + 
+          ggtitle("No plots available for >2 class classification")
+      }
+    } else {
+      plotRegressionData(plotData, config, modelNames)
+    }
+    print('making outlist')
+    list(
+      data = preppedOutput1, fitMeasures = preppedOutput2, 
+      confMats = confMats, outputPlot = outputPlot   
+    )
+  }
+  
+  runCrossValidation <- function(inputs, config){
+    print("about to get results")
+    results <- getResultsCrossValidation(inputs, config)
+    print("got results")
+    write.Alteryx2(results$data, 5)
+    write.Alteryx2(results$fitMeasures, 2)
+    write.Alteryx2(results$confMats, 3)
+    AlteryxGraph2(results$outputPlot, 4)
+  }
+  
+  if (is.null(getOption("testscript"))){
+    runCrossValidation(inputs, config)
+  }
+  
+}
+
 ]]></RScript>
           <UseFullUpdate value="False"/>
         </Configuration>
@@ -3911,6 +4676,41 @@ write.Alteryx(data.frame(Class = the.class))
         <MetaInfo connection="Output1">
           <RecordInfo>
             <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output4">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output5">
+          <RecordInfo>
+            <Field name="RecordID" source="R-DATA:" type="Int32"/>
+            <Field name="Trial" source="R-DATA:" type="Int32"/>
+            <Field name="Fold" source="R-DATA:" type="Int32"/>
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Response" source="R-DATA:" type="Double"/>
+            <Field name="Actual" source="R-DATA:" type="Double"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output2">
+          <RecordInfo>
+            <Field name="trial" source="R-DATA:" type="Int32"/>
+            <Field name="fold" source="R-DATA:" type="Int32"/>
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="variable" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="value" source="R-DATA:" type="Double"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="Trial" source="R-DATA:" type="Double"/>
+            <Field name="Fold" source="R-DATA:" type="Double"/>
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Type" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Predicted_class" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Variable" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Value" source="R-DATA:" type="Double"/>
           </RecordInfo>
         </MetaInfo>
       </Properties>
@@ -4099,7 +4899,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3740_d76766c3a0ba49a789e89d280f01061b_\Engine_5356_16c1895ef21847c0bda4cf6d21a06cf2_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_0ec968cf80d94f26b177d26e5cde6607_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4123,7 +4923,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3740_d76766c3a0ba49a789e89d280f01061b_\Engine_5356_a20a603bc91a43d48007b2d8b50fc038_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_e572d37e192343c99354f755d8fa0aff_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4151,7 +4951,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3740_d76766c3a0ba49a789e89d280f01061b_\Engine_5356_cf9283e2d39b4d9dbf4e4eeef0b5075c_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_b5b11f203fe843d6942c0bb5339c82cf_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4179,7 +4979,7 @@ write.Alteryx(data.frame(Class = the.class))
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3740_d76766c3a0ba49a789e89d280f01061b_\Engine_5356_25f3af20d5fe426a9a55d63888d10376_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_c1a1caed68f74bbf847f05a167fce241_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4296,7 +5096,8 @@ write.Alteryx(data.frame(Class = the.class))
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String"/>
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString"/>
           </RecordInfo>
         </MetaInfo>
       </Properties>
@@ -4354,758 +5155,13 @@ write.Alteryx(data.frame(Class = the.class))
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
     </Node>
-    <Node ToolID="255">
-      <GuiSettings Plugin="AlteryxRPluginGui.R">
-        <Position x="1614" y="1314"/>
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <RScript><![CDATA[#' ---
-#' title: Cross Validation Macro
-#' author: Bridget Toomey
-#' ---
-#' 
-#' 
-#' Utility function to check to see if the necessary packages are
-#' installed and install them if they're not.
-#'
-#'
-#' @param packages vector of package names to check and install.
-#' @export
-#' @author Bridget Toomey, Dan Putler
-checkInstalls <- function(packages) {
-  # See if the desired packages are installed, and install if they're not
-  if (!all(packages %in% row.names(installed.packages()))) {
-    # Use the IE based "Internet2" since it is most reliable for this action,
-    # it will be switched back at the end
-    setInternet2(use = TRUE)
-    # Make sure the path to the users library is in place and create it if it
-    # is not
-    minor_ver <- strsplit(R.Version()$minor, "\\.")[[1]][1]
-    R_ver <- paste(R.Version()$major, minor_ver, sep = ".")
-    the_path <- paste0(normalizePath("~"), "\\R\\win-library\\", R_ver)
-    # Create the user's personal folder if it doesn't already exist
-    if (!dir.exists(the_path)) {
-      dir.create(the_path, recursive = TRUE, showWarnings = FALSE)
-    }
-    # The set of possible repositories to use
-    repos <- c("http://cran.revolutionanalytics.com", "https://cran.rstudio.com")
-    # Select a particular repository
-    repo <- sample(repos, 1)
-    repo <- c(repo, "https://alteryx.github.io/drat")
-    missingPackages <- packages[which(!(packages %in% row.names(installed.packages())))]
-    install.packages(missingPackages, lib = the_path, repos = repo)
-    setInternet2(use = FALSE)
-  }
-}
-
-checkInstalls(c("ROCR", "plyr", "TunePareto", "sm", "vioplot", "ggplot2", "AlteryxPredictive"))
-library(ROCR)
-library("TunePareto")
-library("sm")
-library("vioplot")
-library("ggplot2")
-
-#Make sure the user has at least AlteryxPredictive 0.3.1, since that version
-#contains scoreModel2
-if (packageVersion("AlteryxPredictive") < '0.3.2') {
-  setInternet2(use = TRUE)
-  the_path <- paste0(normalizePath("~"), "\\R\\win-library\\", R.Version()$major, ".", substr(R.Version()$minor, start = 1, stop = 1))
-  install.packages("AlteryxPredictive", lib = the_path, repos = "https://alteryx.github.io/drat")
-  setInternet2(use = FALSE)
-}
-
-#' ### Read Configuration
-#' ## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
-suppressWarnings(library(AlteryxPredictive))
-config <- list(
-  `classification` = FALSE,
-  `modelType` = NULL,
-  `numberFolds` = numericInput('%Question.nfolds_external%' , 5),
-  `numberTrials` = numericInput('%Question.numberTrials%' , 3),
-  #This should be added as a config option in Logistic Regression, but it's irrelevant
-  #here, since we're solving a regression problem
-  `posClass` = NULL,
-  `predFields` = listInput('%Question.predFields%'),
-  `regression` = TRUE,
-  `stratified` = FALSE,
-  `seed` = numericInput('%Question.seed%', 1)
-)
-options(alteryx.wd = '%Engine.WorkflowDirectory%')
-options(alteryx.debug = config$debug)
-##----
-
-
-library(plyr)
-#' ### Defaults
-#' These defaults are used when the R code is run outside Alteryx
-if (!inAlteryx()){
-  macroDirectory <- textInput('%Engine.WorkflowDirectory%', "Supporting_Macros")
-  dataDir <- file.path(macroDirectory, "Data")
-  defaults <- list(
-    data = readRDS(file.path(dataDir, "data.rds")),
-    models = readRDS(file.path(dataDir, "models.rds"))
-  )
-}
-
-
-#' ### Inputs
-#' 
-#' This is a named list of all inputs that stream into the R tool.
-inputs <- list(
-  data = read.Alteryx2("#1", default = defaults$data),
-  models = readModelObjects("#2", default = defaults$models)
-)
-
-##---- Inputs/Config Complete
-
-#' ### Helper Functions
-areIdentical <- function(v1, v2){
-  identical(sort(v1), sort(v2))
-}
-
-#' Helper Functions For Tests
-makePayload <- function(csvFile, modelsFile){
-  test_data <- read.csv(csvFile)
-  list(
-    #data = test_data[, c(targetVar, setdiff(names(test_data), targetVar))],
-    data = test_data,
-    models = AlteryxPredictive::readModelObjects("2", readRDS(modelsFile))
-  )
-}
-
-runTest <- function(modelName, payload){
-  inputs <- list(data = payload$data, models = payload$models[modelName])
-  message(paste(modelName, 'passes'))
-  test_that(paste(modelName, 'passes'), {
-    expect_that(invisible(getResultsCrossValidation(inputs, config)), throws_error(NA) )
-  })
-}
-
-#' ## Check predictor variables
-#' 
-#' Check if predictor variables in the models and input data are identical.
-checkXVars <- function(inputs){
-  numModels <- length(inputs$models)
-  modelNames <- names(inputs$models)
-  modelXVars <-  if (packageVersion('AlteryxPredictive') <= '0.3.2'){
-    print("package version is <= 0.3.2")
-    lapply(inputs$models, getXVars2)
-  } else {
-    print("package version is > 0.3.2")
-    lapply(inputs$models, getXVars)
-  }
-  dataXVars <- names(inputs$data)[which(names(inputs$data) %in% unlist(modelXVars))]
-  errorMsg <- NULL
-  if (numModels > 1) {
-    for (i in 1:(numModels - 1)){
-      mvars1 <- modelXVars[[i]]
-      mvars2 <- modelXVars[[i + 1]]
-      if (!areIdentical(mvars1, mvars2)){
-        errorMsg <- paste("Models", modelNames[i] , "and", modelNames[i + 1],
-                          "were created using different predictor variables.")
-        stopMsg <- "Please ensure all models were created using the same predictors."
-      } 
-      else if (!all(mvars1 %in% dataXVars)){
-        errorMsg <- paste("Model ", modelNames[i], 
-                          "used predictor variables which were not contained in the input data.")
-        stopMsg <- paste("Please ensure input data contains all the data",
-                         "used to create the models and try again.")
-      }
-      if (!is.null(errorMsg)){
-        AlteryxMessage2(errorMsg, iType = 2, iPriority = 3)
-        stop.Alteryx2(stopMsg)
-      }
-    }
-  } else {
-    mvars1 <- modelXVars[[1]]
-    if (!all(mvars1 %in% dataXVars)){
-      errorMsg <- paste("Model ", modelNames[1], 
-                        "used predictor variables which were not contained in the input data.")
-      stopMsg <- paste("Please ensure input data contains all the data",
-                       "used to create the models and try again.")
-    }
-    if (!is.null(errorMsg)){
-      AlteryxMessage2(errorMsg, iType = 2, iPriority = 3)
-      stop.Alteryx2(stopMsg)
-    }
-  }
-}
-
-#' Given a factor variable and a set of records in a fixed trial and fold,
-#' return the list of classes not present in that trial and fold.
-getMissingClasses <- function(currentClasses, currentRecords) {
-  currentClasses[(!(currentClasses %in% currentRecords))]
-}
-
-#' For each factor variable, check to see if all levels are present in each fold. 
-#' If not, warn the user.
-#' 
-
-checkFactorVars <- function(data, folds, config) {
-  #All of the discrete variables will be some type of string in Alteryx. So they'll be read as factors, since stringsAsFactors is TRUE in read.Alteryx.
-  factorVars <- data[,sapply(data, FUN = is.factor), drop = FALSE]
-  #We only need to check if there's at least one factor variable. If all variables are continuous, we don't need to do anything.
-  if (NCOL(factorVars) > 0) {
-    for (k in 1:NCOL(factorVars)) {
-      uniqueClasses <- unique(factorVars[,k])
-      currentVar <- factorVars[,k]
-      #We want to check if one of the folds on one of the trials is missing any classes.
-      #If a class is missing from a fold, we output a warning suggesting that the user check their data/try to collect more data.
-      #If a training set is missing a class, we output a fatal error telling the user they must ensure
-      #that each training set contains all classes.
-      for (i in 1: (config$numberTrials)) {
-        for (j in 1:(config$numberFolds)) {
-          currentTestRecords <- currentVar[unlist(folds[[i]][j])]
-          currentTrainingRecords <- currentVar[unlist(folds[[i]][-j])]
-          missingTestClasses <- getMissingClasses(currentClasses = uniqueClasses, currentRecords = currentTestRecords)
-          missingTrainingClasses <- getMissingClasses(currentClasses = uniqueClasses, currentRecords = currentTrainingRecords)
-          #testing if all classes are represented in trial i, fold j
-          if (length(missingTestClasses) > 0) {
-            currentColumnName <- colnames(factorVars)[k]
-            if (length(missingTestClasses) > 1) {
-              warningMessage1 <- paste0("Classes ", missingTestClasses, " were not present in variable ", currentColumnName, " of the test set.")
-              warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on these classes."
-            } else {
-              warningMessage1 <- paste0("Class ", missingTestClasses, " was not present in variable ", currentColumnName, " of the test set.")
-              warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on this class."
-            }
-            AlteryxMessage2(warningMessage1)
-            AlteryxMessage2(warningMessage2)
-          }
-          #testing if all classes are represented in the training set when trial i, fold j is the test set. 
-          #So the training set here is trial i, all folds except fold j.
-          if (length(missingTrainingClasses) > 0) {
-            currentColumnName <- colnames(factorVars)[k]
-            if (length(missingTrainingClasses) > 1) {
-              warningMessage1 <- paste0("Classes ", missingTrainingClasses, " were not present in variable ", currentColumnName," of the training set.")
-              warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on these classes."
-              errorMessage <- "It is very difficult to create an accurate model when the training set is missing a class."
-            } else {
-              warningMessage1 <- paste0("Class ", missingTrainingClasses, " was not present in variable ", currentColumnName, " of the training set.")
-              warningMessage2 <- "It is recommended that you either check your data to ensure no records were mis-labeled or collect more data on this class."
-              errorMessage <- "It is very difficult to create an accurate model when the training set is missing classes."
-            }
-            AlteryxMessage2(warningMessage1)
-            AlteryxMessage2(warningMessage2)
-            AlteryxMessage2(errorMessage)
-          }
-        }
-      }
-    }
-  }
-}
-
-
-#Create the list of cross-validation folds and output warnings/errors as appropriate
-createFolds <- function(data, config) {
-  target <- data[, 1]
-  set.seed(config$seed)
-  foldList <- generateCVRuns(labels = target, ntimes = config$numberTrials, nfold = config$numberFolds, stratified = config$stratified)
-  checkFactorVars(data = data, folds = foldList, config = config)
-  return(foldList)
-}
-
-
-
-#Check if response variable is the same in the pre-built model(s) and the input data.
-#If so, output this variable.
-getYvars <- function(data, models) {
-  # Get the names of the target fields and make sure they are all same. If not,
-  # throw an error.
-  print("about to sapply getyvar")
-  y_names <- sapply(models, AlteryxPredictive:::getYVar)
-  print("got y var")
-  if (!all(y_names == y_names[1])) {
-    stop.Alteryx2("More than one target variable are present in the provided models")
-  } else if (!(y_names[1] %in% colnames(data))) {
-    stop.Alteryx2("The target variable from the models is different than the target chosen in the configuration. Please check your configuration settings and try again.")
-  }
-  # get the target variable name
-  y_name <- y_names[1]
-  print("set y_name")
-  # Get the target variable
-  return(list(y_col = data[[y_name]], y_name = y_name))
-  print("got data[[y_name]]")
-}
-
-#In the 2-class classification case, get the positive class. Otherwise, do nothing.
-getPosClass <- function(config, yVar) {
-  
-  #Use the function from the Model Comparison tool to get/set positive class:
-  setPositiveClass <- function(tar_lev) {
-    # Set the postive class for two-class classification.
-    # The setPositiveClass function is only triggered if the user leaves the
-    # question on positive class (target level) blank.
-    #   1) if there's "yes/Yes/YES ..." in the target variable, then use "yes/Yes/YES"
-    #   2) if there's "true/True/TRUE..." in the target variable, then use "true/True/TRUE"
-    #   3) otherwise: use the first level by alphabetical order.
-    #
-    # Parameters:
-    #   tar_lev: a vector of string
-    #            the levels of the target variable.
-    #
-    # Returns:
-    #   no_name: a string, the name of the positive class.
-    
-    yes_id <- match("yes", tolower(tar_lev))
-    true_id <- match("true", tolower(tar_lev))
-    if (!is.na(yes_id)) {
-      return (tar_lev[yes_id])
-    } else if (!is.na(true_id)) {
-      return (tar_lev[true_id])
-    } else {
-      return (tar_lev[1])
-    }
-  }
-  return(setPositiveClass(yVar))
-}
-
-adjustGbmModel <- function(model){
-  method <- if (model$cv.folds > 1){
-    "cv"
-  } else if (model$train.function < 1){
-    "test"
-  } else {
-    "OOB"
-  }
-  model$best.trees <- gbm.perf(model, method = method)
-  return(model)
-}
-
-naiveBayesUpdate <- function(model, trainingData, currentYvar) {
-  if (is.null(model$laplace)) {
-    model$laplace <- 0
-    AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
-    AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
-  }
-  predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
-  response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
-  naiveBayes.default <- getS3method("naiveBayes", "default")
-  currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
-  return(currentModel)
-}
-
-#' Given a model, a dataset and index of test cases, return actual and response
-getActualandResponse <- function(model, data, testIndices, extras, mid){
-  trainingData <- data[-testIndices,]
-  testData <- data[testIndices,]
-  testData <- matchLevels(testData, getXlevels(model))
-  currentYvar <- extras$y_name
-  #Check if the model is Naive Bayes and lacking a Laplace parameter.
-  #If so, set the Laplace parameter to 0 and warn the user.
-  print("about to do the updates")
-  if (inherits(model, "naiveBayes")) {
-    currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
-  } else {
-    print("in the non-naive bayes case")
-    currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
-  }
-  print("did the updates")
-  if (inherits(currentModel, 'gbm')){
-    currentModel <- adjustGbmModel(currentModel)
-  }
-  pred <- if (packageVersion('AlteryxPredictive') <= '0.3.2') {
-    AlteryxPredictive::scoreModel2(currentModel, new.data = testData)
-  } else {
-    AlteryxPredictive::scoreModel(currentModel, new.data = testData)
-  }
-  actual <- (extras$yVar)[testIndices]
-  recordID <- (data[testIndices,])$recordID
-  if (config$classification) {
-    response <- gsub("Score_", "", names(pred)[max.col(pred)])
-    d <- data.frame(recordID = recordID, response = response, actual = actual)
-    return(cbind(d, pred))
-  } else {
-    response <- pred$Score
-    return(data.frame(recordID = recordID, response = response, actual = actual))
-  }
-}
-
-safeGetActualAndResponse <- failwith(NULL, getActualandResponse, quiet = FALSE)
-
-#' 
-getCrossValidatedResults <- function(inputs, allFolds, extras, config){
-  function(mid, trial, fold){
-    model <- inputs$models[[mid]]
-    testIndices <- allFolds[[trial]][[fold]]
-    print("about to create out")
-    out <- (safeGetActualAndResponse(model, inputs$data, testIndices, extras, mid))
-    if (is.null(out)) {
-      AlteryxMessage2(paste0("For model ", mid, " trial ", trial, " fold ", fold, " the data could not be scored."), iType = 2, iPriority = 3)
-    } else {
-      out <- cbind(trial = trial, fold = fold, mid = mid, out)
-    }
-    return(out)
-  }
-}
-
-getPkgListForModels <- function(models){
-  print("about to get the model classes")
-  modelClasses <- unlist(lapply(models, class))
-  print("got the model classes")
-  pkgMap = list(
-    gbm = "gbm", rpart = "rpart", svm.formula = "e1071", svm = "e1071",
-    naiveBayes = "e1071", svyglm = "survey", nnet.formula = "nnet",
-    randomForest.formula = "randomForest", earth = "earth", glmnet = "glmnet",
-    elnet = "glmnet", cv.glmnet = "glmnet", lognet = "glmnet"
-  )
-  unique(unlist(pkgMap[modelClasses]))
-}
-
-#Get the necessary measures in the regression case
-getMeasuresRegression <- function(outData, extras) {
-  actual <- unlist(outData$actual)
-  predicted <- unlist(outData$response)
-  modelIndic <- outData$mid
-  trialIndic <- outData$trial
-  foldIndic <- outData$fold
-  err <- actual - predicted
-  rmse <- sqrt(mean(err*err))
-  mae <- mean(abs(err))
-  # When there are values near 0 in the target variable, it can lead to an attempt to divide by 0
-  # In this case, use the weighted version.
-  if (any(abs(actual) < 0.001)) {
-    AlteryxMessage("The target variable contains values very close to 0 (-0.001, 0.001). WPE and WAPE are being used instead of MPE and MAPE.", iType = 2, iPriority = 3)
-    mpe <- 100 * sum(err) / sum(actual)
-    mape <- 100 * sum(abs(err)) / sum(actual)
-  } else {
-    mpe <- 100*mean(err/actual)
-    mape <- 100*mean(abs(err/actual))
-  }
-  data.frame(
-    Correlation = cor(predicted, actual), RMSE = rmse, MAE = mae, MPE= mpe, MAPE = mape
-  )
-}
-
-#Get the necessary measures in the classification case
-getMeasuresClassification <- function(outData, extras) {
-  actual <- as.character(outData$actual)
-  scoredData <- outData[,7:8]
-  scoredOutput <- as.character(outData$response)
-  posClass <- extras$posClass
-  modelIndic <- unique(outData$mid)
-  trialIndic <- unique(outData$trial)
-  foldIndic <- unique(outData$fold)
-  overallAcc <- sum(actual == scoredOutput)/length(actual)
-  if (length(extras$levels) == 2) {
-    true_y <- factor(TRUE*(actual == posClass)) # if levels are strings rather than TRUE/FALSE
-    #We need to know which column of scoredData corresponds to the positive class in order to set up the needed intermediate steps for obtaining the AUC
-    posClassCol <- which((extras$levels) == posClass)
-    negClassCol <- which((extras$levels) != posClass)
-    predictions <- scoredData[,posClassCol]
-    predictionObj <- prediction(predictions = predictions, labels = actual)
-    
-    # =================================================================
-    # Quick Reference:
-    #       precision = tp / (tp + fp)
-    #          recall = tp / (tp + fn)
-    #             tpr = tp / (tp + fn)
-    #             fpr = fp / (fp + tn)
-    #              f1 = 2 * precision * recall / (precision + recall)
-    # ==================================================================
-    
-    #     perf_acc <- performance(predictionObj, "acc", "cutoff")
-    #     perf_lift <- performance(predictionObj, "lift", "rpp")
-    #     perf_gain <- performance(predictionObj, "tpr", "rpp")
-    #     perf_roc <- performance(predictionObj, "tpr", "fpr")
-    #     perf_pr <- performance(predictionObj, "prec", "rec")
-    actualPosIndic <- which(actual == posClass)
-    nActualPos <- length(actualPosIndic)
-    nCorrectPos <- sum(scoredOutput[actualPosIndic] == posClass)
-    nPredPos <- sum(scoredOutput == posClass)
-    precision <- nCorrectPos/nPredPos
-    recall <- nCorrectPos/nActualPos
-    F1 <- 2*(precision*recall)/(precision + recall)
-    AUC <- performance(prediction.obj = predictionObj, measure = "auc")
-    AUC <- unlist(AUC@y.values)
-    percentClass1Right <- sum(scoredOutput[which(actual == (extras$levels)[1])] == (extras$levels)[[1]])/length(which(actual == (extras$levels)[1]))
-    percentClass2Right <- sum(scoredOutput[which(actual == (extras$levels)[2])] == (extras$levels)[[2]])/length(which(actual == (extras$levels)[2]))
-    outVec <- c(mid = modelIndic, trial = trialIndic, fold = foldIndic, Accuracy_Overall = overallAcc, Accuracy_Class_1 = percentClass1Right, Accuracy_Class_2 = percentClass2Right, F1 = F1, AUC = AUC)
-  } else {
-    #Compute accuracy by class
-    outVec <- vector(length = length((extras$levels)))
-    for (l in 1:length((extras$levels))) {
-      tempPred <- scoredOutput[actual == (extras$levels)[[l]]]
-      nCorrect <- sum(tempPred == (extras$levels)[[l]])
-      thisAcc <- nCorrect/sum(actual == (extras$levels)[[l]])
-      outVec[l] <- thisAcc
-      names(outVec)[l] <- paste0("Accuracy_Class_", l)
-    }
-    outVec <- c(mid = modelIndic, trial = trialIndic, fold = foldIndic, Accuracy_Overall = overallAcc, outVec)
-  }
-  return(outVec)
-}
-
-#' ### Functions to Generate Output
-#' 
-generateConfusionMatrices <- function(outData, extras) {
-  outvec <- vector(length = length(extras$levels))
-  pasteClass <- function(nameOfClass) {
-    paste0("Class_", nameOfClass)
-  }
-  names(outvec) <- sapply(X = (extras$levels), FUN = pasteClass, simplify = TRUE)
-  for (i in 1:length(extras$levels)) {
-    outvec[i] <- length(which((outData$actual) == ((extras$levels)[i])))
-  }
-  return(c(mid = unique(outData$mid), trial = unique(outData$trial), fold = unique(outData$fold), Predicted_class = as.character(unique(outData$response)), outvec))
-}
-
-generateOutput3 <- function(data, extras, modelNames) {
-  d <- ddply(data, .(trial, fold, mid, response), generateConfusionMatrices, 
-             extras = extras
-  )
-  d$Model <- modelNames[as.numeric(d$mid)]
-  d$Type <- rep.int('Classification', times = length(d$Model))
-  d <- subset(d, select = -c(mid, response))
-  d <- reshape2::melt(d, id = c('trial', 'fold', 'Model', 'Type', 'Predicted_class'))
-  colnames(d) <- c('Trial', 'Fold', 'Model', 'Type', 'Predicted_class', 'Variable', 'Value')
-  return(d)
-}
-
-generateOutput2 <- function(data, extras, modelNames) {
-  fun <- if (is.null(extras$levels)) {
-    getMeasuresRegression 
-  } else {
-    getMeasuresClassification
-  }
-  d <- ddply(data, .(trial, fold, mid), fun, extras = extras)
-  d$Model <- modelNames[as.numeric(d$mid)]
-  d <- subset(d, select = -c(mid))
-  return(d)
-}
-
-generateOutput1 <- function(inputs, config, extras){
-  pkgsToLoad <- getPkgListForModels(inputs$models)
-  for (pkg in pkgsToLoad) library(pkg, character.only = TRUE)
-  allFolds <- extras$allFolds
-  g <- expand.grid(
-    mid = seq_along(inputs$models),
-    trial = seq_along(allFolds),
-    fold = seq_along(allFolds[[1]])
-  )
-  print("about to getcrossvalidatedresults")
-  return(mdply(g, getCrossValidatedResults(inputs, allFolds, extras, config)))
-}
-
-computeBinaryMetrics <- function(pred_prob, actual, threshold){
-  #Pred_prob gives the predicted probability of belonging to the positive class
-  #Actual is true if the record belongs to the positive class and negative if not
-  actualPosIndic <- which(actual == TRUE)
-  actualNegIndic <- which(actual == FALSE)
-  nActualPos <- length(actualPosIndic)
-  thresholdedPredictions <- (pred_prob >= threshold)
-  nCorrectPos <- sum(thresholdedPredictions[actualPosIndic])
-  nPredPos <- sum(thresholdedPredictions)
-  nPredNeg <- length(actual) - length(nPredPos)
-  nCorrectNeg <- sum(1 - (thresholdedPredictions[-actualPosIndic]))
-  overallAcc <- sum(thresholdedPredictions == actual)/length(actual)
-  PosAcc <- length(intersect(which(thresholdedPredictions == TRUE), actualPosIndic))/length(actualPosIndic)
-  NegAcc <- length(intersect(which(thresholdedPredictions == FALSE), actualNegIndic))/length(actualNegIndic)
-  precision <- nCorrectPos/nPredPos
-  recall <- nCorrectPos/nActualPos
-  F1 <- 2*(precision*recall)/(precision + recall)
-  tpr <- recall
-  rpp <- nPredPos/length(pred_prob)
-  lift <- tpr/rpp
-  fpr <- (nPredPos - nCorrectPos)/length(actualNegIndic)
-  pred <- prediction(predictions = pred_prob, labels = actual)
-  auc <- performance(pred, "auc")
-  auc <- unlist(auc@y.values)
-  data.frame(threshold = threshold, recall = recall, F1 = F1, lift = lift, Rate_Pos_Predictions = rpp, True_Pos_Rate = tpr, False_Pos_Rate = fpr, Precision = precision)
-}
-
-generateDataForPlots <- function(d, extras, config){
-  if (config$classification) {
-    if (length(extras$levels) == 2) {
-      thresholds <- seq(0, 1, 0.05)
-      ldply(thresholds, computeBinaryMetrics, 
-            actual = ifelse(d$actual == extras$posClass, TRUE, FALSE), 
-            pred_prob = d[[paste0('Score_', extras$posClass)]]
-      )
-    } else{
-      data.frame()
-    }
-  } else {
-    data.frame(response = d$response, actual = d$actual)
-  }
-}
-
-generateLabels <- function(plotData, config) {
-  trials <- c()
-  for (i in 1:length(unique(plotData$trial))) {
-    trials <- c(trials, paste0("Trial ", unique(plotData$trial))[i])
-  }
-  models <- c()
-  for (i in 1:length(unique(plotData$mid))) {
-    models <- c(models, paste0("Model ", unique(plotData$model))[i])
-  }
-  list(trials = trials, models = models)
-}
-
-plotBinaryData <- function(plotData, config, modelNames) {
-  labels <- generateLabels(plotData, config)
-  modelVec <- modelNames[plotData$mid]
-  trialVec <- paste0('Trial ', plotData$trial)
-  plotData <- cbind(plotData, modelVec, trialVec)
-  liftdf <- data.frame(Rate_positive_predictions = plotData$Rate_Pos_Predictions, lift = plotData$lift, fold = paste0("Fold", plotData$fold), 
-                       models = plotData$modelVec, trial = plotData$trialVec)
-  gaindf <- data.frame(Rate_positive_predictions = plotData$Rate_Pos_Predictions, True_Pos_Rate = plotData$True_Pos_Rate, fold = paste0("Fold", plotData$fold),
-                       models = plotData$modelVec, trial = plotData$trialVec)
-  prec_recalldf <- data.frame(recall = plotData$recall, precision = plotData$Precision, fold = paste0("Fold", plotData$fold),
-                              models = plotData$modelVec, trial = plotData$trialVec)
-  rocdf <- data.frame(False_Pos_Rate = plotData$False_Pos_Rate, True_Pos_Rate = plotData$True_Pos_Rate, fold = paste0("Fold", plotData$fold),
-                      models = plotData$modelVec, trial = plotData$trialVec)
-  
-  liftPlotObj <- ggplot(data = liftdf, aes(x = Rate_positive_predictions, y = lift)) + 
-    geom_smooth(aes(colour=models)) + ggtitle("Lift curves") 
-  gainPlotObj <- ggplot(data = gaindf, aes(x = Rate_positive_predictions, y = True_Pos_Rate)) + 
-    geom_smooth(aes(colour=models)) + ggtitle('Gain Charts')
-  PrecRecallPlotObj <- ggplot(data = prec_recalldf, aes(x = recall, y = precision)) + 
-    geom_smooth(aes(colour=models)) + ggtitle('Precision and Recall Curves')
-  ROCPlotObj <- ggplot(data = rocdf, aes(x = False_Pos_Rate, y = True_Pos_Rate)) +
-    geom_smooth(aes(colour=models)) + ggtitle('ROC Curves')
-  AlteryxGraph2(liftPlotObj, nOutput = 4)
-  AlteryxGraph2(gainPlotObj, nOutput = 4)
-  AlteryxGraph2(PrecRecallPlotObj, nOutput = 4)
-  AlteryxGraph2(ROCPlotObj, nOutput = 4)
-}
-
-plotRegressionData <- function(plotData, config, modelNames) {
-  modelVec <- modelNames[plotData$mid]
-  trialVec <- paste0('Trial ', plotData$trial)
-  plotData <- cbind(plotData, modelVec, trialVec)
-  plotdf <- data.frame(Actual = plotData$actual, Predicted = plotData$response, fold = paste0("Fold", plotData$fold), 
-                       models = plotData$modelVec, trial = plotData$trialVec)
-  plotObj <- ggplot(data = plotdf, aes(x = Actual, y = Predicted)) + 
-    geom_smooth(aes(colour=models)) + ggtitle("Predicted value vs actual values")
-  AlteryxGraph2(plotObj, nOutput = 4)
-}
-
-# Helper Functions End ----
-getResultsCrossValidation <- function(inputs, config){
-  print("creating recordid")
-  inputs$data$recordID <- 1:NROW(inputs$data)
-  print("created recordid")
-  if (!is.null(config$modelType)){
-    config$classification = (config$modelType == "classification")
-    config$regression = !config$classification
-  }
-  print("about to set yvar")
-  yVarList <- getYvars(inputs$data, inputs$models)
-  yVar <- yVarList$y_col
-  y_name <- yVarList$y_name
-  print("set yvar")
-  if ((config$classification) && (length(unique(yVar)) == 2)) {
-    if (config$posClass == "") {
-      config$posClass <- as.character(getPosClass(config, levels(yVar)))
-    }
-  }
-  print("setting modelnames")
-  inputs$modelNames <- names(inputs$models)
-  modelNames <- names(inputs$models)
-  print("checking xvars")
-  checkXVars(inputs)
-  print("creating extras")
-  extras <- list(
-    yVar = yVar,
-    y_name = y_name,
-    posClass = config$posClass,
-    allFolds = createFolds(data = inputs$data, config = config),
-    levels = if (config$classification) levels(yVar) else NULL
-  )
-  print("getting dataoutput1")
-  dataOutput1 <- generateOutput1(inputs, config, extras)
-  if ((config$regression) && ("Score" %in% colnames(dataOutput1))) {
-    dataOutput1 <- data.frame(trial = dataOutput1$trial, fold = dataOutput1$fold, 
-                              mid = dataOutput1$mid, recordID = dataOutput1$recordID,
-                              response = dataOutput1$Score, actual = dataOutput1$actual)
-  }
-  print('getting prepped output1')
-  preppedOutput1 <- if (config$regression) {
-    data.frame(RecordID = dataOutput1$recordID, 
-               Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
-               Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
-               Actual = dataOutput1$actual
-    )
-  } else {
-    data.frame(RecordID = dataOutput1$recordID, 
-               Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
-               Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
-               Actual = dataOutput1$actual
-    )
-  }
-  #write.Alteryx2(preppedOutput1, nOutput = 1)
-  print('getting dataoutput2')
-  dataOutput2 <- generateOutput2(dataOutput1, extras, modelNames)
-  print('getting preppedoutput2')
-  preppedOutput2 <- reshape2::melt(dataOutput2, id = c('trial', 'fold', 'Model'))
-  #write.Alteryx2(preppedOutput2, nOutput = 2)
-  print('getting confmats')
-  confMats <- if (config$classification) {
-    generateOutput3(dataOutput1, extras, modelNames)
-    #write.Alteryx2(confMats, 3)
-  } else {
-    #Provide garbage data that'll get filtered out on the Alteryx side.
-    data.frame(Trial = 1, Fold = 1, Model = 'model', Type = 'Regression', 
-               Predicted_class = 'no', Variable = "Classno", Value = 50
-    )
-  }
-  print('getting plotdata')
-  plotData <- ddply(dataOutput1, .(trial, fold, mid), generateDataForPlots, 
-                    extras = extras, config = config
-  )
-  print('making outputplot')
-  outputPlot <- if (config$classification) {
-    if (length(extras$levels) == 2) {
-      plotBinaryData(plotData, config, modelNames)
-    } else {
-      # Generate an empty plot
-      empty_df <- data.frame()
-      emptyPlot <- ggplot(empty_df) + geom_point() + xlim(0, 1) + ylim(0, 1) + 
-        ggtitle("No plots available for >2 class classification")
-    }
-  } else {
-    plotRegressionData(plotData, config, modelNames)
-  }
-  print('making outlist')
-  list(
-    data = preppedOutput1, fitMeasures = preppedOutput2, 
-    confMats = confMats, outputPlot = outputPlot   
-  )
-}
-
-runCrossValidation <- function(inputs, config){
-  print("about to get results")
-  results <- getResultsCrossValidation(inputs, config)
-  print("got results")
-  write.Alteryx2(results$data, 1)
-  write.Alteryx2(results$fitMeasures, 2)
-  write.Alteryx2(results$confMats, 3)
-  AlteryxGraph2(results$outputPlot, 4)
-}
-
-if (is.null(getOption("testscript"))){
-  runCrossValidation(inputs, config)
-}
-]]></RScript>
-          <UseFullUpdate value="False"/>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name/>
-          <DefaultAnnotationText/>
-          <Left value="False"/>
-        </Annotation>
-      </Properties>
-      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR"/>
-    </Node>
-    <Node ToolID="256">
+    <Node ToolID="269">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
-        <Position x="1434" y="1290"/>
+        <Position x="1482" y="1194"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <DetourRight value="False"/>
+          <DetourRight value="True"/>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name/>
@@ -5114,26 +5170,24 @@ if (is.null(getOption("testscript"))){
         </Annotation>
         <MetaInfo connection="Left">
           <RecordInfo>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
           </RecordInfo>
         </MetaInfo>
         <MetaInfo connection="Right">
           <RecordInfo>
-            <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
           </RecordInfo>
         </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour"/>
     </Node>
-    <Node ToolID="258">
+    <Node ToolID="271">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="1806" y="1278"/>
+        <Position x="1638" y="1230"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8384_9028ff79c93446168184cee356b3c153_\Engine_5356_57ace7bb124844cfada6aa8d3e7aa709_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_33b2ad14046041d58b13fb638031d8d7_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <View1>
@@ -5151,13 +5205,13 @@ if (is.null(getOption("testscript"))){
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
     </Node>
-    <Node ToolID="259">
+    <Node ToolID="272">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="1806" y="1350"/>
+        <Position x="1590" y="1266"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8384_9028ff79c93446168184cee356b3c153_\Engine_5356_a836fa0d9f3a47029235cbf1ca4c8c90_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_f0ad32e36bf843479cab98a5146841e7_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <View1>
@@ -5175,13 +5229,21 @@ if (is.null(getOption("testscript"))){
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
     </Node>
-    <Node ToolID="260">
+    <Node ToolID="273">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="1818" y="1398"/>
+        <Position x="1566" y="1326"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8384_9028ff79c93446168184cee356b3c153_\Engine_5356_980f209cb9e147ff8660a0e700ca3845_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_d74a7cabedb34c149ed389a5bbcfe78f_.yxdb</TempFile>
+          <TempFileDataProfiling/>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+          </Layout>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name/>
@@ -5191,13 +5253,13 @@ if (is.null(getOption("testscript"))){
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
     </Node>
-    <Node ToolID="261">
+    <Node ToolID="274">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="1818" y="1446"/>
+        <Position x="1578" y="1374"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8384_9028ff79c93446168184cee356b3c153_\Engine_5356_e010f268300b444b8d86e3aaf05cac91_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_b3d2e53eafa3439aab94a2b8fcfee911_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -5219,13 +5281,37 @@ if (is.null(getOption("testscript"))){
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
     </Node>
-    <Node ToolID="262">
+    <Node ToolID="275">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="1782" y="1506"/>
+        <Position x="1554" y="1422"/>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8384_9028ff79c93446168184cee356b3c153_\Engine_5356_3c7182055d6b48a7a12f2a80bf422348_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8132_9a400115ac7b4372bbe855cde88d0949_\Engine_2828_dbba2788207841cbab7eb3f4452cf7cf_.yxdb</TempFile>
+          <TempFileDataProfiling/>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table/>
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name/>
+          <DefaultAnnotationText/>
+          <Left value="False"/>
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2"/>
+    </Node>
+    <Node ToolID="276">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="1554" y="1062"/>
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5584_3e95c0551b48458fa978755a9bf0c705_\Engine_2828_58845c6c516144edbf6db4f13610ec9c_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -5553,7 +5639,7 @@ if (is.null(getOption("testscript"))){
           </GuiSettings>
           <Properties>
             <Configuration>
-              <DetourRight value="True"/>
+              <DetourRight value="False"/>
             </Configuration>
             <Annotation DisplayMode="0">
               <Name/>
@@ -5947,7 +6033,7 @@ if (is.null(getOption("testscript"))){
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54" y="154.9999" width="1919" height="570.0001"/>
+        <Position x="53.99997" y="155" width="1919" height="618.0001"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -5965,7 +6051,7 @@ if (is.null(getOption("testscript"))){
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="473.9988" y="400.0006" width="59" height="59"/>
+            <Position x="473.9988" y="400.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -5978,7 +6064,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9983" y="400.0011" width="59" height="59"/>
+            <Position x="197.9983" y="400.0007" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -5991,7 +6077,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="400.0002" width="59" height="59"/>
+            <Position x="557.999" y="400.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6004,7 +6090,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="293.9999" y="400.0014" width="59" height="59"/>
+            <Position x="293.9999" y="400.0012" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6017,7 +6103,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="377.999" y="400.0008" width="59" height="59"/>
+            <Position x="377.999" y="400.0006" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6030,7 +6116,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="400.0003" width="59" height="59"/>
+            <Position x="641.999" y="400.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6043,7 +6129,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="461.9999" y="510.0001" width="59" height="59"/>
+            <Position x="462.0002" y="510.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6056,7 +6142,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="114" y="400.0007" width="59" height="59"/>
+            <Position x="114" y="400.0008" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6069,7 +6155,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0001" y="297.0007" width="59" height="59"/>
+            <Position x="114.0001" y="297.001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6082,7 +6168,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4996" y="292.0006" width="59" height="59"/>
+            <Position x="202.4995" y="292.0007" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6095,7 +6181,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="644.999" y="292.0003" width="59" height="59"/>
+            <Position x="644.999" y="292.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6108,7 +6194,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.0004" y="291.9988" width="59" height="59"/>
+            <Position x="291.0005" y="291.9986" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6121,7 +6207,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5005" y="291.9995" width="59" height="59"/>
+            <Position x="379.5005" y="291.9993" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6134,7 +6220,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="467.9989" y="292.0002" width="59" height="59"/>
+            <Position x="467.9991" y="292" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6147,7 +6233,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.499" y="292" width="59" height="59"/>
+            <Position x="556.499" y="291.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6160,7 +6246,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.999" y="400.0003" width="59" height="59"/>
+            <Position x="725.999" y="400.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6277,7 +6363,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="196">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="750" y="233.9999" width="59" height="59"/>
+            <Position x="750" y="234" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6407,7 +6493,7 @@ if (is.null(getOption("testscript"))){
         </Node>
         <Node ToolID="251">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="678" y="533.9999" width="59" height="59"/>
+            <Position x="678" y="533.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6426,19 +6512,6 @@ if (is.null(getOption("testscript"))){
             <Configuration/>
             <Annotation DisplayMode="0">
               <Name>external_cv</Name>
-              <DefaultAnnotationText/>
-              <Left value="False"/>
-            </Annotation>
-          </Properties>
-        </Node>
-        <Node ToolID="257">
-          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="1638" y="606" width="59" height="59"/>
-          </GuiSettings>
-          <Properties>
-            <Configuration/>
-            <Annotation DisplayMode="0">
-              <Name/>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -6517,6 +6590,19 @@ if (is.null(getOption("testscript"))){
             <Configuration/>
             <Annotation DisplayMode="0">
               <Name>numberTrials</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="270">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="1122" y="654" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name/>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -6682,13 +6768,13 @@ Union</Text>
       <Origin ToolID="245" Connection="Action"/>
       <Destination ToolID="244" Connection="Action"/>
     </Connection>
-    <Connection>
+    <Connection name="#1">
       <Origin ToolID="4" Connection="Output3"/>
-      <Destination ToolID="256" Connection="Input"/>
+      <Destination ToolID="170" Connection="Input"/>
     </Connection>
     <Connection name="#2">
-      <Origin ToolID="257" Connection="Action"/>
-      <Destination ToolID="256" Connection="Action"/>
+      <Origin ToolID="143" Connection="Output"/>
+      <Destination ToolID="170" Connection="Input"/>
     </Connection>
     <Connection name="#1">
       <Origin ToolID="107" Connection="Output"/>
@@ -6723,8 +6809,12 @@ Union</Text>
       <Destination ToolID="171" Connection="Targets"/>
     </Connection>
     <Connection>
-      <Origin ToolID="170" Connection="Output1"/>
+      <Origin ToolID="269" Connection="Left"/>
       <Destination ToolID="171" Connection="Source"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="115" Connection="Output"/>
+      <Destination ToolID="276" Connection="Input"/>
     </Connection>
     <Connection>
       <Origin ToolID="125" Connection="Left"/>
@@ -6822,14 +6912,6 @@ Union</Text>
       <Origin ToolID="143" Connection="Output"/>
       <Destination ToolID="4" Connection="Input"/>
     </Connection>
-    <Connection name="#1">
-      <Origin ToolID="143" Connection="Output"/>
-      <Destination ToolID="255" Connection="Input"/>
-    </Connection>
-    <Connection name="#2">
-      <Origin ToolID="256" Connection="Right"/>
-      <Destination ToolID="255" Connection="Input"/>
-    </Connection>
     <Connection>
       <Origin ToolID="165" Connection="Output"/>
       <Destination ToolID="125" Connection="Input"/>
@@ -6849,6 +6931,34 @@ Union</Text>
     <Connection Wireless="True">
       <Origin ToolID="165" Connection="Question"/>
       <Destination ToolID="159" Connection="Question Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output1"/>
+      <Destination ToolID="269" Connection="Input"/>
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="270" Connection="Action"/>
+      <Destination ToolID="269" Connection="Action"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output1"/>
+      <Destination ToolID="271" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output2"/>
+      <Destination ToolID="272" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output3"/>
+      <Destination ToolID="273" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output4"/>
+      <Destination ToolID="274" Connection="Input"/>
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output5"/>
+      <Destination ToolID="275" Connection="Input"/>
     </Connection>
     <Connection>
       <Origin ToolID="171" Connection="Output"/>
@@ -6898,10 +7008,6 @@ Union</Text>
       <Origin ToolID="205" Connection="Left"/>
       <Destination ToolID="102" Connection="Input"/>
     </Connection>
-    <Connection name="#1">
-      <Origin ToolID="205" Connection="Left"/>
-      <Destination ToolID="170" Connection="Input"/>
-    </Connection>
     <Connection>
       <Origin ToolID="207" Connection="Left"/>
       <Destination ToolID="113" Connection="Input"/>
@@ -6933,26 +7039,6 @@ Union</Text>
     <Connection name="#2">
       <Origin ToolID="247" Connection="Action"/>
       <Destination ToolID="246" Connection="Action"/>
-    </Connection>
-    <Connection>
-      <Origin ToolID="255" Connection="Output1"/>
-      <Destination ToolID="258" Connection="Input"/>
-    </Connection>
-    <Connection>
-      <Origin ToolID="255" Connection="Output2"/>
-      <Destination ToolID="259" Connection="Input"/>
-    </Connection>
-    <Connection>
-      <Origin ToolID="255" Connection="Output3"/>
-      <Destination ToolID="260" Connection="Input"/>
-    </Connection>
-    <Connection>
-      <Origin ToolID="255" Connection="Output4"/>
-      <Destination ToolID="261" Connection="Input"/>
-    </Connection>
-    <Connection>
-      <Origin ToolID="255" Connection="Output5"/>
-      <Destination ToolID="262" Connection="Input"/>
     </Connection>
     <Connection>
       <Origin ToolID="213" Connection="True"/>
@@ -7111,6 +7197,10 @@ Union</Text>
       <Destination ToolID="245" Connection="Question"/>
     </Connection>
     <Connection name="#1">
+      <Origin ToolID="178" Connection="Question"/>
+      <Destination ToolID="270" Connection="Question"/>
+    </Connection>
+    <Connection name="#1">
       <Origin ToolID="194" Connection="Question"/>
       <Destination ToolID="228" Connection="Question"/>
     </Connection>
@@ -7129,10 +7219,6 @@ Union</Text>
     <Connection name="#1">
       <Origin ToolID="196" Connection="Question"/>
       <Destination ToolID="251" Connection="Question"/>
-    </Connection>
-    <Connection name="#1">
-      <Origin ToolID="254" Connection="Question"/>
-      <Destination ToolID="257" Connection="Question"/>
     </Connection>
   </Connections>
   <Properties>
@@ -7161,7 +7247,7 @@ Union</Text>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>nfolds_external</Name>
-        <Value/>
+        <Value>5</Value>
         <IsNumeric value="True"/>
       </Constant>
       <Constant>
@@ -7191,7 +7277,7 @@ Union</Text>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>numberTrials</Name>
-        <Value/>
+        <Value>3</Value>
         <IsNumeric value="True"/>
       </Constant>
       <Constant>
@@ -7521,9 +7607,9 @@ Union</Text>
             <Action>
               <Type>Dynamic</Type>
               <Description/>
-              <ToolId value="257"/>
+              <ToolId value="270"/>
               <Expression>{{INPUT}}</Expression>
-              <Destination>256/DetourRight/@value</Destination>
+              <Destination>269/DetourRight/@value</Destination>
               <Mapping>Update Detour Direction from Question</Mapping>
               <Mode>Expression</Mode>
               <DynamicConfiguration/>
@@ -7854,12 +7940,13 @@ Union</Text>
         <Tool ToolId="198" Selected="False"/>
         <Tool ToolId="199" Selected="False"/>
         <Tool ToolId="200" Selected="False"/>
+        <Tool ToolId="275" Selected="False"/>
+        <Tool ToolId="274" Selected="False"/>
+        <Tool ToolId="273" Selected="False"/>
+        <Tool ToolId="272" Selected="False"/>
+        <Tool ToolId="271" Selected="False"/>
         <Tool ToolId="220" Selected="False"/>
-        <Tool ToolId="258" Selected="False"/>
-        <Tool ToolId="259" Selected="False"/>
-        <Tool ToolId="260" Selected="False"/>
-        <Tool ToolId="261" Selected="False"/>
-        <Tool ToolId="262" Selected="False"/>
+        <Tool ToolId="276" Selected="False"/>
       </Wiz_OpenOutputTools>
       <Wiz_OutputMessage/>
       <Wiz_NoOutputFilesMessage/>
