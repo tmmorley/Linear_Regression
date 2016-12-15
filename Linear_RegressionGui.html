@@ -64,6 +64,37 @@ Linear_Regression
 <!--  Weight Vec  -->
 <alteryx-pluginwidget type="DropDown" dataType="FieldSelector" inputNumber="0" connectionNumber="0" fieldType="Numeric" clearable="true" id="Weight Vec" dataName="Weight Vec"></alteryx-pluginwidget>
 </div>
+      <div id='div-external-cv'>
+        
+<!--  external_cv  -->
+<alteryx-pluginwidget type="CheckBox" text="Use Cross-Validation to determine estimates of model quality?" id="external_cv" dataName="external_cv" defaultValue="false"></alteryx-pluginwidget>
+
+        <div id = 'show-on-external-cv'> 
+         
+<!--  nfolds_external  -->
+<label for="nfolds_external">Number of folds to use in external cross-validation</label>
+<alteryx-pluginwidget type="NumericSpinner" default="5" min="1" max="100" step="1" id="nfolds_external" dataName="nfolds_external"></alteryx-pluginwidget>
+
+         
+<!--  numberTrials  -->
+<label for="numberTrials">Number of trials</label>
+<alteryx-pluginwidget type="NumericSpinner" default="3" min="1" max="100" step="1" id="numberTrials" dataName="numberTrials"></alteryx-pluginwidget>
+
+         <div id='div-set-seed-external-cv'>
+           
+<!--  set_seed_external_cv  -->
+<alteryx-pluginwidget type="CheckBox" text="Set seed?" id="set_seed_external_cv" dataName="set_seed_external_cv" defaultValue="true"></alteryx-pluginwidget>
+
+           <div id = 'show-on-set-seed-external-cv'>
+             
+<!--  external_seed_value  -->
+<label for="external_seed_value">Seed value</label>
+<alteryx-pluginwidget type="NumericSpinner" default="1" min="1" max="12345" step="1" id="external_seed_value" dataName="external_seed_value"></alteryx-pluginwidget>
+
+             </div>
+          </div>
+        </div>
+    </div>
    <div id='hide-on-xdf'>
 <!--  regularization  -->
 <alteryx-pluginwidget type="CheckBox" text="Use regularized regression?" id="regularization" dataName="regularization" defaultValue="false"></alteryx-pluginwidget>
@@ -96,6 +127,17 @@ Linear_Regression
   <alteryx-option uiobject="Model with lower in sample standard error">lambda_min</alteryx-option>
 </alteryx-pluginwidget>
 
+       
+<!--  set_seed_internal_cv  -->
+<alteryx-pluginwidget type="CheckBox" text="Set seed?" id="set_seed_internal_cv" dataName="set_seed_internal_cv" defaultValue="true"></alteryx-pluginwidget>
+
+       <div id = 'show-on-set_seed_internal_cv' class = 'indent-one'>
+         
+<!--  seed_internal_cv  -->
+<label for="seed_internal_cv">Seed value</label>
+<alteryx-pluginwidget type="NumericSpinner" default="1" min="1" max="12345" step="1" id="seed_internal_cv" dataName="seed_internal_cv"></alteryx-pluginwidget>
+
+        </div>
      </div>
       <div id = 'show-on-no-cv'> 
        

@@ -26,9 +26,15 @@ config <- list(
   lambda_min = radioInput('%Question.lambda.min%', FALSE),
   standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
   internal_cv = checkboxInput('%Question.internal_cv%', TRUE),
+  set_seed_internal_cv = checkboxInput('%Question.set_seed_internal_cvv%', TRUE),
+  seed_internal_cv = numericInput('%Question.seed_internal_cv%', 1),
   nfolds = numericInput('%Question.nfolds%', 5),
   lambda_no_cv = numericInput('%Question.lambda_no_cv%', NULL),
-  display_graphs = checkboxInput('%Question.display_graphs%', TRUE)
+  display_graphs = checkboxInput('%Question.display_graphs%', TRUE),
+  external_cv = checkboxInput('%Question.external_cv%', FALSE),
+  nfolds_external = numericInput('%Question.nfolds_external%', NULL),
+  set_seed_external_cv = checkboxInput('%Question.set_seed_external_cv%', FALSE),
+  external_seed_value = numericInput('%Question.external_seed_value%', NULL)
 ) 
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
