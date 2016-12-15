@@ -26,6 +26,19 @@
     </div>
     {{ `Use Weights` }}
   <div id='weight-vec' class='indent-one'>{{ `Weight Vec` }}</div>
+      <div id='div-external-cv'>
+        {{ external_cv }}
+        <div id = 'show-on-external-cv'> 
+         {{ nfolds_external }}
+         {{ numberTrials }}
+         <div id='div-set-seed-external-cv'>
+           {{ set_seed_external_cv }}
+           <div id = 'show-on-set-seed-external-cv'>
+             {{ external_seed_value }}
+             </div>
+          </div>
+        </div>
+    </div>
    <div id='hide-on-xdf'>{{ regularization }}</div>
    <div id = 'show-on-regularization' class='indent-one'> 
      {{ standardize_pred }}
@@ -35,6 +48,10 @@
      <div id = 'show-on-cv' class = 'indent-one'> 
        {{ nfolds }}
        {{ lambda }}
+       {{ set_seed_internal_cv }}
+       <div id = 'show-on-set_seed_internal_cv' class = 'indent-one'>
+         {{ seed_internal_cv }}
+        </div>
      </div>
       <div id = 'show-on-no-cv'> 
        {{ lambda_no_cv }}
