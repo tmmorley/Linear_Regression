@@ -7654,7 +7654,7 @@ Union</Text>
             </Question>
             <Question>
               <Type>NumericUpDown</Type>
-              <Description>Number of folds to use in external cross-validation</Description>
+              <Description>Number of folds</Description>
               <Name>nfolds_external</Name>
               <ToolId value="263"/>
               <Minimum value="1"/>
@@ -7674,7 +7674,7 @@ Union</Text>
             </Question>
             <Question>
               <Type>NumericUpDown</Type>
-              <Description>Seed value</Description>
+              <Description/>
               <Name>external_seed_value</Name>
               <ToolId value="265"/>
               <Minimum value="1"/>
@@ -7685,7 +7685,7 @@ Union</Text>
             </Question>
             <Question>
               <Type>NumericUpDown</Type>
-              <Description>Seed value</Description>
+              <Description/>
               <Name>seed_internal_cv</Name>
               <ToolId value="266"/>
               <Minimum value="1"/>
@@ -7777,7 +7777,7 @@ Union</Text>
             </Question>
             <Question>
               <Type>BooleanGroup</Type>
-              <Description>Use a weight variable for weighted least squares. (Optional)</Description>
+              <Description>Use a weight variable for weighted least squares?</Description>
               <Name>Use Weights</Name>
               <ToolId value="160"/>
               <Questions>
@@ -7834,7 +7834,7 @@ Union</Text>
                 </Question>
                 <Question>
                   <Type>NumericUpDown</Type>
-                  <Description>Number of folds to use in cross-validation</Description>
+                  <Description>Number of folds</Description>
                   <Name>nfolds</Name>
                   <ToolId value="189"/>
                   <Minimum value="1"/>
