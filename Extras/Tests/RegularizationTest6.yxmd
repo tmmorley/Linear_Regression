@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="11.0">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="150" y="54" width="132" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Linear Regression</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="342" y="54" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7744_d1a19b01d3c64a1eac215ed57885e40e_\Engine_10308_c77b7305c2c04406b373002f2dc1a7b2_.yxdb</TempFile>
+          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Input Data</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxRPluginGui.R">
+        <Position x="78" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RScript><![CDATA[weight_vec <- runif(NROW(mtcars))
+
+
+
+write.Alteryx(cbind(mtcars, weight_vec), 1)
+
+
+
+
+
+config3 <- list(
+  `graph.resolution` = dropdownInput('%Question.graph.resolution%' , '1x'),
+  `Model Name` = textInput('%Question.Model Name%', "mtcars"),
+  `Omit Constant` = checkboxInput('%Question.Omit Constant%' , FALSE),
+  `Use Weights` = checkboxInput('%Question.Use Weights%' , TRUE),
+  `Weight Vec` = dropdownInput('%Question.Weight Vec%', "weight_vec"),
+  `X Vars` = listInput('%Question.X Vars%', names(mtcars)[-1]),
+  `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
+  regularization = checkboxInput('%Question.regularization%', TRUE),
+  alpha = numericInput('%Question.alpha%', .5),
+  lambda_1se = radioInput('%Question.lambda.1se%', FALSE),
+  lambda_min = radioInput('%Question.lambda.min%', TRUE),
+  standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
+  internal_cv = checkboxInput('%Question.internal_cv%', TRUE),
+  nfolds = numericInput('%Question.nfolds%', 5),
+  lambda_no_cv = numericInput('%Question.lambda_no_cv%', 1),
+  display_graphs = checkboxInput('%Question.display_graphs%', TRUE),
+  external_cv = checkboxInput('%Question.external_cv%', FALSE)
+)
+
+inputs3 <- list(
+  the.data = cbind(mtcars[,c(config3$`Y Var`, config3$`X Vars`)], weight_vec),
+  XDFInfo = list(is_XDF = FALSE, xdf_path = NULL)
+)
+colnames(inputs3$the.data)[NCOL(inputs3$the.data)] <- "weight_vec"
+#Since the results will depend on the folds used with cross-validation, we need to set the seed
+#before both runs.
+set.seed(1)
+exp_model <- glmnet::cv.glmnet(x = as.matrix((inputs3$the.data)[,(config3$`X Vars`)]), y = (inputs3$the.data)$mpg,
+                               family = 'gaussian', alpha = .5, standardize = TRUE, intercept=TRUE,
+                               nfolds = 5, weights = inputs3$the.data$weight_vec)
+
+write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exact = FALSE))), 2)
+]]></RScript>
+          <UseFullUpdate value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="mpg" source="R-DATA:" type="Double" />
+            <Field name="cyl" source="R-DATA:" type="Double" />
+            <Field name="disp" source="R-DATA:" type="Double" />
+            <Field name="hp" source="R-DATA:" type="Double" />
+            <Field name="drat" source="R-DATA:" type="Double" />
+            <Field name="wt" source="R-DATA:" type="Double" />
+            <Field name="qsec" source="R-DATA:" type="Double" />
+            <Field name="vs" source="R-DATA:" type="Double" />
+            <Field name="am" source="R-DATA:" type="Double" />
+            <Field name="gear" source="R-DATA:" type="Double" />
+            <Field name="carb" source="R-DATA:" type="Double" />
+            <Field name="weight_vec" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output2">
+          <RecordInfo>
+            <Field name="coefs" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="198" y="78" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="curPage">Home</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="standardize_pred">True</Value>
+          <Value name="internal_cv">True</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
+          <Value name="lambda_min">True</Value>
+          <Value name="lambda_1se">False</Value>
+          <Value name="Model Name">linreg_test</Value>
+          <Value name="Y Var">mpg</Value>
+          <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">True</Value>
+          <Value name="Weight Vec">weight_vec</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
+          <Value name="regularization">True</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_min</Value>
+          <Value name="seed_internal_cv">1</Value>
+          <Value name="lambda_no_cv">1</Value>
+          <Value name="graph.resolution">1x</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="114" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="11" />
+          <Fields>
+            <Field name="Field1" />
+          </Fields>
+          <Data>
+            <r>
+              <c>28.86992</c>
+            </r>
+            <r>
+              <c>-0.322037</c>
+            </r>
+            <r>
+              <c>-0.002261</c>
+            </r>
+            <r>
+              <c>-0.011827</c>
+            </r>
+            <r>
+              <c>0</c>
+            </r>
+            <r>
+              <c>-2.591239</c>
+            </r>
+            <r>
+              <c>0.245803</c>
+            </r>
+            <r>
+              <c>0.224132</c>
+            </r>
+            <r>
+              <c>2.997529</c>
+            </r>
+            <r>
+              <c>0</c>
+            </r>
+            <r>
+              <c>-0.601415</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings>
+        <Position x="438" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Drop Down (6)">Field1</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+      </Properties>
+      <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="4" Connection="Output1" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Reports" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="7" Connection="Object" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="7" Connection="Coefficients" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>RegularizationTest6</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
