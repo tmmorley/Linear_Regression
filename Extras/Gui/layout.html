@@ -1,70 +1,86 @@
 <div class='page has-hint' id='page-basic'>
+  <div class='fd-header'>Setup</div>
   <fieldset style='border-top:0;'>
-  <!-- <div id='intro-div'>
-    <button class='default-button primary' id='intro'>Guide Me</button>
-  </div> -->
-  <div id='mname' class="qconst">{{ `Model Name` }}</div>
-  <div id='yvar' class="qconst">{{ `Y Var` }}</div>
-  <div id='xvars' class="qconst">{{ `X Vars` }}</div>
-  <button class='default-button primary' id='switch-to-customize'>Customize</button>
+    <!-- <div id='intro-div'>
+      <button class='default-button primary' id='intro'>Guide Me</button>
+    </div> -->
+    <div id='mname' class="qconst">{{ `Model Name` }}</div>
+    <div id='yvar' class="qconst">{{ `Y Var` }}</div>
+    <div id='xvars' class="qconst">{{ `X Vars` }}</div>
+    <button class='default-button primary' id='switch-to-customize'>
+      Customize
+    </button>
+  </fieldset>
 </div>
-</fieldset>
+
 <div class='page' id='page-customize' style='display:none;'>
-  <fieldset>
-  <legend>Customize</legend>
-  <div class="tabs" id='header'>
-    <div class="tab is-tab-selected" data-page='advanced' id='advanced'>
-      Model
-    </div>
-    <div class="tab" data-page='graphics' id='graphics'>
-      Plots
+  <div class='fd-header'>
+    <img src='./back_arrow-01.svg' id='switch-to-home' />
+    <div class="tabs" id='header'>
+      <div class="tab is-tab-selected" data-page='advanced' id='advanced'>
+        Model
+      </div>
+      <div class="tab" data-page='crossvalidation' id='crossvalidation'>
+        Cross Validation
+      </div>
+      <div class="tab" data-page='graphics' id='graphics'>
+        Plots
+      </div>
     </div>
   </div>
+  <fieldset style='border-top:0;'>
+  <!-- TABS -->
   <div class='tabpage has-hint' id='tabpage-advanced'>
     <div id='div-omit-constant'>
       {{ `Omit Constant` }}
     </div>
     {{ `Use Weights` }}
   <div id='weight-vec' class='indent-one'>{{ `Weight Vec` }}</div>
-      <div id='div-external-cv'>
-        {{ external_cv }}
-        <div id = 'show-on-external-cv'> 
-         {{ nfolds_external }}
-         {{ numberTrials }}
-         <div id='div-set-seed-external-cv'>
-           {{ set_seed_external_cv }}
-           <div id = 'show-on-set-seed-external-cv'>
-             {{ external_seed_value }}
-             </div>
-          </div>
-        </div>
-    </div>
-   <div id='hide-on-xdf'>{{ regularization }}</div>
-   <div id = 'show-on-regularization' class='indent-one'> 
-     {{ standardize_pred }}
+  <div id='hide-on-xdf'>{{ regularization }}</div>
+  <div id = 'show-on-regularization' class='indent-one'> 
      {{ alpha }}
      <p>0 is ridge regression, and 1 is lasso</p>
+     {{ standardize_pred }}
      {{ internal_cv }}
      <div id = 'show-on-cv' class = 'indent-one'> 
        {{ nfolds }}
        {{ lambda }}
-       {{ set_seed_internal_cv }}
-       <div id = 'show-on-set_seed_internal_cv' class = 'indent-one'>
-         {{ seed_internal_cv }}
-        </div>
+       <div>
+          <div style='float:left;'>{{ set_seed_internal_cv }}</div>
+         <div style='float:right;' id='show-on-set_seed_internal_cv'>
+           {{ seed_internal_cv }}
+          </div>
+       </div>
      </div>
       <div id = 'show-on-no-cv'> 
        {{ lambda_no_cv }}
      </div>
    </div>
- </div>
+  </div>
+  <div class="tabpage" id="tabpage-crossvalidation">
+    <div id='div-external-cv'>
+        {{ external_cv }}
+        <div id = 'show-on-external-cv' class='indent-one'> 
+         {{ nfolds_external }}
+         {{ numberTrials }}
+         <div id='div-set-seed-external-cv'>
+           <div>
+             <div style='float:left;'>{{ set_seed_external_cv }}</div>
+             <div style='float:right;' id = 'show-on-set-seed-external-cv'>
+               {{ external_seed_value }}
+             </div>
+           </div>
+          </div>
+        </div>
+    </div>
+  </div>
   <div class='tabpage has-hint' id='tabpage-graphics'>
     {{ `graph.resolution` }}
     <div id = 'show-on-regularization-graph'>
     {{ display_graphs }}
     </div>
   </div>
-  <button class='default-button primary' id='switch-to-home'>Back</button>
+  <!-- <button class='default-button primary' id='switch-to-home'>Back</button> -->
 </fieldset>
 <script>
 $('#intro').show()
