@@ -17,7 +17,7 @@ input[type="checkbox"]{
   right: 4px;
 }
 
-#header{
+.tabs {
   margin-bottom: 20px;
 }
 
@@ -65,7 +65,15 @@ input[type="checkbox"]{
   position: absolute;
   right: 8px;
   margin-top: 5px;
+  background-color: white;
+  border-radius: 15px;
+  width: 150px;
+  text-align: left;
+  color: #1691c6;
+  border-color: #1691c6;
 }
+
+/*
 #switch-to-home{
   margin-left: -1px;
   margin-top: 10px;
@@ -74,6 +82,7 @@ input[type="checkbox"]{
 #div-omit-constant {
   margin-bottom: 10px;
 }
+*/
 #xvars label {
   margin-bottom: 5px;
 }
@@ -84,4 +93,41 @@ input[type="checkbox"]{
 
 .alteryx-numeric-slider .comboslider-controls b{
   font-weight: normal !important;
+}
+
+.fd-header {
+  background: #eeeeee;
+  margin: -8px -8px 4px -8px;
+  padding-top: 3px;
+  padding-bottom: 8px;
+  padding-left: 15px;
+  font-size: 20px;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+  align-items: center;
+}
+.fd-header img {
+  margin-left: -5px;
+  margin-right: 3px;
+  height: 20px;
+  cursor: pointer;
+}
+.fd-header .tabs {
+  border-bottom: 0px;
+  margin-bottom: 0px;
+}
+.fd-header .tabs .tab{
+  background: none;
+  border: 1px solid rgb(230, 230, 230);
+}
+.fd-header .tabs .tab.is-tab-selected {
+  /* border-bottom-color: #4EBBE4; */
+  background: #1691c6;
+  color: #ffffff;
+  font: "Segoe UI Semibold";
+  font-size: 12px;
+}
+
+#weight-vec{
+  margin-top: -10px;
 }
