@@ -133,7 +133,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3868_4eda06f198814a7298bb3597144402b5_\Engine_2828_59a2a98f250e49c9ab9f8f3a029476ca_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5416_189732a13ed4409ea0689ce79b0434cb_\Engine_2400_d02d8e3a70364eb78b7e88418666b19f_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -328,16 +328,16 @@
           <Value name="Omit Constant">False</Value>
           <Value name="Use Weights">False</Value>
           <Value name="Weight Vec" />
-          <Value name="external_cv">False</Value>
-          <Value name="nfolds_external">5</Value>
-          <Value name="numberTrials">3</Value>
-          <Value name="external_seed_value">1</Value>
           <Value name="regularization">True</Value>
           <Value name="alpha">0.5</Value>
           <Value name="nfolds">5</Value>
           <Value name="lambda">lambda_1se</Value>
           <Value name="seed_internal_cv">1</Value>
           <Value name="lambda_no_cv">1</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
