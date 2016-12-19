@@ -53,7 +53,7 @@ if (outer_config$external_cv) {
     if (!all(packages %in% row.names(installed.packages()))) {
       # Use the IE based "Internet2" since it is most reliable for this action,
       # it will be switched back at the end
-      setInternet2(use = TRUE)
+      #setInternet2(use = TRUE)
       # Make sure the path to the users library is in place and create it if it
       # is not
       minor_ver <- strsplit(R.Version()$minor, "\\.")[[1]][1]
@@ -70,7 +70,7 @@ if (outer_config$external_cv) {
       repo <- c(repo, "https://alteryx.github.io/drat")
       missingPackages <- packages[which(!(packages %in% row.names(installed.packages())))]
       install.packages(missingPackages, lib = the_path, repos = repo)
-      setInternet2(use = FALSE)
+      #setInternet2(use = FALSE)
     }
   }
   

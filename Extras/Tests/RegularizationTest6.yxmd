@@ -27,7 +27,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1460_13559cf832fd4980aa2bb94d9491d048_\Engine_9912_6ce51a083e3040e19802e5b5d1e297fc_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_4360_6cb450d8a4274b5b9e405fbfdb50330e_\Engine_4944_02c1f046288745caabe7f6def8c2e00a_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -200,7 +200,7 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
         <Configuration>
           <NumRows value="11" />
           <Fields>
-            <Field name="coefs" />
+            <Field name="Coefficient" />
           </Fields>
           <Data>
             <r>
@@ -270,7 +270,7 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
         <Configuration>
           <OrderChanged value="False" />
           <SelectFields>
-            <SelectField field="coefs" selected="True" type="Double" size="8" />
+            <SelectField field="Coefficient" selected="True" type="Double" size="8" />
             <SelectField field="*Unknown" selected="True" />
           </SelectFields>
         </Configuration>
