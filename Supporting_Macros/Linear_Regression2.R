@@ -349,18 +349,19 @@ if (outer_config$external_cv) {
     return(model)
   }
   
-  naiveBayesUpdate <- function(model, trainingData, currentYvar) {
-    if (is.null(model$laplace)) {
-      model$laplace <- 0
-      AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
-      AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
-    }
-    predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
-    response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
-    naiveBayes.default <- getS3method("naiveBayes", "default")
-    currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
-    return(currentModel)
-  }
+#   naiveBayesUpdate <- function(model, trainingData, currentYvar) {
+#     
+#     if (is.null(model$laplace)) {
+#       model$laplace <- 0
+#       AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
+#       AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
+#     }
+#     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+#     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
+#     naiveBayes.default <- getS3method("naiveBayes", "default")
+#     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
+#     return(currentModel)
+#   }
   glmnetUpdate <- function(model, trainingData, currentYvar) {
     print("in glmnetUpdate")
     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
@@ -379,9 +380,10 @@ if (outer_config$external_cv) {
     #Check if the model is Naive Bayes and lacking a Laplace parameter.
     #If so, set the Laplace parameter to 0 and warn the user.
     print("about to do the updates")
-    if (inherits(model, "naiveBayes")) {
-      currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
-    } else if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
+#     if (inherits(model, "naiveBayes")) {
+#       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
+#     } else 
+    if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
       currentModel <- glmnetUpdate(model, trainingData, currentYvar)
     } else {
       print("in the non-naive bayes case")

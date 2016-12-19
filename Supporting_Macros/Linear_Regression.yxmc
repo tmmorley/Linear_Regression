@@ -667,7 +667,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00009" y="54" width="876" height="96" />
+        <Position x="54.00012" y="54" width="876" height="96" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4244,18 +4244,19 @@ if (outer_config$external_cv) {
     return(model)
   }
   
-  naiveBayesUpdate <- function(model, trainingData, currentYvar) {
-    if (is.null(model$laplace)) {
-      model$laplace <- 0
-      AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
-      AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
-    }
-    predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
-    response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
-    naiveBayes.default <- getS3method("naiveBayes", "default")
-    currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
-    return(currentModel)
-  }
+#   naiveBayesUpdate <- function(model, trainingData, currentYvar) {
+#     
+#     if (is.null(model$laplace)) {
+#       model$laplace <- 0
+#       AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
+#       AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
+#     }
+#     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+#     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
+#     naiveBayes.default <- getS3method("naiveBayes", "default")
+#     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
+#     return(currentModel)
+#   }
   glmnetUpdate <- function(model, trainingData, currentYvar) {
     print("in glmnetUpdate")
     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
@@ -4274,9 +4275,10 @@ if (outer_config$external_cv) {
     #Check if the model is Naive Bayes and lacking a Laplace parameter.
     #If so, set the Laplace parameter to 0 and warn the user.
     print("about to do the updates")
-    if (inherits(model, "naiveBayes")) {
-      currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
-    } else if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
+#     if (inherits(model, "naiveBayes")) {
+#       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
+#     } else 
+    if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
       currentModel <- glmnetUpdate(model, trainingData, currentYvar)
     } else {
       print("in the non-naive bayes case")
@@ -6263,7 +6265,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9983" y="400.0012" width="59" height="59" />
+            <Position x="197.9984" y="400.0013" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6276,7 +6278,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="400.0001" width="59" height="59" />
+            <Position x="557.999" y="400.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6289,7 +6291,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0008" y="400.0012" width="59" height="59" />
+            <Position x="294.001" y="400.0012" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6302,7 +6304,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="377.9992" y="400.0006" width="59" height="59" />
+            <Position x="377.9993" y="400.0008" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6328,7 +6330,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="462.0003" y="510.0004" width="59" height="59" />
+            <Position x="462.0004" y="510.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6367,7 +6369,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4996" y="292.0012" width="59" height="59" />
+            <Position x="202.4998" y="292.0016" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6393,7 +6395,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.0005" y="291.9982" width="59" height="59" />
+            <Position x="291.0006" y="291.9986" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6406,7 +6408,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5005" y="291.9991" width="59" height="59" />
+            <Position x="379.5006" y="291.9991" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6432,7 +6434,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.499" y="291.9997" width="59" height="59" />
+            <Position x="556.499" y="291.9998" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6445,7 +6447,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.999" y="400.0003" width="59" height="59" />
+            <Position x="725.999" y="400.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6562,7 +6564,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="196">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="750.0001" y="233.9998" width="59" height="59" />
+            <Position x="750.0002" y="233.9998" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6679,7 +6681,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="247">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="714.0001" y="593.9998" width="59" height="59" />
+            <Position x="714.0001" y="593.9999" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
