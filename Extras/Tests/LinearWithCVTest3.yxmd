@@ -102,34 +102,6 @@
         </Annotation>
       </Properties>
     </Node>
-    <Node ToolID="20">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="210" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9020_86e2bb4d731049e3b638a4f898ce63db_\Engine_7600_4e416839630d4f1b9e47ffe165cb02b4_.yxdb</TempFile>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6128_9628f9b771fb44f8b1fd6908d9c5c454_\Engine_4680_7ef8693dc56e45d69cd8b1119e8f48da_.yxdb</TempFileDataProfiling>
-          <Layout>
-            <ViewMode>Single</ViewMode>
-            <ViewSize value="100" />
-            <View1>
-              <DefaultTab>Report</DefaultTab>
-              <Hints>
-                <Table />
-              </Hints>
-            </View1>
-            <View2 />
-          </Layout>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
-    </Node>
     <Node ToolID="21">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
         <Position x="66" y="162" width="100" height="24" />
@@ -1200,11 +1172,147 @@
         </Annotation>
       </Properties>
     </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="390" y="138" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1480_8bb321f1471e4f0a895bf8304fe5a91c_\Engine_9172_78e3ea6007fc47b7902f0c4e2eeecb13_.yxdb</TempFile>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="426" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1480_8bb321f1471e4f0a895bf8304fe5a91c_\Engine_9172_95a10489f0384be3afddb07a66f14777_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="438" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1480_8bb321f1471e4f0a895bf8304fe5a91c_\Engine_9172_59d05f014ebd4ae0815f54c4b25e2c61_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="450" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1480_8bb321f1471e4f0a895bf8304fe5a91c_\Engine_9172_2fa13ad430a34752a38d654b19ef6aaa_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="474" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1480_8bb321f1471e4f0a895bf8304fe5a91c_\Engine_9172_a92ef17ea5384c10852032a846041ecb_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
   </Nodes>
   <Connections>
     <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
       <Origin ToolID="3" Connection="Reports" />
-      <Destination ToolID="20" Connection="Input" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Data" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Fit Measures" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Full Cross-Validation Report" />
+      <Destination ToolID="33" Connection="Input" />
     </Connection>
     <Connection>
       <Origin ToolID="26" Connection="Output" />
