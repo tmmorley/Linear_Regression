@@ -109,7 +109,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9468_94a692127cf74fa783f1982b3cfce934_\Engine_8788_a5343ed6751842b9a468fa80cee23750_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3264_b6be426690c145488012a9b1a0e614e8_\Engine_9912_9a8b3f63a3ae456f8f5fab14d45a592a_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -304,10 +304,12 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
       <Properties>
         <Configuration>
           <Value name="curPage">Customize</Value>
-          <Value name="curTab">advanced</Value>
+          <Value name="curTab">crossvalidation</Value>
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">False</Value>
           <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
           <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
           <Value name="Model Name">test1</Value>
@@ -320,7 +322,12 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
           <Value name="alpha">0</Value>
           <Value name="nfolds">5</Value>
           <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
           <Value name="lambda_no_cv">0.8</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">

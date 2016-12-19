@@ -67,7 +67,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9808_1ffee48c2fcf40bbbbbcaa0dc6f3e9fc_\Engine_8788_d34fc7385df84f849658af9b5cd8acd0_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_2912_abde2521fc1646b4ad0324af7db7b79e_\Engine_9912_4bf1a8b1babc4386a038e074f8f3c3cb_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -171,6 +171,8 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">True</Value>
           <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
           <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
           <Value name="Model Name">test1</Value>
@@ -183,7 +185,12 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
           <Value name="alpha">0.782</Value>
           <Value name="nfolds">20</Value>
           <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
           <Value name="lambda_no_cv">0.8</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">

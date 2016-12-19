@@ -1034,37 +1034,37 @@
         </Annotation>
         <MetaInfo connection="Output">
           <RecordInfo>
-            <Field name="Tm" size="3" source="TextInput:" type="String" />
-            <Field name="Games" source="TextInput:" type="Byte" />
-            <Field name="Wins" source="TextInput:" type="Byte" />
-            <Field name="Win_Pct" source="TextInput:" type="Double" />
-            <Field name="X_Bat" source="TextInput:" type="Byte" />
-            <Field name="BatAge" source="TextInput:" type="Double" />
-            <Field name="R_G" source="TextInput:" type="Double" />
-            <Field name="PA" source="TextInput:" type="Int16" />
-            <Field name="AB" source="TextInput:" type="Int16" />
-            <Field name="R" source="TextInput:" type="Int16" />
-            <Field name="H" source="TextInput:" type="Int16" />
-            <Field name="X2B" source="TextInput:" type="Int16" />
-            <Field name="X3B" source="TextInput:" type="Byte" />
-            <Field name="HR" source="TextInput:" type="Byte" />
-            <Field name="RBI" source="TextInput:" type="Int16" />
-            <Field name="SB" source="TextInput:" type="Byte" />
-            <Field name="CS" source="TextInput:" type="Byte" />
-            <Field name="BB" source="TextInput:" type="Int16" />
-            <Field name="SO" source="TextInput:" type="Int16" />
-            <Field name="BA" source="TextInput:" type="Double" />
-            <Field name="OBP" source="TextInput:" type="Double" />
-            <Field name="SLG" source="TextInput:" type="Double" />
-            <Field name="OPS" source="TextInput:" type="Double" />
-            <Field name="OPS_Adj" source="TextInput:" type="Byte" />
-            <Field name="TB" source="TextInput:" type="Int16" />
-            <Field name="GDP" source="TextInput:" type="Byte" />
-            <Field name="HBP" source="TextInput:" type="Byte" />
-            <Field name="SH" source="TextInput:" type="Byte" />
-            <Field name="SF" source="TextInput:" type="Byte" />
-            <Field name="IBB" source="TextInput:" type="Byte" />
-            <Field name="Score" source="R-DATA:" type="Double" />
+            <Field name="Tm" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Games" source="R-DATA:" type="Int32" />
+            <Field name="Wins" source="R-DATA:" type="Int32" />
+            <Field name="Win_Pct" source="R-DATA:" type="Double" />
+            <Field name="X_Bat" source="R-DATA:" type="Int32" />
+            <Field name="BatAge" source="R-DATA:" type="Double" />
+            <Field name="R_G" source="R-DATA:" type="Double" />
+            <Field name="PA" source="R-DATA:" type="Int32" />
+            <Field name="AB" source="R-DATA:" type="Int32" />
+            <Field name="R" source="R-DATA:" type="Int32" />
+            <Field name="H" source="R-DATA:" type="Int32" />
+            <Field name="X2B" source="R-DATA:" type="Int32" />
+            <Field name="X3B" source="R-DATA:" type="Int32" />
+            <Field name="HR" source="R-DATA:" type="Int32" />
+            <Field name="RBI" source="R-DATA:" type="Int32" />
+            <Field name="SB" source="R-DATA:" type="Int32" />
+            <Field name="CS" source="R-DATA:" type="Int32" />
+            <Field name="BB" source="R-DATA:" type="Int32" />
+            <Field name="SO" source="R-DATA:" type="Int32" />
+            <Field name="BA" source="R-DATA:" type="Double" />
+            <Field name="OBP" source="R-DATA:" type="Double" />
+            <Field name="SLG" source="R-DATA:" type="Double" />
+            <Field name="OPS" source="R-DATA:" type="Double" />
+            <Field name="OPS_Adj" source="R-DATA:" type="Int32" />
+            <Field name="TB" source="R-DATA:" type="Int32" />
+            <Field name="GDP" source="R-DATA:" type="Int32" />
+            <Field name="HBP" source="R-DATA:" type="Int32" />
+            <Field name="SH" source="R-DATA:" type="Int32" />
+            <Field name="SF" source="R-DATA:" type="Int32" />
+            <Field name="IBB" source="R-DATA:" type="Int32" />
+            <Field name="1" source="R-DATA:" type="Double" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
@@ -1076,7 +1076,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7600_da9bc588146e4ec69a14e07782173127_\Engine_4620_7d85bdab18394e35a8775831e4269ee5_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8708_49d07538599f46c08077e70e1d8b6d11_\Engine_9912_a61bb81ccd04457f9a193411fcfe23a9_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_1412_1a0be1c86b604147b7fa838beb78f7c5_\Engine_4680_086800522b0e48cdb309edf27b6d2842_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -1105,10 +1105,12 @@
       <Properties>
         <Configuration>
           <Value name="curPage">Customize</Value>
-          <Value name="curTab">advanced</Value>
+          <Value name="curTab">crossvalidation</Value>
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">False</Value>
           <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
           <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
           <Value name="Model Name">New_Plugin</Value>
@@ -1121,7 +1123,12 @@
           <Value name="alpha">0.5</Value>
           <Value name="nfolds">5</Value>
           <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
           <Value name="lambda_no_cv">0.5</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
@@ -1158,7 +1165,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7600_da9bc588146e4ec69a14e07782173127_\Engine_4620_5eea64637141413698c92b700e5faaa5_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8708_49d07538599f46c08077e70e1d8b6d11_\Engine_9912_f8b3646daa304c52af734b51a1f698cb_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
