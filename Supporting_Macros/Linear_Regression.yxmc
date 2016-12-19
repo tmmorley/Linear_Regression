@@ -659,7 +659,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00009" y="54" width="876" height="96"/>
+        <Position x="54.00012" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4672,11 +4672,6 @@ if (outer_config$external_cv) {
           <DefaultAnnotationText/>
           <Left value="False"/>
         </Annotation>
-        <MetaInfo connection="Output1">
-          <RecordInfo>
-            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
-          </RecordInfo>
-        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR"/>
     </Node>
@@ -6054,7 +6049,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0004" y="400.0012" width="59" height="59"/>
+            <Position x="294.0006" y="400.0013" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6080,7 +6075,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="400.0001" width="59" height="59"/>
+            <Position x="641.999" y="399.9999" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6119,7 +6114,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0003" y="297.0005" width="59" height="59"/>
+            <Position x="114.0003" y="297.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6132,7 +6127,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4997" y="292.0008" width="59" height="59"/>
+            <Position x="202.4997" y="292.001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6184,7 +6179,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="467.9992" y="291.9998" width="59" height="59"/>
+            <Position x="467.9992" y="291.9996" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
