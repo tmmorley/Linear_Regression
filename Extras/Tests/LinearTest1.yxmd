@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.5">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="3">
       <GuiSettings Plugin="Linear_Regression">
@@ -7,24 +7,32 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="graph.resolution">1x</Value>
-          <Value name="lambda_no_cv">0.5</Value>
-          <Value name="lambda">lambda_1se</Value>
-          <Value name="nfolds">5</Value>
-          <Value name="internal_cv">False</Value>
-          <Value name="alpha">0.5</Value>
-          <Value name="standardize_pred">False</Value>
-          <Value name="regularization">False</Value>
-          <Value name="Weight Vec" />
-          <Value name="Use Weights">False</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="X Vars">disp,hp,drat,wt,qsec</Value>
-          <Value name="Y Var">mpg</Value>
-          <Value name="Model Name">Linear_Regression_No_Weights</Value>
-          <Value name="lambda_1se">True</Value>
-          <Value name="lambda_min">False</Value>
-          <Value name="curTab">advanced</Value>
           <Value name="curPage">Customize</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="standardize_pred">False</Value>
+          <Value name="internal_cv">False</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
+          <Value name="lambda_min">False</Value>
+          <Value name="lambda_1se">True</Value>
+          <Value name="Model Name">Linear_Regression_No_Weights</Value>
+          <Value name="Y Var">mpg</Value>
+          <Value name="X Vars">disp,hp,drat,wt,qsec</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec" />
+          <Value name="regularization">False</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
+          <Value name="lambda_no_cv">0.5</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
+          <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
@@ -163,7 +171,7 @@
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_124bc923df084fe6bc9cd5bfe6ad8ad9_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7760_e6fbcc7363714c71b0724df5ceb261ca_\Engine_9172_23af0f3df7f84ce7a373e0c2acaa220e_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />

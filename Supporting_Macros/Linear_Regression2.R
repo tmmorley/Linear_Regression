@@ -764,9 +764,9 @@ if (outer_config$external_cv) {
     print("about to get results")
     results <- getResultsCrossValidation(inputs, config)
     print("got results")
-    write.Alteryx2(results$data, 5)
-    write.Alteryx2(results$fitMeasures, 2)
-    write.Alteryx2(results$confMats, 3)
+    write.Alteryx2(results$data, 2)
+    write.Alteryx2(results$fitMeasures, 3)
+    #write.Alteryx2(results$confMats, 3)
     AlteryxGraph2(results$outputPlot, 4)
   }
   
