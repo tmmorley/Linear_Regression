@@ -362,9 +362,10 @@ if (outer_config$external_cv) {
     return(currentModel)
   }
   glmnetUpdate <- function(model, trainingData, currentYvar) {
+    print("in glmnetUpdate")
     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
-    #naiveBayes.default <- getS3method("naiveBayes", "default")
+    requireNamespace('glmnet')
     currentModel <- update(model, x = predictors, y = response)
     return(currentModel)
   }
