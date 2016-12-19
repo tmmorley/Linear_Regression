@@ -361,6 +361,13 @@ if (outer_config$external_cv) {
     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
     return(currentModel)
   }
+  glmnetUpdate <- function(model, trainingData, currentYvar) {
+    predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+    response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
+    #naiveBayes.default <- getS3method("naiveBayes", "default")
+    currentModel <- update(model, x = predictors, y = response)
+    return(currentModel)
+  }
   
   #' Given a model, a dataset and index of test cases, return actual and response
   getActualandResponse <- function(model, data, testIndices, extras, mid){
@@ -373,6 +380,8 @@ if (outer_config$external_cv) {
     print("about to do the updates")
     if (inherits(model, "naiveBayes")) {
       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
+    } else if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
+      currentModel <- glmnetUpdate(model, trainingData, currentYvar)
     } else {
       print("in the non-naive bayes case")
       currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)

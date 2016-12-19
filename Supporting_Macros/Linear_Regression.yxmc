@@ -31,8 +31,8 @@ config &lt;- list(
   `Y Var` = dropdownInput('%Question.Y Var%', 'mpg'),
   regularization = checkboxInput('%Question.regularization%', FALSE),
   alpha = numericInput('%Question.alpha%', .5),
-  lambda_1se = radioInput('%Question.lambda.1se%', TRUE),
-  lambda_min = radioInput('%Question.lambda.min%', FALSE),
+  lambda_1se = radioInput('%Question.lambda_1se%', TRUE),
+  lambda_min = radioInput('%Question.lambda_min%', FALSE),
   standardize_pred = checkboxInput('%Question.standardize_pred%', TRUE),
   internal_cv = checkboxInput('%Question.internal_cv%', TRUE),
   set_seed_internal_cv = checkboxInput('%Question.set_seed_internal_cvv%', TRUE),
@@ -84,16 +84,6 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
           <RecordInfo>
             <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString"/>
             <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob"/>
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output5">
-          <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output4">
-          <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
           </RecordInfo>
         </MetaInfo>
       </Properties>
@@ -220,7 +210,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_5d793930296949ad90caa464b13e7357_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_fc2c01a1fa1e4d5d88e1fc602207a7b6_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -669,7 +659,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00006" y="54" width="876" height="96"/>
+        <Position x="54.00009" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4258,6 +4248,13 @@ if (outer_config$external_cv) {
     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
     return(currentModel)
   }
+  glmnetUpdate <- function(model, trainingData, currentYvar) {
+    predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+    response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
+    #naiveBayes.default <- getS3method("naiveBayes", "default")
+    currentModel <- update(model, x = predictors, y = response)
+    return(currentModel)
+  }
   
   #' Given a model, a dataset and index of test cases, return actual and response
   getActualandResponse <- function(model, data, testIndices, extras, mid){
@@ -4270,6 +4267,8 @@ if (outer_config$external_cv) {
     print("about to do the updates")
     if (inherits(model, "naiveBayes")) {
       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
+    } else if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
+      currentModel <- glmnetUpdate(model, trainingData, currentYvar)
     } else {
       print("in the non-naive bayes case")
       currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
@@ -4678,41 +4677,6 @@ if (outer_config$external_cv) {
             <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
           </RecordInfo>
         </MetaInfo>
-        <MetaInfo connection="Output4">
-          <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output5">
-          <RecordInfo>
-            <Field name="RecordID" source="R-DATA:" type="Int32"/>
-            <Field name="Trial" source="R-DATA:" type="Int32"/>
-            <Field name="Fold" source="R-DATA:" type="Int32"/>
-            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Response" source="R-DATA:" type="Double"/>
-            <Field name="Actual" source="R-DATA:" type="Double"/>
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output2">
-          <RecordInfo>
-            <Field name="trial" source="R-DATA:" type="Int32"/>
-            <Field name="fold" source="R-DATA:" type="Int32"/>
-            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="variable" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="value" source="R-DATA:" type="Double"/>
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output3">
-          <RecordInfo>
-            <Field name="Trial" source="R-DATA:" type="Double"/>
-            <Field name="Fold" source="R-DATA:" type="Double"/>
-            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Type" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Predicted_class" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Variable" size="1073741823" source="R-DATA:" type="V_WString"/>
-            <Field name="Value" source="R-DATA:" type="Double"/>
-          </RecordInfo>
-        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR"/>
     </Node>
@@ -4899,7 +4863,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_4897a1da8de64b9b96154a0fe3e4bb75_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_45acb4647ecf49eb820368645100eed4_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4923,7 +4887,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_06a576af515145b2b58d3a82bd7a1549_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_962d5914971240949835d534ce141017_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4951,7 +4915,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_6a27574745ab400ba9824c101c2b6bca_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_3d26434a55234e2c8a961fd11fe0d4db_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4979,7 +4943,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_e5ba5c7ede8d4e8a8ac3becfb3f551d7_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_82aee69c5f7d4fef8170eef611d37c58_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -5187,7 +5151,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_7a14c6bde9594e6b9341cb8dad4510aa_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_222b4cc3298e4302af7863402458c153_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <View1>
@@ -5211,7 +5175,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_7a8271d7ec6b474e807a258665da76e1_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_a326bf6045654f95a118487233f400a9_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <View1>
@@ -5235,7 +5199,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_c2274d6b9d5d43f2927f167a73316ebb_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_1abab139de554338a8a471a19200c961_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <View1>
@@ -5259,7 +5223,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_f576c3700c0445f7b28dee5b724c01ff_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_b0a509c58f39465b86fb7f31d28b1627_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -5287,7 +5251,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1128_cbb8cf19fd8f4e12b1f4069e3fc6e030_\Engine_5644_cb31c025096d437991bf9cc1d312b4b6_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7568_8fdcb01c2500423789984a3a8e24acfc_\Engine_3552_03b0c7082cf441c78d6236d7d012e419_.yxdb</TempFile>
           <TempFileDataProfiling/>
           <Layout>
             <View1>
@@ -6051,7 +6015,7 @@ if (outer_config$external_cv) {
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="473.9989" y="400.0001" width="59" height="59"/>
+            <Position x="473.999" y="399.9999" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6064,7 +6028,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9982" y="400.001" width="59" height="59"/>
+            <Position x="197.9983" y="400.0014" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6077,7 +6041,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="400.0001" width="59" height="59"/>
+            <Position x="557.999" y="400" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6090,7 +6054,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0002" y="400.0012" width="59" height="59"/>
+            <Position x="294.0004" y="400.0012" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6103,7 +6067,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="377.9991" y="400.0005" width="59" height="59"/>
+            <Position x="377.9993" y="400.0007" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6116,7 +6080,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="400.0002" width="59" height="59"/>
+            <Position x="641.999" y="400.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6155,7 +6119,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0002" y="297.001" width="59" height="59"/>
+            <Position x="114.0003" y="297.0005" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6168,7 +6132,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4995" y="292.0005" width="59" height="59"/>
+            <Position x="202.4997" y="292.0008" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6220,7 +6184,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="467.9992" y="291.9999" width="59" height="59"/>
+            <Position x="467.9992" y="291.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6233,7 +6197,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.499" y="291.9999" width="59" height="59"/>
+            <Position x="556.499" y="291.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6246,7 +6210,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.999" y="400.0004" width="59" height="59"/>
+            <Position x="725.999" y="400.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -7241,7 +7205,7 @@ Union</Text>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>external_cv</Name>
-        <Value>False</Value>
+        <Value>True</Value>
         <IsNumeric value="False"/>
       </Constant>
       <Constant>
