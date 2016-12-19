@@ -27,7 +27,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7744_d1a19b01d3c64a1eac215ed57885e40e_\Engine_10308_c77b7305c2c04406b373002f2dc1a7b2_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1460_13559cf832fd4980aa2bb94d9491d048_\Engine_9912_6ce51a083e3040e19802e5b5d1e297fc_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -75,7 +75,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <RScript><![CDATA[weight_vec <- runif(NROW(mtcars))
+          <RScript><![CDATA[set.seed(1)
+weight_vec <- runif(NROW(mtcars))
 
 
 
@@ -156,7 +157,7 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="curPage">Home</Value>
+          <Value name="curPage">Customize</Value>
           <Value name="curTab">advanced</Value>
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">True</Value>
@@ -171,16 +172,16 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
           <Value name="Omit Constant">False</Value>
           <Value name="Use Weights">True</Value>
           <Value name="Weight Vec">weight_vec</Value>
+          <Value name="regularization">True</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
+          <Value name="lambda_no_cv">1</Value>
           <Value name="external_cv">False</Value>
           <Value name="nfolds_external">5</Value>
           <Value name="numberTrials">3</Value>
           <Value name="external_seed_value">1</Value>
-          <Value name="regularization">True</Value>
-          <Value name="alpha">0.5</Value>
-          <Value name="nfolds">5</Value>
-          <Value name="lambda">lambda_min</Value>
-          <Value name="seed_internal_cv">1</Value>
-          <Value name="lambda_no_cv">1</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
@@ -193,47 +194,47 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
     </Node>
     <Node ToolID="6">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
-        <Position x="114" y="222" />
+        <Position x="102" y="222" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <NumRows value="11" />
           <Fields>
-            <Field name="Field1" />
+            <Field name="coefs" />
           </Fields>
           <Data>
             <r>
-              <c>28.86992</c>
+              <c>23.0297996728179</c>
             </r>
             <r>
-              <c>-0.322037</c>
+              <c>-0.261466291523235</c>
             </r>
             <r>
-              <c>-0.002261</c>
+              <c>-0.00353879250311125</c>
             </r>
             <r>
-              <c>-0.011827</c>
+              <c>-0.0215001425547488</c>
+            </r>
+            <r>
+              <c>1.25074137331737</c>
+            </r>
+            <r>
+              <c>-1.76313853734359</c>
+            </r>
+            <r>
+              <c>0.196663361320462</c>
+            </r>
+            <r>
+              <c>0.506261270018678</c>
+            </r>
+            <r>
+              <c>2.25783814230028</c>
             </r>
             <r>
               <c>0</c>
             </r>
             <r>
-              <c>-2.591239</c>
-            </r>
-            <r>
-              <c>0.245803</c>
-            </r>
-            <r>
-              <c>0.224132</c>
-            </r>
-            <r>
-              <c>2.997529</c>
-            </r>
-            <r>
-              <c>0</c>
-            </r>
-            <r>
-              <c>-0.601415</c>
+              <c>-0.245179383817229</c>
             </r>
           </Data>
         </Configuration>
@@ -251,18 +252,98 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="Drop Down (6)">Field1</Value>
+          <Value name="Drop Down (6)">coefs</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
-        <Dependencies>
-          <Implicit />
-        </Dependencies>
       </Properties>
       <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="246" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="coefs" selected="True" type="Double" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="534" y="102" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1460_13559cf832fd4980aa2bb94d9491d048_\Engine_9912_a181de94b93c4396afd153e59135da34_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="534" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1460_13559cf832fd4980aa2bb94d9491d048_\Engine_9912_09766b80b2f949d0b01ef08e1502ff6f_.yxdb</TempFile>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="534" y="270" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1460_13559cf832fd4980aa2bb94d9491d048_\Engine_9912_e560444f50c945ee9b4ce9032e152bc0_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
     </Node>
   </Nodes>
   <Connections>
@@ -279,8 +360,24 @@ write.Alteryx(data.frame(coefs = as.vector(coef(exp_model, s = "lambda.min", exa
       <Destination ToolID="7" Connection="Object" />
     </Connection>
     <Connection>
-      <Origin ToolID="6" Connection="Output" />
+      <Origin ToolID="9" Connection="Output" />
       <Destination ToolID="7" Connection="Coefficients" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="beta" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Coefs" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Join" />
+      <Destination ToolID="12" Connection="Input" />
     </Connection>
   </Connections>
   <Properties>
