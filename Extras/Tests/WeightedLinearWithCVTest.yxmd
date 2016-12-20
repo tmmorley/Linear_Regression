@@ -1,0 +1,695 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="11.0">
+  <Nodes>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="174" y="162" width="132" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Linear Regression</Text>
+          <Font name="Segoe UI" size="9.75" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="414" y="54" width="444" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Test Description</Text>
+          <Font name="Segoe UI" size="9" style="0" />
+          <TextColor name="White" />
+          <FillColor r="111" g="111" b="111" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="66" width="828" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Linear Regression Test</Text>
+          <Font name="Segoe UI" size="20.25" style="0" />
+          <TextColor name="White" />
+          <FillColor r="22" g="145" b="198" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="66" y="162" width="100" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Input Data</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor r="0" g="128" b="192" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="438" y="66" width="444" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[This workflow tests that mtcars data works with Cross-validation and non-regularized linear regression using a randomly generated weight variable
+]]></Text>
+          <Font name="Segoe UI" size="9" style="0" />
+          <TextColor name="White" />
+          <FillColor r="111" g="111" b="111" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="90" y="174" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="32" />
+          <Fields>
+            <Field name="mpg" />
+            <Field name="disp" />
+            <Field name="hp" />
+            <Field name="drat" />
+            <Field name="wt" />
+            <Field name="qsec" />
+          </Fields>
+          <Data>
+            <r>
+              <c>21</c>
+              <c>160</c>
+              <c>110</c>
+              <c>3.9</c>
+              <c>2.62</c>
+              <c>16.46</c>
+            </r>
+            <r>
+              <c>21</c>
+              <c>160</c>
+              <c>110</c>
+              <c>3.9</c>
+              <c>2.875</c>
+              <c>17.02</c>
+            </r>
+            <r>
+              <c>22.8</c>
+              <c>108</c>
+              <c>93</c>
+              <c>3.85</c>
+              <c>2.32</c>
+              <c>18.61</c>
+            </r>
+            <r>
+              <c>21.4</c>
+              <c>258</c>
+              <c>110</c>
+              <c>3.08</c>
+              <c>3.215</c>
+              <c>19.44</c>
+            </r>
+            <r>
+              <c>18.7</c>
+              <c>360</c>
+              <c>175</c>
+              <c>3.15</c>
+              <c>3.44</c>
+              <c>17.02</c>
+            </r>
+            <r>
+              <c>18.1</c>
+              <c>225</c>
+              <c>105</c>
+              <c>2.76</c>
+              <c>3.46</c>
+              <c>20.22</c>
+            </r>
+            <r>
+              <c>14.3</c>
+              <c>360</c>
+              <c>245</c>
+              <c>3.21</c>
+              <c>3.57</c>
+              <c>15.84</c>
+            </r>
+            <r>
+              <c>24.4</c>
+              <c>146.7</c>
+              <c>62</c>
+              <c>3.69</c>
+              <c>3.19</c>
+              <c>20</c>
+            </r>
+            <r>
+              <c>22.8</c>
+              <c>140.8</c>
+              <c>95</c>
+              <c>3.92</c>
+              <c>3.15</c>
+              <c>22.9</c>
+            </r>
+            <r>
+              <c>19.2</c>
+              <c>167.6</c>
+              <c>123</c>
+              <c>3.92</c>
+              <c>3.44</c>
+              <c>18.3</c>
+            </r>
+            <r>
+              <c>17.8</c>
+              <c>167.6</c>
+              <c>123</c>
+              <c>3.92</c>
+              <c>3.44</c>
+              <c>18.9</c>
+            </r>
+            <r>
+              <c>16.4</c>
+              <c>275.8</c>
+              <c>180</c>
+              <c>3.07</c>
+              <c>4.07</c>
+              <c>17.4</c>
+            </r>
+            <r>
+              <c>17.3</c>
+              <c>275.8</c>
+              <c>180</c>
+              <c>3.07</c>
+              <c>3.73</c>
+              <c>17.6</c>
+            </r>
+            <r>
+              <c>15.2</c>
+              <c>275.8</c>
+              <c>180</c>
+              <c>3.07</c>
+              <c>3.78</c>
+              <c>18</c>
+            </r>
+            <r>
+              <c>10.4</c>
+              <c>472</c>
+              <c>205</c>
+              <c>2.93</c>
+              <c>5.25</c>
+              <c>17.98</c>
+            </r>
+            <r>
+              <c>10.4</c>
+              <c>460</c>
+              <c>215</c>
+              <c>3</c>
+              <c>5.424</c>
+              <c>17.82</c>
+            </r>
+            <r>
+              <c>14.7</c>
+              <c>440</c>
+              <c>230</c>
+              <c>3.23</c>
+              <c>5.345</c>
+              <c>17.42</c>
+            </r>
+            <r>
+              <c>32.4</c>
+              <c>78.7</c>
+              <c>66</c>
+              <c>4.08</c>
+              <c>2.2</c>
+              <c>19.47</c>
+            </r>
+            <r>
+              <c>30.4</c>
+              <c>75.7</c>
+              <c>52</c>
+              <c>4.93</c>
+              <c>1.615</c>
+              <c>18.52</c>
+            </r>
+            <r>
+              <c>33.9</c>
+              <c>71.1</c>
+              <c>65</c>
+              <c>4.22</c>
+              <c>1.835</c>
+              <c>19.9</c>
+            </r>
+            <r>
+              <c>21.5</c>
+              <c>120.1</c>
+              <c>97</c>
+              <c>3.7</c>
+              <c>2.465</c>
+              <c>20.01</c>
+            </r>
+            <r>
+              <c>15.5</c>
+              <c>318</c>
+              <c>150</c>
+              <c>2.76</c>
+              <c>3.52</c>
+              <c>16.87</c>
+            </r>
+            <r>
+              <c>15.2</c>
+              <c>304</c>
+              <c>150</c>
+              <c>3.15</c>
+              <c>3.435</c>
+              <c>17.3</c>
+            </r>
+            <r>
+              <c>13.3</c>
+              <c>350</c>
+              <c>245</c>
+              <c>3.73</c>
+              <c>3.84</c>
+              <c>15.41</c>
+            </r>
+            <r>
+              <c>19.2</c>
+              <c>400</c>
+              <c>175</c>
+              <c>3.08</c>
+              <c>3.845</c>
+              <c>17.05</c>
+            </r>
+            <r>
+              <c>27.3</c>
+              <c>79</c>
+              <c>66</c>
+              <c>4.08</c>
+              <c>1.935</c>
+              <c>18.9</c>
+            </r>
+            <r>
+              <c>26</c>
+              <c>120.3</c>
+              <c>91</c>
+              <c>4.43</c>
+              <c>2.14</c>
+              <c>16.7</c>
+            </r>
+            <r>
+              <c>30.4</c>
+              <c>95.1</c>
+              <c>113</c>
+              <c>3.77</c>
+              <c>1.513</c>
+              <c>16.9</c>
+            </r>
+            <r>
+              <c>15.8</c>
+              <c>351</c>
+              <c>264</c>
+              <c>4.22</c>
+              <c>3.17</c>
+              <c>14.5</c>
+            </r>
+            <r>
+              <c>19.7</c>
+              <c>145</c>
+              <c>175</c>
+              <c>3.62</c>
+              <c>2.77</c>
+              <c>15.5</c>
+            </r>
+            <r>
+              <c>15</c>
+              <c>301</c>
+              <c>335</c>
+              <c>3.54</c>
+              <c>3.57</c>
+              <c>14.6</c>
+            </r>
+            <r>
+              <c>21.4</c>
+              <c>121</c>
+              <c>109</c>
+              <c>4.11</c>
+              <c>2.78</c>
+              <c>18.6</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="162" y="402" width="220" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Config info: Seed set to 1, 5 folds, 3 trials.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="378" y="150" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_e60573de54a4422eafe5d32cc4322da3_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="414" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_80c81ffd0d87459bbb8a1fbdcd69ce49_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="450" y="258" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_f1d837cd676547e7b8abe848c3956284_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="486" y="294" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_78525fb75ab546398062c9cfa5595ca2_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="522" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_436a7ab8ffb04ca4b7bb89f754a288f8_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="234" y="186" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="curPage">Customize</Value>
+          <Value name="curTab">advanced</Value>
+          <Value name="standardize_pred">True</Value>
+          <Value name="internal_cv">True</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
+          <Value name="lambda_min">False</Value>
+          <Value name="lambda_1se">True</Value>
+          <Value name="Model Name">mtcars</Value>
+          <Value name="Y Var">mpg</Value>
+          <Value name="X Vars">disp,hp,drat,wt,qsec</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">True</Value>
+          <Value name="Weight Vec">weight</Value>
+          <Value name="regularization">False</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
+          <Value name="lambda_no_cv">0.5</Value>
+          <Value name="external_cv">True</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
+          <Value name="graph.resolution">1x</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxRPluginGui.R">
+        <Position x="90" y="318" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <RScript><![CDATA[write.Alteryx(data.frame(weight = (rnorm(32) + 3)), 1)
+]]></RScript>
+          <UseFullUpdate value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="weight" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="162" y="234" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="True">
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="35" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output1" />
+      <Destination ToolID="35" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Reports" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Data" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Fit Measures" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Full Cross-Validation Report" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="Join" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="True" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>WeightedLinearWithCVTest</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

@@ -133,6 +133,7 @@ if (outer_config$external_cv) {
     models = readModelObjects("#1", default = defaults$models)
   )
   
+  
   ##---- Inputs/Config Complete
   
   #' ### Helper Functions
@@ -291,10 +292,20 @@ if (outer_config$external_cv) {
     # throw an error.
     print("about to sapply getyvar")
     y_names <- sapply(models, AlteryxPredictive:::getYVar)
+    print("str of models")
+    print(str(models))
     print("got y var")
     if (!all(y_names == y_names[1])) {
       stop.Alteryx2("More than one target variable are present in the provided models")
     } else if (!(y_names[1] %in% colnames(data))) {
+      print("head of data:")
+      print(head(data))
+      print('colnames of data:')
+      print(colnames(data))
+      print('ynames:')
+      print(y_names)
+      print("str of y_names:")
+      print(str(y_names))
       stop.Alteryx2("The target variable from the models is different than the target chosen in the configuration. Please check your configuration settings and try again.")
     }
     # get the target variable name
@@ -366,13 +377,13 @@ if (outer_config$external_cv) {
     print("in glmnetUpdate")
     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
-    requireNamespace('glmnet')
+    library(glmnet)
     currentModel <- update(model, x = predictors, y = response)
     return(currentModel)
   }
   
   #' Given a model, a dataset and index of test cases, return actual and response
-  getActualandResponse <- function(model, data, testIndices, extras, mid){
+  getActualandResponse <- function(model, data, testIndices, extras, mid, config){
     trainingData <- data[-testIndices,]
     testData <- data[testIndices,]
     testData <- matchLevels(testData, getXlevels(model))
@@ -387,7 +398,16 @@ if (outer_config$external_cv) {
       currentModel <- glmnetUpdate(model, trainingData, currentYvar)
     } else {
       print("in the non-naive bayes case")
-      currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
+      if (outer_config$`Use Weights`) {
+        # WORKAROUND
+        # The assign() statement below moves the token ‘getActualandResponse’ to the global environment, where the update() function can find it.  
+        # Otherwise, something inside update() isn’t finding ‘getActualandResponse’ on its environment search path.
+        assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
+        currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingDatagetActualandResponse403, weights = trainingDatagetActualandResponse403$`Weight Vec`)
+        print('did the weighted update')
+        } else {
+        currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
+      }
     }
     print("did the updates")
     if (inherits(currentModel, 'gbm')){
@@ -418,7 +438,7 @@ if (outer_config$external_cv) {
       model <- inputs$models[[mid]]
       testIndices <- allFolds[[trial]][[fold]]
       print("about to create out")
-      out <- (safeGetActualAndResponse(model, inputs$data, testIndices, extras, mid))
+      out <- (safeGetActualAndResponse(model, inputs$data, testIndices, extras, mid, config))
       if (is.null(out)) {
         AlteryxMessage2(paste0("For model ", mid, " trial ", trial, " fold ", fold, " the data could not be scored."), iType = 2, iPriority = 3)
       } else {
@@ -680,6 +700,8 @@ if (outer_config$external_cv) {
       config$regression = !config$classification
     }
     print("about to set yvar")
+    print("str of inputs$models")
+    print(str(inputs$models))
     yVarList <- getYvars(inputs$data, inputs$models)
     yVar <- yVarList$y_col
     y_name <- yVarList$y_name
