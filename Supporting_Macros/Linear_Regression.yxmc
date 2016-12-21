@@ -669,7 +669,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00021" y="54" width="876" height="96"/>
+        <Position x="54.00018" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4256,10 +4256,6 @@ if (outer_config$external_cv) {
   glmnetUpdate &lt;- function(model, trainingData, currentYvar, config, weight_vec = NULL) {
     predictors &lt;- trainingData[,AlteryxPredictive:::getXVars(model)]
     response &lt;- trainingData[,(which(colnames(trainingData) == currentYvar))]
-    print("head of predictors")
-    print(head(predictors))
-    print('head of response')
-    print(head(response))
     library(glmnet)
     model_w_call &lt;- if (config$internal_cv) {
       model$glmnet.fit
@@ -4267,22 +4263,6 @@ if (outer_config$external_cv) {
       model
     }
     if (config$`Use Weights`) {
-      # WORKAROUND
-      # The assign() statement below moves the token &#x2018;getActualandResponse&#x2019; to the global environment, where the update() function can find it.  
-      # Otherwise, something inside update() isn&#x2019;t finding &#x2018;getActualandResponse&#x2019; on its environment search path.
-      #assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
-#       my_envir &lt;- environment()
-#       lapply(
-#         X = 1:ncol(trainingData),
-#         FUN = function(i){
-#           assign(
-#             x = names(trainingData)[i],
-#             value = trainingData[,i],
-#             envir = my_envir
-#           )
-#         }
-#       )
-#       currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = environment(), weights = trainingData$`Weight Vec`)
       currentModel &lt;- update(model_w_call, x = predictors, y = response, weights = weight_vec)
     } else {
       #currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
@@ -4622,12 +4602,6 @@ if (outer_config$external_cv) {
   # Helper Functions End ----
   getResultsCrossValidation &lt;- function(inputs, config){
     inputs$data$recordID &lt;- 1:NROW(inputs$data)
-#     if (outer_config$regularization) {
-#       #Make sure inputs$data is a numeric matrix if regularization is used
-#       inputs$data &lt;- AlteryxPredictive:::df2NumericMatrix(inputs$data)
-#     }
-#     print("and after:")
-#     print(head(inputs$data))
     if (!is.null(config$modelType)){
       config$classification = (config$modelType == "classification")
       config$regression = !config$classification
@@ -6347,7 +6321,7 @@ if (outer_config$external_cv) {
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54.00003" y="154.9999" width="1919" height="618.0001"/>
+        <Position x="54.00003" y="131" width="2135" height="642"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -6378,7 +6352,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9986" y="400.0012" width="59" height="59"/>
+            <Position x="197.9985" y="400.001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6391,7 +6365,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="400.0005" width="59" height="59"/>
+            <Position x="557.999" y="400.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6417,7 +6391,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="377.9993" y="400.0008" width="59" height="59"/>
+            <Position x="377.9992" y="400.0007" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6430,7 +6404,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="400.0001" width="59" height="59"/>
+            <Position x="641.999" y="400.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6443,7 +6417,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="462.0007" y="510.0003" width="59" height="59"/>
+            <Position x="462.0008" y="510.0006" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6456,7 +6430,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="114" y="400.001" width="59" height="59"/>
+            <Position x="114" y="400.0014" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6469,7 +6443,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0004" y="297" width="59" height="59"/>
+            <Position x="114.0004" y="297.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6482,7 +6456,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.5" y="292.0012" width="59" height="59"/>
+            <Position x="202.4998" y="292.0013" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6495,7 +6469,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="644.999" y="292.0001" width="59" height="59"/>
+            <Position x="644.999" y="292" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6508,7 +6482,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.0007" y="291.9983" width="59" height="59"/>
+            <Position x="291.0008" y="291.9982" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6521,7 +6495,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.501" y="291.9987" width="59" height="59"/>
+            <Position x="379.5009" y="291.9987" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6547,7 +6521,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.499" y="291.9997" width="59" height="59"/>
+            <Position x="556.4989" y="291.9998" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6560,7 +6534,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.999" y="400.0003" width="59" height="59"/>
+            <Position x="725.999" y="400.0002" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6677,7 +6651,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="196">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="750.0002" y="233.9999" width="59" height="59"/>
+            <Position x="750.0001" y="233.9999" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6794,7 +6768,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="247">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="714.0001" y="593.9997" width="59" height="59"/>
+            <Position x="714.0001" y="593.9996" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6807,7 +6781,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="251">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="678" y="533.9996" width="59" height="59"/>
+            <Position x="678" y="533.9997" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6956,6 +6930,32 @@ if (outer_config$external_cv) {
             <Configuration/>
             <Annotation DisplayMode="0">
               <Name/>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="299">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="1962" y="222" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>curPage</Name>
+              <DefaultAnnotationText/>
+              <Left value="False"/>
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="300">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="2070" y="210" width="59" height="59"/>
+          </GuiSettings>
+          <Properties>
+            <Configuration/>
+            <Annotation DisplayMode="0">
+              <Name>curTab</Name>
               <DefaultAnnotationText/>
               <Left value="False"/>
             </Annotation>
@@ -7793,6 +7793,18 @@ Union</Text>
         <Value>True</Value>
         <IsNumeric value="False"/>
       </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>curPage</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>curTab</Name>
+        <Value/>
+        <IsNumeric value="False"/>
+      </Constant>
     </Constants>
     <MetaInfo>
       <NameIsFileName value="False"/>
@@ -8181,6 +8193,26 @@ Union</Text>
               <Description>Macro Output (89)</Description>
               <Name>Macro Output (284)</Name>
               <ToolId value="284"/>
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>curPage</Description>
+              <Name>curPage</Name>
+              <ToolId value="299"/>
+              <Default>curPage</Default>
+              <Password value="False"/>
+              <Multiline value="False"/>
+              <Hidden value="False"/>
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>curTab</Description>
+              <Name>curTab</Name>
+              <ToolId value="300"/>
+              <Default>curTab</Default>
+              <Password value="False"/>
+              <Multiline value="False"/>
+              <Hidden value="False"/>
             </Question>
           </Questions>
         </Question>
