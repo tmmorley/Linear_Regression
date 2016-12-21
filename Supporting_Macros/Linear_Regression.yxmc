@@ -220,7 +220,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_1c131ae6f95b46b5b45a18ff4c431a12_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_c676e7ca4f0e491cae1579eeddf5ef5e_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -360,7 +360,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_ae9f4dcd23fc49148ebf677d3eda9e09_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_084164f330c24fda94abf081bf7f3c94_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_adab42f7a709467680db22ebcb21fc3c_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -669,7 +669,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00018" y="54" width="876" height="96"/>
+        <Position x="54.00021" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4003,6 +4003,7 @@ if (outer_config$external_cv) {
     `stratified` = FALSE,
     `seed` = numericInput('%Question.seed%', 1)
   )
+  config &lt;- append(config, outer_config)
   options(alteryx.wd = '%Engine.WorkflowDirectory%')
   options(alteryx.debug = config$debug)
   ##----
@@ -4020,8 +4021,6 @@ if (outer_config$external_cv) {
     )
   }
   
-  print("str of input #1")
-  print(str(read.Alteryx("#1")))
   #' ### Inputs
   #' 
   #' This is a named list of all inputs that stream into the R tool.
@@ -4063,10 +4062,8 @@ if (outer_config$external_cv) {
     numModels &lt;- length(inputs$models)
     modelNames &lt;- names(inputs$models)
     modelXVars &lt;-  if (packageVersion('AlteryxPredictive') &lt;= '0.3.2'){
-      print("package version is &lt;= 0.3.2")
       lapply(inputs$models, getXVars2)
     } else {
-      print("package version is &gt; 0.3.2")
       lapply(inputs$models, getXVars)
     }
     dataXVars &lt;- names(inputs$data)[which(names(inputs$data) %in% unlist(modelXVars))]
@@ -4187,30 +4184,16 @@ if (outer_config$external_cv) {
   getYvars &lt;- function(data, models) {
     # Get the names of the target fields and make sure they are all same. If not,
     # throw an error.
-    print("about to sapply getyvar")
     y_names &lt;- sapply(models, AlteryxPredictive:::getYVar)
-    print("str of models")
-    print(str(models))
-    print("got y var")
     if (!all(y_names == y_names[1])) {
       stop.Alteryx2("More than one target variable are present in the provided models")
     } else if (!(y_names[1] %in% colnames(data))) {
-      print("head of data:")
-      print(head(data))
-      print('colnames of data:')
-      print(colnames(data))
-      print('ynames:')
-      print(y_names)
-      print("str of y_names:")
-      print(str(y_names))
       stop.Alteryx2("The target variable from the models is different than the target chosen in the configuration. Please check your configuration settings and try again.")
     }
     # get the target variable name
     y_name &lt;- y_names[1]
-    print("set y_name")
     # Get the target variable
     return(list(y_col = data[[y_name]], y_name = y_name))
-    print("got data[[y_name]]")
   }
   
   #In the 2-class classification case, get the positive class. Otherwise, do nothing.
@@ -4270,12 +4253,51 @@ if (outer_config$external_cv) {
 #     currentModel &lt;- update(model, x = predictors, y = response, laplace = model$laplace)
 #     return(currentModel)
 #   }
-  glmnetUpdate &lt;- function(model, trainingData, currentYvar) {
-    print("in glmnetUpdate")
-    predictors &lt;- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+  glmnetUpdate &lt;- function(model, trainingData, currentYvar, config, weight_vec = NULL) {
+    predictors &lt;- trainingData[,AlteryxPredictive:::getXVars(model)]
     response &lt;- trainingData[,(which(colnames(trainingData) == currentYvar))]
+    print("head of predictors")
+    print(head(predictors))
+    print('head of response')
+    print(head(response))
     library(glmnet)
-    currentModel &lt;- update(model, x = predictors, y = response)
+    model_w_call &lt;- if (config$internal_cv) {
+      model$glmnet.fit
+    } else {
+      model
+    }
+    if (config$`Use Weights`) {
+      # WORKAROUND
+      # The assign() statement below moves the token &#x2018;getActualandResponse&#x2019; to the global environment, where the update() function can find it.  
+      # Otherwise, something inside update() isn&#x2019;t finding &#x2018;getActualandResponse&#x2019; on its environment search path.
+      #assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
+#       my_envir &lt;- environment()
+#       lapply(
+#         X = 1:ncol(trainingData),
+#         FUN = function(i){
+#           assign(
+#             x = names(trainingData)[i],
+#             value = trainingData[,i],
+#             envir = my_envir
+#           )
+#         }
+#       )
+#       currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = environment(), weights = trainingData$`Weight Vec`)
+      currentModel &lt;- update(model_w_call, x = predictors, y = response, weights = weight_vec)
+    } else {
+      #currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
+      currentModel &lt;- update(model_w_call, x = predictors, y = response)
+    }
+    currentModel$xvars &lt;- colnames(predictors)
+    currentModel$lambda_pred &lt;- if (config$internal_cv) {
+      if (config$lambda_1se) {
+        model$lambda.1se
+      } else {
+        model$lambda.min
+      }
+    } else {
+      config$lambda_no_cv
+    }
     return(currentModel)
   }
   
@@ -4287,24 +4309,40 @@ if (outer_config$external_cv) {
     currentYvar &lt;- extras$y_name
     #Check if the model is Naive Bayes and lacking a Laplace parameter.
     #If so, set the Laplace parameter to 0 and warn the user.
-    print("about to do the updates")
 #     if (inherits(model, "naiveBayes")) {
 #       currentModel &lt;- naiveBayesUpdate(model, trainingData, currentYvar)
 #     } else 
     if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
-      currentModel &lt;- glmnetUpdate(model, trainingData, currentYvar)
+      #Ideally, it would be more efficient to convert the x df to a matrix earlier so that
+      #this conversion wouldn't be necessary with every trial/fold. However, the code assumes
+      #that we're dealing with a df in many other places. This are could be ripe for refactoring
+      #in the future.
+      weights_v &lt;- trainingData[[config$`Weight Vec`]]
+      trainingData &lt;- AlteryxPredictive:::df2NumericMatrix(trainingData)
+      #No need to call df2NmericMatrix on testData, since scoreModel calls df2NumericMatrix with glmnet models.
+      currentModel &lt;- glmnetUpdate(model, trainingData, currentYvar, config, weight_vec = weights_v)
     } else {
-      print("in the non-naive bayes case")
-      if (outer_config$`Use Weights`) {
-        #Note that this is a temporary workaround to ensure that trainingData gets passed on (which it wouldn't otherwise)
-        assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
-        currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingDatagetActualandResponse403, weights = trainingDatagetActualandResponse403$`Weight Vec`)
-        print('did the weighted update')
+      if (config$`Use Weights`) {
+        # WORKAROUND
+        # The assign() statement below moves the token &#x2018;getActualandResponse&#x2019; to the global environment, where the update() function can find it.  
+        # Otherwise, something inside update() isn&#x2019;t finding &#x2018;getActualandResponse&#x2019; on its environment search path.
+        #assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
+        my_envir &lt;- environment()
+        lapply(
+          X = 1:ncol(trainingData),
+          FUN = function(i){
+            assign(
+              x = names(trainingData)[i],
+              value = trainingData[,i],
+              envir = my_envir
+            )
+          }
+        )
+        currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = environment(), weights = trainingData$`Weight Vec`)
         } else {
         currentModel &lt;- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
       }
     }
-    print("did the updates")
     if (inherits(currentModel, 'gbm')){
       currentModel &lt;- adjustGbmModel(currentModel)
     }
@@ -4332,7 +4370,6 @@ if (outer_config$external_cv) {
     function(mid, trial, fold){
       model &lt;- inputs$models[[mid]]
       testIndices &lt;- allFolds[[trial]][[fold]]
-      print("about to create out")
       out &lt;- (safeGetActualAndResponse(model, inputs$data, testIndices, extras, mid, config))
       if (is.null(out)) {
         AlteryxMessage2(paste0("For model ", mid, " trial ", trial, " fold ", fold, " the data could not be scored."), iType = 2, iPriority = 3)
@@ -4344,9 +4381,7 @@ if (outer_config$external_cv) {
   }
   
   getPkgListForModels &lt;- function(models){
-    print("about to get the model classes")
     modelClasses &lt;- unlist(lapply(models, class))
-    print("got the model classes")
     pkgMap = list(
       gbm = "gbm", rpart = "rpart", svm.formula = "e1071", svm = "e1071",
       naiveBayes = "e1071", svyglm = "survey", nnet.formula = "nnet",
@@ -4487,7 +4522,6 @@ if (outer_config$external_cv) {
       trial = seq_along(allFolds),
       fold = seq_along(allFolds[[1]])
     )
-    print("about to getcrossvalidatedresults")
     return(mdply(g, getCrossValidatedResults(inputs, allFolds, extras, config)))
   }
   
@@ -4587,31 +4621,28 @@ if (outer_config$external_cv) {
   
   # Helper Functions End ----
   getResultsCrossValidation &lt;- function(inputs, config){
-    print("creating recordid")
     inputs$data$recordID &lt;- 1:NROW(inputs$data)
-    print("created recordid")
+#     if (outer_config$regularization) {
+#       #Make sure inputs$data is a numeric matrix if regularization is used
+#       inputs$data &lt;- AlteryxPredictive:::df2NumericMatrix(inputs$data)
+#     }
+#     print("and after:")
+#     print(head(inputs$data))
     if (!is.null(config$modelType)){
       config$classification = (config$modelType == "classification")
       config$regression = !config$classification
     }
-    print("about to set yvar")
-    print("str of inputs$models")
-    print(str(inputs$models))
     yVarList &lt;- getYvars(inputs$data, inputs$models)
     yVar &lt;- yVarList$y_col
     y_name &lt;- yVarList$y_name
-    print("set yvar")
-    if ((config$classification) &amp;&amp; (length(unique(yVar)) == 2)) {
-      if (config$posClass == "") {
-        config$posClass &lt;- as.character(getPosClass(config, levels(yVar)))
-      }
-    }
-    print("setting modelnames")
+#     if ((config$classification) &amp;&amp; (length(unique(yVar)) == 2)) {
+#       if (config$posClass == "") {
+#         config$posClass &lt;- as.character(getPosClass(config, levels(yVar)))
+#       }
+#     }
     inputs$modelNames &lt;- names(inputs$models)
     modelNames &lt;- names(inputs$models)
-    print("checking xvars")
     checkXVars(inputs)
-    print("creating extras")
     extras &lt;- list(
       yVar = yVar,
       y_name = y_name,
@@ -4619,14 +4650,12 @@ if (outer_config$external_cv) {
       allFolds = createFolds(data = inputs$data, config = config),
       levels = if (config$classification) levels(yVar) else NULL
     )
-    print("getting dataoutput1")
     dataOutput1 &lt;- generateOutput1(inputs, config, extras)
     if ((config$regression) &amp;&amp; ("Score" %in% colnames(dataOutput1))) {
       dataOutput1 &lt;- data.frame(trial = dataOutput1$trial, fold = dataOutput1$fold, 
                                 mid = dataOutput1$mid, recordID = dataOutput1$recordID,
                                 response = dataOutput1$Score, actual = dataOutput1$actual)
     }
-    print('getting prepped output1')
     preppedOutput1 &lt;- if (config$regression) {
       data.frame(RecordID = dataOutput1$recordID, 
                  Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
@@ -4641,12 +4670,9 @@ if (outer_config$external_cv) {
       )
     }
     #write.Alteryx2(preppedOutput1, nOutput = 1)
-    print('getting dataoutput2')
     dataOutput2 &lt;- generateOutput2(dataOutput1, extras, modelNames)
-    print('getting preppedoutput2')
     preppedOutput2 &lt;- reshape2::melt(dataOutput2, id = c('trial', 'fold', 'Model'))
     #write.Alteryx2(preppedOutput2, nOutput = 2)
-    print('getting confmats')
     confMats &lt;- if (config$classification) {
       generateOutput3(dataOutput1, extras, modelNames)
       #write.Alteryx2(confMats, 3)
@@ -4656,11 +4682,9 @@ if (outer_config$external_cv) {
                  Predicted_class = 'no', Variable = "Classno", Value = 50
       )
     }
-    print('getting plotdata')
     plotData &lt;- ddply(dataOutput1, .(trial, fold, mid), generateDataForPlots, 
                       extras = extras, config = config
     )
-    print('making outputplot')
     outputPlot &lt;- if (config$classification) {
       if (length(extras$levels) == 2) {
         plotBinaryData(plotData, config, modelNames)
@@ -4673,7 +4697,6 @@ if (outer_config$external_cv) {
     } else {
       plotRegressionData(plotData, config, modelNames)
     }
-    print('making outlist')
     list(
       data = preppedOutput1, fitMeasures = preppedOutput2, 
       confMats = confMats, outputPlot = outputPlot   
@@ -4681,9 +4704,7 @@ if (outer_config$external_cv) {
   }
   
   runCrossValidation &lt;- function(inputs, config){
-    print("about to get results")
     results &lt;- getResultsCrossValidation(inputs, config)
-    print("got results")
     write.Alteryx2(results$data, 2)
     write.Alteryx2(results$fitMeasures, 3)
     #write.Alteryx2(results$confMats, 3)
@@ -4891,7 +4912,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_e4036fcc1ecd48449277e8e177626bbe_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_3c7aee98a22b46c9af8c09e50b60ccc6_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4915,7 +4936,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_1779ed139dce4ae78d8aaaa5838224fc_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_0d02657ac3d448b69cb8da4b294c3493_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4943,7 +4964,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_68eacb523eb3469b85bf132655a484b8_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_34e31ce53fb649c68bd46fdea9dacbf0_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4971,7 +4992,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_49a3a7d0a60046bf9bebc18d120449c3_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_35c49420c6534b8daf1de259b656e916_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -5179,7 +5200,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_1844_5445112f711c457ead4321f85a524bb8_\Engine_8320_5a41bf46d6624788805aa8bad5c5759d_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_0cf7a5492fe64b52b4e60489a60b4cf6_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -6326,7 +6347,7 @@ if (outer_config$external_cv) {
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="53.99997" y="154.9999" width="1919" height="618.0001"/>
+        <Position x="54.00003" y="154.9999" width="1919" height="618.0001"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -6357,7 +6378,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9985" y="400.0012" width="59" height="59"/>
+            <Position x="197.9986" y="400.0012" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6370,7 +6391,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="400.0006" width="59" height="59"/>
+            <Position x="557.999" y="400.0005" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6383,7 +6404,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0014" y="400.0012" width="59" height="59"/>
+            <Position x="294.0016" y="400.0012" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6435,7 +6456,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="114" y="400.0008" width="59" height="59"/>
+            <Position x="114" y="400.001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6448,7 +6469,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0003" y="297.0002" width="59" height="59"/>
+            <Position x="114.0004" y="297" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6500,7 +6521,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5007" y="291.9988" width="59" height="59"/>
+            <Position x="379.501" y="291.9987" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6513,7 +6534,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="467.9992" y="291.9996" width="59" height="59"/>
+            <Position x="467.9993" y="291.9995" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6539,7 +6560,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.999" y="400.0004" width="59" height="59"/>
+            <Position x="725.999" y="400.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6799,7 +6820,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="254">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="1614" y="246" width="59" height="59"/>
+            <Position x="1614" y="246.0001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>

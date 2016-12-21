@@ -27,7 +27,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <NumRows value="11" />
+          <NumRows value="10" />
           <Fields>
             <Field name="Variable" />
             <Field name="Coefficient" />
@@ -35,27 +35,27 @@
           <Data>
             <r>
               <c>(Intercept)</c>
-              <c>31.5695856</c>
+              <c>34.36269471</c>
             </r>
             <r>
               <c>cyl</c>
-              <c>-0.66110309</c>
+              <c>-1.050415641</c>
             </r>
             <r>
               <c>disp</c>
-              <c>-0.0021666</c>
+              <c>-0.002597067</c>
             </r>
             <r>
               <c>hp</c>
-              <c>-0.01366934</c>
+              <c>-0.009060969</c>
             </r>
             <r>
               <c>drat</c>
-              <c>0.54087266</c>
+              <c>0</c>
             </r>
             <r>
               <c>wt</c>
-              <c>-2.03306376</c>
+              <c>-1.974389444</c>
             </r>
             <r>
               <c>qsec</c>
@@ -63,19 +63,15 @@
             </r>
             <r>
               <c>vs</c>
-              <c>0.18946794</c>
+              <c>0</c>
             </r>
             <r>
               <c>am</c>
-              <c>0.97795134</c>
+              <c>0</c>
             </r>
             <r>
               <c>gear</c>
               <c>0</c>
-            </r>
-            <r>
-              <c>carb</c>
-              <c>-0.2730577</c>
             </r>
           </Data>
         </Configuration>
@@ -133,7 +129,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_d55dfa1a60b64df1890dca57d4cb2d01_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7212_030412d89db04bd48906222281b547de_\Engine_6036_b836c8158f554d47a9194bec18bc277e_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -201,7 +197,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Text>This workflow tests that mtcars data returns correct coefficients</Text>
+          <Text>This workflow tests that mtcars data using the last column as weights returns correct coefficients</Text>
           <Font name="Segoe UI" size="9" style="0" />
           <TextColor name="White" />
           <FillColor r="111" g="111" b="111" />
@@ -313,8 +309,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="curPage">Home</Value>
-          <Value name="curTab">crossvalidation</Value>
+          <Value name="curPage">Customize</Value>
+          <Value name="curTab">advanced</Value>
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">False</Value>
           <Value name="display_graphs">True</Value>
@@ -324,10 +320,10 @@
           <Value name="lambda_1se">True</Value>
           <Value name="Model Name">linreg_test</Value>
           <Value name="Y Var">mpg</Value>
-          <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</Value>
+          <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear</Value>
           <Value name="Omit Constant">False</Value>
-          <Value name="Use Weights">False</Value>
-          <Value name="Weight Vec" />
+          <Value name="Use Weights">True</Value>
+          <Value name="Weight Vec">carb</Value>
           <Value name="regularization">True</Value>
           <Value name="alpha">0.5</Value>
           <Value name="nfolds">5</Value>
@@ -370,7 +366,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_4ef925fd21cf4cd6a9ba067373389c0c_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7212_030412d89db04bd48906222281b547de_\Engine_6036_8038c3df5ee14374b8b0a140782991af_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -394,7 +390,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_3e7fe8c5bf064a28b5c4192531abecb4_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7212_030412d89db04bd48906222281b547de_\Engine_6036_9f29d74db8954229bee280433c035565_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -418,7 +414,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_42cbb9dc2b734fe29d1e9e32f72343fe_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7212_030412d89db04bd48906222281b547de_\Engine_6036_1941bcaf6a264a0cba77a576cf04410a_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -493,7 +489,7 @@
     <LayoutType>Horizontal</LayoutType>
     <MetaInfo>
       <NameIsFileName value="True" />
-      <Name>CVRegularizationTest1</Name>
+      <Name>CVRegularizationTest2</Name>
       <Description />
       <RootToolName />
       <ToolVersion />

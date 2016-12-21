@@ -106,6 +106,7 @@ if (outer_config$external_cv) {
     `stratified` = FALSE,
     `seed` = numericInput('%Question.seed%', 1)
   )
+  config <- append(config, outer_config)
   options(alteryx.wd = '%Engine.WorkflowDirectory%')
   options(alteryx.debug = config$debug)
   ##----
@@ -123,8 +124,6 @@ if (outer_config$external_cv) {
     )
   }
   
-  print("str of input #1")
-  print(str(read.Alteryx("#1")))
   #' ### Inputs
   #' 
   #' This is a named list of all inputs that stream into the R tool.
@@ -166,10 +165,8 @@ if (outer_config$external_cv) {
     numModels <- length(inputs$models)
     modelNames <- names(inputs$models)
     modelXVars <-  if (packageVersion('AlteryxPredictive') <= '0.3.2'){
-      print("package version is <= 0.3.2")
       lapply(inputs$models, getXVars2)
     } else {
-      print("package version is > 0.3.2")
       lapply(inputs$models, getXVars)
     }
     dataXVars <- names(inputs$data)[which(names(inputs$data) %in% unlist(modelXVars))]
@@ -290,30 +287,16 @@ if (outer_config$external_cv) {
   getYvars <- function(data, models) {
     # Get the names of the target fields and make sure they are all same. If not,
     # throw an error.
-    print("about to sapply getyvar")
     y_names <- sapply(models, AlteryxPredictive:::getYVar)
-    print("str of models")
-    print(str(models))
-    print("got y var")
     if (!all(y_names == y_names[1])) {
       stop.Alteryx2("More than one target variable are present in the provided models")
     } else if (!(y_names[1] %in% colnames(data))) {
-      print("head of data:")
-      print(head(data))
-      print('colnames of data:')
-      print(colnames(data))
-      print('ynames:')
-      print(y_names)
-      print("str of y_names:")
-      print(str(y_names))
       stop.Alteryx2("The target variable from the models is different than the target chosen in the configuration. Please check your configuration settings and try again.")
     }
     # get the target variable name
     y_name <- y_names[1]
-    print("set y_name")
     # Get the target variable
     return(list(y_col = data[[y_name]], y_name = y_name))
-    print("got data[[y_name]]")
   }
   
   #In the 2-class classification case, get the positive class. Otherwise, do nothing.
@@ -373,12 +356,31 @@ if (outer_config$external_cv) {
 #     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
 #     return(currentModel)
 #   }
-  glmnetUpdate <- function(model, trainingData, currentYvar) {
-    print("in glmnetUpdate")
-    predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+  glmnetUpdate <- function(model, trainingData, currentYvar, config, weight_vec = NULL) {
+    predictors <- trainingData[,AlteryxPredictive:::getXVars(model)]
     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
     library(glmnet)
-    currentModel <- update(model, x = predictors, y = response)
+    model_w_call <- if (config$internal_cv) {
+      model$glmnet.fit
+    } else {
+      model
+    }
+    if (config$`Use Weights`) {
+      currentModel <- update(model_w_call, x = predictors, y = response, weights = weight_vec)
+    } else {
+      #currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
+      currentModel <- update(model_w_call, x = predictors, y = response)
+    }
+    currentModel$xvars <- colnames(predictors)
+    currentModel$lambda_pred <- if (config$internal_cv) {
+      if (config$lambda_1se) {
+        model$lambda.1se
+      } else {
+        model$lambda.min
+      }
+    } else {
+      config$lambda_no_cv
+    }
     return(currentModel)
   }
   
@@ -390,26 +392,40 @@ if (outer_config$external_cv) {
     currentYvar <- extras$y_name
     #Check if the model is Naive Bayes and lacking a Laplace parameter.
     #If so, set the Laplace parameter to 0 and warn the user.
-    print("about to do the updates")
 #     if (inherits(model, "naiveBayes")) {
 #       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
 #     } else 
     if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
-      currentModel <- glmnetUpdate(model, trainingData, currentYvar)
+      #Ideally, it would be more efficient to convert the x df to a matrix earlier so that
+      #this conversion wouldn't be necessary with every trial/fold. However, the code assumes
+      #that we're dealing with a df in many other places. This are could be ripe for refactoring
+      #in the future.
+      weights_v <- trainingData[[config$`Weight Vec`]]
+      trainingData <- AlteryxPredictive:::df2NumericMatrix(trainingData)
+      #No need to call df2NmericMatrix on testData, since scoreModel calls df2NumericMatrix with glmnet models.
+      currentModel <- glmnetUpdate(model, trainingData, currentYvar, config, weight_vec = weights_v)
     } else {
-      print("in the non-naive bayes case")
-      if (outer_config$`Use Weights`) {
+      if (config$`Use Weights`) {
         # WORKAROUND
         # The assign() statement below moves the token ‘getActualandResponse’ to the global environment, where the update() function can find it.  
         # Otherwise, something inside update() isn’t finding ‘getActualandResponse’ on its environment search path.
-        assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
-        currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingDatagetActualandResponse403, weights = trainingDatagetActualandResponse403$`Weight Vec`)
-        print('did the weighted update')
+        #assign(x = 'trainingDatagetActualandResponse403', value = trainingData, envir = globalenv())
+        my_envir <- environment()
+        lapply(
+          X = 1:ncol(trainingData),
+          FUN = function(i){
+            assign(
+              x = names(trainingData)[i],
+              value = trainingData[,i],
+              envir = my_envir
+            )
+          }
+        )
+        currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = environment(), weights = trainingData$`Weight Vec`)
         } else {
         currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
       }
     }
-    print("did the updates")
     if (inherits(currentModel, 'gbm')){
       currentModel <- adjustGbmModel(currentModel)
     }
@@ -437,7 +453,6 @@ if (outer_config$external_cv) {
     function(mid, trial, fold){
       model <- inputs$models[[mid]]
       testIndices <- allFolds[[trial]][[fold]]
-      print("about to create out")
       out <- (safeGetActualAndResponse(model, inputs$data, testIndices, extras, mid, config))
       if (is.null(out)) {
         AlteryxMessage2(paste0("For model ", mid, " trial ", trial, " fold ", fold, " the data could not be scored."), iType = 2, iPriority = 3)
@@ -449,9 +464,7 @@ if (outer_config$external_cv) {
   }
   
   getPkgListForModels <- function(models){
-    print("about to get the model classes")
     modelClasses <- unlist(lapply(models, class))
-    print("got the model classes")
     pkgMap = list(
       gbm = "gbm", rpart = "rpart", svm.formula = "e1071", svm = "e1071",
       naiveBayes = "e1071", svyglm = "survey", nnet.formula = "nnet",
@@ -592,7 +605,6 @@ if (outer_config$external_cv) {
       trial = seq_along(allFolds),
       fold = seq_along(allFolds[[1]])
     )
-    print("about to getcrossvalidatedresults")
     return(mdply(g, getCrossValidatedResults(inputs, allFolds, extras, config)))
   }
   
@@ -692,31 +704,22 @@ if (outer_config$external_cv) {
   
   # Helper Functions End ----
   getResultsCrossValidation <- function(inputs, config){
-    print("creating recordid")
     inputs$data$recordID <- 1:NROW(inputs$data)
-    print("created recordid")
     if (!is.null(config$modelType)){
       config$classification = (config$modelType == "classification")
       config$regression = !config$classification
     }
-    print("about to set yvar")
-    print("str of inputs$models")
-    print(str(inputs$models))
     yVarList <- getYvars(inputs$data, inputs$models)
     yVar <- yVarList$y_col
     y_name <- yVarList$y_name
-    print("set yvar")
-    if ((config$classification) && (length(unique(yVar)) == 2)) {
-      if (config$posClass == "") {
-        config$posClass <- as.character(getPosClass(config, levels(yVar)))
-      }
-    }
-    print("setting modelnames")
+#     if ((config$classification) && (length(unique(yVar)) == 2)) {
+#       if (config$posClass == "") {
+#         config$posClass <- as.character(getPosClass(config, levels(yVar)))
+#       }
+#     }
     inputs$modelNames <- names(inputs$models)
     modelNames <- names(inputs$models)
-    print("checking xvars")
     checkXVars(inputs)
-    print("creating extras")
     extras <- list(
       yVar = yVar,
       y_name = y_name,
@@ -724,14 +727,12 @@ if (outer_config$external_cv) {
       allFolds = createFolds(data = inputs$data, config = config),
       levels = if (config$classification) levels(yVar) else NULL
     )
-    print("getting dataoutput1")
     dataOutput1 <- generateOutput1(inputs, config, extras)
     if ((config$regression) && ("Score" %in% colnames(dataOutput1))) {
       dataOutput1 <- data.frame(trial = dataOutput1$trial, fold = dataOutput1$fold, 
                                 mid = dataOutput1$mid, recordID = dataOutput1$recordID,
                                 response = dataOutput1$Score, actual = dataOutput1$actual)
     }
-    print('getting prepped output1')
     preppedOutput1 <- if (config$regression) {
       data.frame(RecordID = dataOutput1$recordID, 
                  Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
@@ -746,12 +747,9 @@ if (outer_config$external_cv) {
       )
     }
     #write.Alteryx2(preppedOutput1, nOutput = 1)
-    print('getting dataoutput2')
     dataOutput2 <- generateOutput2(dataOutput1, extras, modelNames)
-    print('getting preppedoutput2')
     preppedOutput2 <- reshape2::melt(dataOutput2, id = c('trial', 'fold', 'Model'))
     #write.Alteryx2(preppedOutput2, nOutput = 2)
-    print('getting confmats')
     confMats <- if (config$classification) {
       generateOutput3(dataOutput1, extras, modelNames)
       #write.Alteryx2(confMats, 3)
@@ -761,11 +759,9 @@ if (outer_config$external_cv) {
                  Predicted_class = 'no', Variable = "Classno", Value = 50
       )
     }
-    print('getting plotdata')
     plotData <- ddply(dataOutput1, .(trial, fold, mid), generateDataForPlots, 
                       extras = extras, config = config
     )
-    print('making outputplot')
     outputPlot <- if (config$classification) {
       if (length(extras$levels) == 2) {
         plotBinaryData(plotData, config, modelNames)
@@ -778,7 +774,6 @@ if (outer_config$external_cv) {
     } else {
       plotRegressionData(plotData, config, modelNames)
     }
-    print('making outlist')
     list(
       data = preppedOutput1, fitMeasures = preppedOutput2, 
       confMats = confMats, outputPlot = outputPlot   
@@ -786,9 +781,7 @@ if (outer_config$external_cv) {
   }
   
   runCrossValidation <- function(inputs, config){
-    print("about to get results")
     results <- getResultsCrossValidation(inputs, config)
-    print("got results")
     write.Alteryx2(results$data, 2)
     write.Alteryx2(results$fitMeasures, 3)
     #write.Alteryx2(results$confMats, 3)
