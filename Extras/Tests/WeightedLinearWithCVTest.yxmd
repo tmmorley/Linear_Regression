@@ -410,7 +410,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_e60573de54a4422eafe5d32cc4322da3_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6788_0edb8fc0f41940a7ace03927a0b1c2ff_\Engine_1608_9937585a511a47e0913e2d06e05fdee2_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -434,7 +434,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_80c81ffd0d87459bbb8a1fbdcd69ce49_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6788_0edb8fc0f41940a7ace03927a0b1c2ff_\Engine_1608_51d20b776a9a4681922fa297ca8650b8_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -462,7 +462,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_f1d837cd676547e7b8abe848c3956284_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6788_0edb8fc0f41940a7ace03927a0b1c2ff_\Engine_1608_8a1b2202add3468a9f0697eebaad8996_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -486,7 +486,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_78525fb75ab546398062c9cfa5595ca2_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6788_0edb8fc0f41940a7ace03927a0b1c2ff_\Engine_1608_ec46736b77c64e0c9d2a8b04265bd6c2_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -510,7 +510,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8088_59e2667f78eb433890df2b1262c4bc4f_\Engine_8320_436a7ab8ffb04ca4b7bb89f754a288f8_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6788_0edb8fc0f41940a7ace03927a0b1c2ff_\Engine_1608_2ebb7e62f25c4f2188a6a92337bd6600_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -579,7 +579,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <RScript><![CDATA[write.Alteryx(data.frame(weight = (rnorm(32) + 3)), 1)
+          <RScript><![CDATA[write.Alteryx(data.frame(weight = (runif(32) + 3)), 1)
 ]]></RScript>
           <UseFullUpdate value="False" />
         </Configuration>
@@ -588,11 +588,6 @@
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
-        <MetaInfo connection="Output1">
-          <RecordInfo>
-            <Field name="weight" source="R-DATA:" type="Double" />
-          </RecordInfo>
-        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
