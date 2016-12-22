@@ -436,14 +436,8 @@ if (outer_config$external_cv) {
     }
     actual <- (extras$yVar)[testIndices]
     recordID <- (data[testIndices,])$recordID
-    if (config$classification) {
-      response <- gsub("Score_", "", names(pred)[max.col(pred)])
-      d <- data.frame(recordID = recordID, response = response, actual = actual)
-      return(cbind(d, pred))
-    } else {
-      response <- pred$Score
-      return(data.frame(recordID = recordID, response = response, actual = actual))
-    }
+    response <- pred$Score
+    return(data.frame(recordID = recordID, response = response, actual = actual))
   }
   
   safeGetActualAndResponse <- failwith(NULL, getActualandResponse, quiet = FALSE)
@@ -636,19 +630,7 @@ if (outer_config$external_cv) {
   }
   
   generateDataForPlots <- function(d, extras, config){
-    if (config$classification) {
-      if (length(extras$levels) == 2) {
-        thresholds <- seq(0, 1, 0.05)
-        ldply(thresholds, computeBinaryMetrics, 
-              actual = ifelse(d$actual == extras$posClass, TRUE, FALSE), 
-              pred_prob = d[[paste0('Score_', extras$posClass)]]
-        )
-      } else{
-        data.frame()
-      }
-    } else {
-      data.frame(response = d$response, actual = d$actual)
-    }
+    data.frame(response = d$response, actual = d$actual)
   }
   
   generateLabels <- function(plotData, config) {
@@ -705,18 +687,9 @@ if (outer_config$external_cv) {
   # Helper Functions End ----
   getResultsCrossValidation <- function(inputs, config){
     inputs$data$recordID <- 1:NROW(inputs$data)
-    if (!is.null(config$modelType)){
-      config$classification = (config$modelType == "classification")
-      config$regression = !config$classification
-    }
     yVarList <- getYvars(inputs$data, inputs$models)
     yVar <- yVarList$y_col
     y_name <- yVarList$y_name
-#     if ((config$classification) && (length(unique(yVar)) == 2)) {
-#       if (config$posClass == "") {
-#         config$posClass <- as.character(getPosClass(config, levels(yVar)))
-#       }
-#     }
     inputs$modelNames <- names(inputs$models)
     modelNames <- names(inputs$models)
     checkXVars(inputs)
@@ -725,58 +698,28 @@ if (outer_config$external_cv) {
       y_name = y_name,
       posClass = config$posClass,
       allFolds = createFolds(data = inputs$data, config = config),
-      levels = if (config$classification) levels(yVar) else NULL
+      levels = NULL
     )
     dataOutput1 <- generateOutput1(inputs, config, extras)
-    if ((config$regression) && ("Score" %in% colnames(dataOutput1))) {
+    if ("Score" %in% colnames(dataOutput1)) {
       dataOutput1 <- data.frame(trial = dataOutput1$trial, fold = dataOutput1$fold, 
                                 mid = dataOutput1$mid, recordID = dataOutput1$recordID,
                                 response = dataOutput1$Score, actual = dataOutput1$actual)
     }
-    preppedOutput1 <- if (config$regression) {
-      data.frame(RecordID = dataOutput1$recordID, 
+    preppedOutput1 <- data.frame(RecordID = dataOutput1$recordID, 
                  Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
                  Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
-                 Actual = dataOutput1$actual
-      )
-    } else {
-      data.frame(RecordID = dataOutput1$recordID, 
-                 Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
-                 Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
-                 Actual = dataOutput1$actual
-      )
-    }
-    #write.Alteryx2(preppedOutput1, nOutput = 1)
+                 Actual = dataOutput1$actual)
+
     dataOutput2 <- generateOutput2(dataOutput1, extras, modelNames)
     preppedOutput2 <- reshape2::melt(dataOutput2, id = c('trial', 'fold', 'Model'))
-    #write.Alteryx2(preppedOutput2, nOutput = 2)
-    confMats <- if (config$classification) {
-      generateOutput3(dataOutput1, extras, modelNames)
-      #write.Alteryx2(confMats, 3)
-    } else {
-      #Provide garbage data that'll get filtered out on the Alteryx side.
-      data.frame(Trial = 1, Fold = 1, Model = 'model', Type = 'Regression', 
-                 Predicted_class = 'no', Variable = "Classno", Value = 50
-      )
-    }
     plotData <- ddply(dataOutput1, .(trial, fold, mid), generateDataForPlots, 
                       extras = extras, config = config
     )
-    outputPlot <- if (config$classification) {
-      if (length(extras$levels) == 2) {
-        plotBinaryData(plotData, config, modelNames)
-      } else {
-        # Generate an empty plot
-        empty_df <- data.frame()
-        emptyPlot <- ggplot(empty_df) + geom_point() + xlim(0, 1) + ylim(0, 1) + 
-          ggtitle("No plots available for >2 class classification")
-      }
-    } else {
-      plotRegressionData(plotData, config, modelNames)
-    }
+    outputPlot <- plotRegressionData(plotData, config, modelNames)
     list(
       data = preppedOutput1, fitMeasures = preppedOutput2, 
-      confMats = confMats, outputPlot = outputPlot   
+      outputPlot = outputPlot   
     )
   }
   
@@ -784,7 +727,6 @@ if (outer_config$external_cv) {
     results <- getResultsCrossValidation(inputs, config)
     write.Alteryx2(results$data, 2)
     write.Alteryx2(results$fitMeasures, 3)
-    #write.Alteryx2(results$confMats, 3)
     AlteryxGraph2(results$outputPlot, 4)
   }
   
