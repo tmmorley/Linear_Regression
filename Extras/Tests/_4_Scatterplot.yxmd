@@ -1,0 +1,937 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="11.0">
+  <Nodes>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="432" height="77" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Sample Alteryx Module
+Scatterplot</Text>
+          <Font name="Microsoft Sans Serif" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="95" g="152" b="171" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="66" y="654" width="290.6813" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Expand this container to display tool descriptions*</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="91.00002" y="698" width="131" height="172" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Use the Input Tool to enter data for the predictive model. The data provided includes three different variable sets, each with less linear data than the previous.  SALES is the target variable; VAR1, VAR2, and VAR3 are the predictors.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="14">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="234" y="702" width="144" height="192" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Click on the Linear Model macro to configure its properties.  The scatterplots do not rely on using the Linear Model - it is included to provide additional information about the data.  Use the Left Output of the Linear Model macro to see serialized model data and the Right Output to see a Report snippets.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="390" y="702" width="168" height="240" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[Click on each Scatterplot Macro to configure its properties.  You can select the data to be plotted along the X (horizontal) and Y (vertical) axes.  If the Y field is a binary categorical variable, you can specify its "target" level.  In the Plot elements tab, you can specify which elements to include in the plot.  In the Style options tab, you can modify the appearance of the plot.
+
+Note:  We are using three Scatterplot macros to plot each of the three variable sets along the Y axis.
+]]></Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="33">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="570" y="702" width="132" height="228" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[Use the Charting Tool as an alternative way of plotting the original data.  The Charting Tool does not include any statistical analysis options; however, it provides additional controls for creating a plot.
+
+The three Charting Tools produce analagous scatter plots for each of the three variable sets. ]]></Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="34">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="714.0002" y="702" width="108" height="156" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Use the Join Tools to collect data from the the Scatterplot macros and then from the Charting Tools.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="35">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="846.0002" y="702" width="96" height="156" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Use the Layout Tools to format how the plots are displayed.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="966.0001" y="702" width="108" height="156" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Use the Render Tools to output the resulting plots.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="66" y="162" width="1020" height="478" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Scatterplot</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+            <Position x="91.00018" y="369.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" FileFormat="19" SearchSubDirs="False" RecordLimit="">.\Data\LinearInputData.yxdb</File>
+              <FormatSpecificOptions />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>LinearInputData.yxdb</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="ID" source="File: C:\Users\rsnow\Documents\SRC Documents\Training\Macros\Regression Macro\Input Data.xls|`Sheet2$`" type="Double" />
+                <Field name="SALES" source="File: C:\Users\rsnow\Documents\SRC Documents\Training\Macros\Regression Macro\Input Data.xls|`Sheet2$`" type="Double" />
+                <Field name="VAR1" source="File: C:\Users\rsnow\Documents\SRC Documents\Training\Macros\Regression Macro\Input Data.xls|`Sheet2$`" type="Double" />
+                <Field name="VAR2" source="File: C:\Users\rsnow\Documents\SRC Documents\Training\Macros\Regression Macro\Input Data.xls|`Sheet2$`" type="Double" />
+                <Field name="VAR3" source="File: C:\Users\rsnow\Documents\SRC Documents\Training\Macros\Regression Macro\Input Data.xls|`Sheet2$`" type="Double" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+        </Node>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxReportChartGui.AlteryxReportChartGui">
+            <Position x="572" y="449.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ChartType>Scatter</ChartType>
+              <GroupingFields orderChanged="False" />
+              <LabelField />
+              <GeneralStyles ThreeDInterior="false" ChartSizeW="432" ChartSizeH="432" Resolution="2x (192 dpi)" ChartTitle="" ChartTitleSize="14" ChartSubTitle="" ChartSubTitleSize="12" ChartPrimaryFont="Microsoft Sans Serif" />
+              <TitleStyles ChangeTitleFont="false" ChartTitleFont="Microsoft Sans Serif" ChartTitleSize="14" ChartTitleColor="#000000" ChartTitleAlignment="Center" ChangeSubTitleFont="false" ChartSubTitleFont="Microsoft Sans Serif" ChartSubTitleSize="12" ChartSubTitleColor="#000000" SubTitleAlignment="Center" ChangeLegendTextFont="false" LegendTextFont="Microsoft Sans Serif" LegendTextSize="12" LegendTextColor="#000000" />
+              <Styles UseChartBorder="false" ChartBorderWidth="2" ChartBorderColor="#000000" UseAreaBorder="false" AreaBorderWidth="2" AreaBorderColor="#000000" ChartBGColor="#ffffff" ChartAreaBGColor="#ffffff" ChartInteriorBGColor="#ffffff" />
+              <ChartTypeStyles ShowChartLegend="false" LegendSeparateImage="false" LegendPosition="Top" LegendAlignment="Center" UseLegendBorder="false" LegendBorderWidth="2" LegendBorderColor="#000000" />
+              <YAxis YAxisLabelFont="Microsoft Sans Serif" YAxisLabelSize="8" YAxisLabelColor="#000000" YAxisTitle="Variable 1" YAxisTitleFont="Microsoft Sans Serif" YAxisTitleSize="10" YAxisTitleColor="#000000" YAxisShowGrid="true" YPrefix="" YPostfix="" />
+              <XAxis XAxisLabelFont="Microsoft Sans Serif" XAxisLabelSize="8" XAxisLabelColor="#000000" XAxisTitle="Sales" XAxisTitleFont="Microsoft Sans Serif" XAxisTitleSize="10" XAxisTitleColor="#000000" XAxisShowGrid="true" XPrefix="$" XPostfix="" />
+              <StylesSeries SeriesStyleMode="Standard" ShowDataPointText="false" DataPointFontFaceName="Microsoft Sans Serif" DataPointFontSize="8" DataPointTextColor="#000000" DataPointTextOffset="2" SeriesPalette="#c8c864,#ff0096,#ff00c8,#c89664,#00ff64,#640064,#00c864,#6400c8,#649664,#00ffc8,#c80096,#960000,#64c8c8,#649696,#0000c8,#96c896,#006400,#640000,#c80064,#c89600,#64ffc8,#ffff96,#9600c8,#ff64c8,#649600,#64c8ff,#c8ff00,#64ff64,#ff96c8,#00c896,#c896c8,#ff64ff,#c8ffc8,#c864ff,#00c8ff,#c86496,#96ffc8,#0064ff,#646400,#ffc896,#006496,#ffffc8,#c86464,#00ffff,#c8c896,#0064c8,#c8ff64,#0096c8,#ff9696,#64ffff,#960096,#ffc864,#96c8ff,#6400ff,#009696,#96c864,#ff6464,#6464c8,#640096,#960064,#c8c800,#0000ff,#c80000,#9664c8,#96ff64,#96ff00,#00c800,#000064,#966400,#64c864,#000096,#009600,#966464,#ffff00,#c800c8,#00c8c8,#ff6496,#64ff00,#ffc8ff,#96ffff,#c8ffff,#ffff64,#6464ff,#969696,#006464,#00ff00,#6496c8,#96c8c8,#646496,#64c800,#9600ff,#9664ff,#64ff96,#ff0064,#ff9600,#c8c8ff,#9696ff,#96c800,#009664,#966496,#64c896,#00ff96,#ff00ff,#969600,#96ff96,#ff0000,#c86400,#9696c8,#ff96ff,#c800ff,#ffc8c8,#ff9664,#c8c8c8,#6496ff,#c8ff96,#ff6400,#ffc800,#c896ff,#969664,#0096ff,#646464,#c89696,#c864c8" SeriesColor="#b30023" SeriesDotSize="6">
+                <SeriesFormulas NumFormulas="0" />
+              </StylesSeries>
+              <WatermarkStyles UseWatermark="None" WatermarkText="Property of Alteryx, Inc." WatermarkTextFont="Microsoft Sans Serif" WatermarkTextSize="14" WatermarkTextColor="#000000" WatermarkOpacity="60" WatermarkImage="" />
+              <AllowMultiple value="false" />
+              <CombinationChart value="false" />
+              <SeriesList numSeries="1">
+                <Series1>
+                  <Y_ValueField yValueName="ScatterValueX" yValueDesc="Scatter X">SALES</Y_ValueField>
+                  <Y_ValueField yValueName="ScatterValueY" yValueDesc="Scatter Y">VAR1</Y_ValueField>
+                </Series1>
+              </SeriesList>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxReportChart.dll" EngineDllEntryPoint="AlteryxReportChartPlugin" />
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+            <Position x="1002" y="494" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFileType>html</TempFileType>
+              <BatchMode value="False" />
+              <DataField>Layout</DataField>
+              <Separator>Whitespace</Separator>
+              <ShowHeader value="False" />
+              <ShowFooter value="False" />
+              <PortraitMode value="True" />
+              <PaperType Width="612" Height="792" Left="36" Right="36" Top="36" Bottom="36" />
+              <DefaultStyles>
+                <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+              </DefaultStyles>
+              <PNGResolution>1</PNGResolution>
+              <PNGLargerAction>squeeze</PNGLargerAction>
+              <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+              <PNGTransparentBG value="False" />
+              <PNGBackColor value="#ffffff" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxReportChartGui.AlteryxReportChartGui">
+            <Position x="596" y="498" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ChartType>Scatter</ChartType>
+              <GroupingFields orderChanged="False" />
+              <LabelField />
+              <GeneralStyles ThreeDInterior="false" ChartSizeW="432" ChartSizeH="432" Resolution="2x (192 dpi)" ChartTitle="" ChartTitleSize="14" ChartSubTitle="" ChartSubTitleSize="12" ChartPrimaryFont="Microsoft Sans Serif" />
+              <TitleStyles ChangeTitleFont="false" ChartTitleFont="Microsoft Sans Serif" ChartTitleSize="14" ChartTitleColor="#000000" ChartTitleAlignment="Center" ChangeSubTitleFont="false" ChartSubTitleFont="Microsoft Sans Serif" ChartSubTitleSize="12" ChartSubTitleColor="#000000" SubTitleAlignment="Center" ChangeLegendTextFont="false" LegendTextFont="Microsoft Sans Serif" LegendTextSize="12" LegendTextColor="#000000" />
+              <Styles UseChartBorder="false" ChartBorderWidth="2" ChartBorderColor="#000000" UseAreaBorder="false" AreaBorderWidth="2" AreaBorderColor="#000000" ChartBGColor="#ffffff" ChartAreaBGColor="#ffffff" ChartInteriorBGColor="#ffffff" />
+              <ChartTypeStyles ShowChartLegend="false" LegendSeparateImage="false" LegendPosition="Top" LegendAlignment="Center" UseLegendBorder="false" LegendBorderWidth="2" LegendBorderColor="#000000" />
+              <YAxis YAxisLabelFont="Microsoft Sans Serif" YAxisLabelSize="8" YAxisLabelColor="#000000" YAxisTitle="Variable 2" YAxisTitleFont="Microsoft Sans Serif" YAxisTitleSize="10" YAxisTitleColor="#000000" YAxisShowGrid="true" YPrefix="" YPostfix="" />
+              <XAxis XAxisLabelFont="Microsoft Sans Serif" XAxisLabelSize="8" XAxisLabelColor="#000000" XAxisTitle="Sales" XAxisTitleFont="Microsoft Sans Serif" XAxisTitleSize="10" XAxisTitleColor="#000000" XAxisShowGrid="true" XPrefix="$" XPostfix="" />
+              <StylesSeries SeriesStyleMode="Standard" ShowDataPointText="false" DataPointFontFaceName="Microsoft Sans Serif" DataPointFontSize="8" DataPointTextColor="#000000" DataPointTextOffset="2" SeriesPalette="#c8c864,#ff0096,#ff00c8,#c89664,#00ff64,#640064,#00c864,#6400c8,#649664,#00ffc8,#c80096,#960000,#64c8c8,#649696,#0000c8,#96c896,#006400,#640000,#c80064,#c89600,#64ffc8,#ffff96,#9600c8,#ff64c8,#649600,#64c8ff,#c8ff00,#64ff64,#ff96c8,#00c896,#c896c8,#ff64ff,#c8ffc8,#c864ff,#00c8ff,#c86496,#96ffc8,#0064ff,#646400,#ffc896,#006496,#ffffc8,#c86464,#00ffff,#c8c896,#0064c8,#c8ff64,#0096c8,#ff9696,#64ffff,#960096,#ffc864,#96c8ff,#6400ff,#009696,#96c864,#ff6464,#6464c8,#640096,#960064,#c8c800,#0000ff,#c80000,#9664c8,#96ff64,#96ff00,#00c800,#000064,#966400,#64c864,#000096,#009600,#966464,#ffff00,#c800c8,#00c8c8,#ff6496,#64ff00,#ffc8ff,#96ffff,#c8ffff,#ffff64,#6464ff,#969696,#006464,#00ff00,#6496c8,#96c8c8,#646496,#64c800,#9600ff,#9664ff,#64ff96,#ff0064,#ff9600,#c8c8ff,#9696ff,#96c800,#009664,#966496,#64c896,#00ff96,#ff00ff,#969600,#96ff96,#ff0000,#c86400,#9696c8,#ff96ff,#c800ff,#ffc8c8,#ff9664,#c8c8c8,#6496ff,#c8ff96,#ff6400,#ffc800,#c896ff,#969664,#0096ff,#646464,#c89696,#c864c8" SeriesColor="#b30023" SeriesDotSize="6">
+                <SeriesFormulas NumFormulas="0" />
+              </StylesSeries>
+              <WatermarkStyles UseWatermark="None" WatermarkText="Property of Alteryx, Inc." WatermarkTextFont="Microsoft Sans Serif" WatermarkTextSize="14" WatermarkTextColor="#000000" WatermarkOpacity="60" WatermarkImage="" />
+              <AllowMultiple value="false" />
+              <CombinationChart value="false" />
+              <SeriesList numSeries="1">
+                <Series1>
+                  <Y_ValueField yValueName="ScatterValueX" yValueDesc="Scatter X">SALES</Y_ValueField>
+                  <Y_ValueField yValueName="ScatterValueY" yValueDesc="Scatter Y">VAR2</Y_ValueField>
+                </Series1>
+              </SeriesList>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxReportChart.dll" EngineDllEntryPoint="AlteryxReportChartPlugin" />
+        </Node>
+        <Node ToolID="23">
+          <GuiSettings Plugin="AlteryxReportChartGui.AlteryxReportChartGui">
+            <Position x="620" y="546" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <ChartType>Scatter</ChartType>
+              <GroupingFields orderChanged="False" />
+              <LabelField />
+              <GeneralStyles ThreeDInterior="false" ChartSizeW="432" ChartSizeH="432" Resolution="2x (192 dpi)" ChartTitle="" ChartTitleSize="14" ChartSubTitle="" ChartSubTitleSize="12" ChartPrimaryFont="Microsoft Sans Serif" />
+              <TitleStyles ChangeTitleFont="false" ChartTitleFont="Microsoft Sans Serif" ChartTitleSize="14" ChartTitleColor="#000000" ChartTitleAlignment="Center" ChangeSubTitleFont="false" ChartSubTitleFont="Microsoft Sans Serif" ChartSubTitleSize="12" ChartSubTitleColor="#000000" SubTitleAlignment="Center" ChangeLegendTextFont="false" LegendTextFont="Microsoft Sans Serif" LegendTextSize="12" LegendTextColor="#000000" />
+              <Styles UseChartBorder="false" ChartBorderWidth="2" ChartBorderColor="#000000" UseAreaBorder="false" AreaBorderWidth="2" AreaBorderColor="#000000" ChartBGColor="#ffffff" ChartAreaBGColor="#ffffff" ChartInteriorBGColor="#ffffff" />
+              <ChartTypeStyles ShowChartLegend="false" LegendSeparateImage="false" LegendPosition="Top" LegendAlignment="Center" UseLegendBorder="false" LegendBorderWidth="2" LegendBorderColor="#000000" />
+              <YAxis YAxisLabelFont="Microsoft Sans Serif" YAxisLabelSize="8" YAxisLabelColor="#000000" YAxisTitle="Variable 3" YAxisTitleFont="Microsoft Sans Serif" YAxisTitleSize="10" YAxisTitleColor="#000000" YAxisShowGrid="true" YPrefix="" YPostfix="" />
+              <XAxis XAxisLabelFont="Microsoft Sans Serif" XAxisLabelSize="8" XAxisLabelColor="#000000" XAxisTitle="Sales" XAxisTitleFont="Microsoft Sans Serif" XAxisTitleSize="10" XAxisTitleColor="#000000" XAxisShowGrid="true" XPrefix="$" XPostfix="" />
+              <StylesSeries SeriesStyleMode="Standard" ShowDataPointText="false" DataPointFontFaceName="Microsoft Sans Serif" DataPointFontSize="8" DataPointTextColor="#000000" DataPointTextOffset="2" SeriesPalette="#c8c864,#ff0096,#ff00c8,#c89664,#00ff64,#640064,#00c864,#6400c8,#649664,#00ffc8,#c80096,#960000,#64c8c8,#649696,#0000c8,#96c896,#006400,#640000,#c80064,#c89600,#64ffc8,#ffff96,#9600c8,#ff64c8,#649600,#64c8ff,#c8ff00,#64ff64,#ff96c8,#00c896,#c896c8,#ff64ff,#c8ffc8,#c864ff,#00c8ff,#c86496,#96ffc8,#0064ff,#646400,#ffc896,#006496,#ffffc8,#c86464,#00ffff,#c8c896,#0064c8,#c8ff64,#0096c8,#ff9696,#64ffff,#960096,#ffc864,#96c8ff,#6400ff,#009696,#96c864,#ff6464,#6464c8,#640096,#960064,#c8c800,#0000ff,#c80000,#9664c8,#96ff64,#96ff00,#00c800,#000064,#966400,#64c864,#000096,#009600,#966464,#ffff00,#c800c8,#00c8c8,#ff6496,#64ff00,#ffc8ff,#96ffff,#c8ffff,#ffff64,#6464ff,#969696,#006464,#00ff00,#6496c8,#96c8c8,#646496,#64c800,#9600ff,#9664ff,#64ff96,#ff0064,#ff9600,#c8c8ff,#9696ff,#96c800,#009664,#966496,#64c896,#00ff96,#ff00ff,#969600,#96ff96,#ff0000,#c86400,#9696c8,#ff96ff,#c800ff,#ffc8c8,#ff9664,#c8c8c8,#6496ff,#c8ff96,#ff6400,#ffc800,#c896ff,#969664,#0096ff,#646464,#c89696,#c864c8" SeriesColor="#b30023" SeriesDotSize="6">
+                <SeriesFormulas NumFormulas="0" />
+              </StylesSeries>
+              <WatermarkStyles UseWatermark="None" WatermarkText="Property of Alteryx, Inc." WatermarkTextFont="Microsoft Sans Serif" WatermarkTextSize="14" WatermarkTextColor="#000000" WatermarkOpacity="60" WatermarkImage="" />
+              <AllowMultiple value="false" />
+              <CombinationChart value="false" />
+              <SeriesList numSeries="1">
+                <Series1>
+                  <Y_ValueField yValueName="ScatterValueX" yValueDesc="Scatter X">SALES</Y_ValueField>
+                  <Y_ValueField yValueName="ScatterValueY" yValueDesc="Scatter Y">VAR3</Y_ValueField>
+                </Series1>
+              </SeriesList>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxReportChart.dll" EngineDllEntryPoint="AlteryxReportChartPlugin" />
+        </Node>
+        <Node ToolID="24">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+            <Position x="846" y="494" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupingMode>PerRecord</GroupingMode>
+              <PreserveSourceFields value="False" />
+              <Orientation>V</Orientation>
+              <Separator>Breaking</Separator>
+              <Width>100%</Width>
+              <Height />
+              <BorderStyle Enabled="false" Color="#000000" Width="2" />
+              <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+              <Padding>0</Padding>
+              <LayoutFields orderChanged="False">
+                <Field name="Variable1Chart" selected="True" Alignment="Center" />
+                <Field name="Variable2Chart" selected="True" Alignment="Center" />
+                <Field name="Variable3Chart" selected="True" Alignment="Center" />
+              </LayoutFields>
+              <MergeIntoTable value="False" />
+              <SectionNameForGroup />
+              <SectionNameForAllRecords />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Vertical Layout
+Section Breaks
+Each Individual Record</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+        </Node>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.JoinMultiple.JoinMultiple">
+            <Position x="726" y="494" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <JoinByRecPos value="True" />
+              <OutputJoinOnly value="False" />
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <SelectFields>
+                    <SelectField field="Input_#1_Chart" selected="True" rename="Variable1Chart" />
+                    <SelectField field="Input_#2_Chart" selected="True" rename="Variable2Chart" />
+                    <SelectField field="Input_#3_Chart" selected="True" rename="Variable3Chart" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoinMultiple" />
+        </Node>
+        <Node ToolID="26">
+          <GuiSettings>
+            <Position x="408" y="338" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="x var">SALES</Value>
+              <Value name="y var">VAR1</Value>
+              <Value name="y binary">False</Value>
+              <Value name="y level" />
+              <Value name="reg line">True</Value>
+              <Value name="smooth line">True</Value>
+              <Value name="smooth span">50</Value>
+              <Value name="spread">True</Value>
+              <Value name="boxplots">True</Value>
+              <Value name="jitter x">False</Value>
+              <Value name="jitter y">False</Value>
+              <Value name="log x">False</Value>
+              <Value name="log y">False</Value>
+              <Value name="groups">False</Value>
+              <Value name="group var" />
+              <Value name="group lines">False</Value>
+              <Value name="x label">Sales</Value>
+              <Value name="y label">Variable 1</Value>
+              <Value name="point size">1.0</Value>
+              <Value name="axis text size">1.2</Value>
+              <Value name="axis label size">1.3</Value>
+              <Value name="title size">1.4</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="Predictive Tools\Scatterplot.yxmc" />
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+            <Position x="1002" y="338" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFileType>html</TempFileType>
+              <BatchMode value="False" />
+              <DataField>Layout</DataField>
+              <Separator>Whitespace</Separator>
+              <ShowHeader value="False" />
+              <ShowFooter value="False" />
+              <PortraitMode value="True" />
+              <PaperType Width="612" Height="792" Left="36" Right="36" Top="36" Bottom="36" />
+              <DefaultStyles>
+                <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+              </DefaultStyles>
+              <PNGResolution>1</PNGResolution>
+              <PNGLargerAction>squeeze</PNGLargerAction>
+              <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+              <PNGTransparentBG value="False" />
+              <PNGBackColor value="#ffffff" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings>
+            <Position x="440" y="386" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="x var">SALES</Value>
+              <Value name="y var">VAR2</Value>
+              <Value name="y binary">False</Value>
+              <Value name="y level" />
+              <Value name="reg line">True</Value>
+              <Value name="smooth line">True</Value>
+              <Value name="smooth span">50</Value>
+              <Value name="spread">True</Value>
+              <Value name="boxplots">True</Value>
+              <Value name="jitter x">False</Value>
+              <Value name="jitter y">False</Value>
+              <Value name="log x">False</Value>
+              <Value name="log y">False</Value>
+              <Value name="groups">False</Value>
+              <Value name="group var" />
+              <Value name="group lines">False</Value>
+              <Value name="x label">Sales</Value>
+              <Value name="y label">Variable 2</Value>
+              <Value name="point size">1.0</Value>
+              <Value name="axis text size">1.2</Value>
+              <Value name="axis label size">1.3</Value>
+              <Value name="title size">1.4</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="Predictive Tools\Scatterplot.yxmc" />
+        </Node>
+        <Node ToolID="29">
+          <GuiSettings>
+            <Position x="472" y="434" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="x var">SALES</Value>
+              <Value name="y var">VAR3</Value>
+              <Value name="y binary">False</Value>
+              <Value name="y level" />
+              <Value name="reg line">True</Value>
+              <Value name="smooth line">True</Value>
+              <Value name="smooth span">50</Value>
+              <Value name="spread">True</Value>
+              <Value name="boxplots">True</Value>
+              <Value name="jitter x">False</Value>
+              <Value name="jitter y">False</Value>
+              <Value name="log x">False</Value>
+              <Value name="log y">False</Value>
+              <Value name="groups">False</Value>
+              <Value name="group var" />
+              <Value name="group lines">False</Value>
+              <Value name="x label">Sales</Value>
+              <Value name="y label">Variable 3</Value>
+              <Value name="point size">1.0</Value>
+              <Value name="axis text size">1.2</Value>
+              <Value name="axis label size">1.3</Value>
+              <Value name="title size">1.4</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="Predictive Tools\Scatterplot.yxmc" />
+        </Node>
+        <Node ToolID="30">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.JoinMultiple.JoinMultiple">
+            <Position x="726" y="338" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <JoinByRecPos value="True" />
+              <OutputJoinOnly value="False" />
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <SelectFields>
+                    <SelectField field="Input_#1_Graph" selected="True" rename="Variable1Graph" />
+                    <SelectField field="Input_#2_Graph" selected="True" rename="Variable2Graph" />
+                    <SelectField field="Input_#3_Graph" selected="True" rename="Variable3Graph" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoinMultiple" />
+        </Node>
+        <Node ToolID="31">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+            <Position x="846" y="338" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupingMode>PerRecord</GroupingMode>
+              <PreserveSourceFields value="False" />
+              <Orientation>V</Orientation>
+              <Separator>Breaking</Separator>
+              <Width>100%</Width>
+              <Height />
+              <BorderStyle Enabled="false" Color="#000000" Width="2" />
+              <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+              <Padding>0</Padding>
+              <LayoutFields orderChanged="False">
+                <Field name="Variable1Graph" selected="True" Alignment="Center" />
+                <Field name="Variable2Graph" selected="True" Alignment="Center" />
+                <Field name="Variable3Graph" selected="True" Alignment="Center" />
+              </LayoutFields>
+              <MergeIntoTable value="False" />
+              <SectionNameForGroup />
+              <SectionNameForAllRecords />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Vertical Layout
+Section Breaks
+Each Individual Record</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+        </Node>
+        <Node ToolID="32">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="342" y="206" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>W:\Alteryx_Temp\Engine_17548_6b0f7ca21c8a4c85bfafb3858567e3a2\Engine_11776_5e1952f38d2d4e2f9a84082b1b574dc9.yxdb</TempFile>
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Table</DefaultTab>
+                  <Hints>
+                    <Table />
+                  </Hints>
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="342" y="302" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>W:\Alteryx_Temp\Engine_17548_6b0f7ca21c8a4c85bfafb3858567e3a2\Engine_11776_859d0d374c004d389f1c16cf13bbf3be.yxdb</TempFile>
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints />
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="39">
+          <GuiSettings Plugin="Linear_Regression">
+            <Position x="198" y="258" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="curPage">Home</Value>
+              <Value name="curTab">advanced</Value>
+              <Value name="standardize_pred">True</Value>
+              <Value name="internal_cv">True</Value>
+              <Value name="display_graphs">True</Value>
+              <Value name="lambda_min">False</Value>
+              <Value name="lambda_1se">True</Value>
+              <Value name="Model Name">Linear_SALES</Value>
+              <Value name="Y Var">SALES</Value>
+              <Value name="X Vars">VAR1,VAR2,VAR3</Value>
+              <Value name="Omit Constant">False</Value>
+              <Value name="Use Weights">False</Value>
+              <Value name="Weight Vec" />
+              <Value name="regularization">False</Value>
+              <Value name="alpha">0.5</Value>
+              <Value name="nfolds">5</Value>
+              <Value name="lambda">lambda_1se</Value>
+              <Value name="lambda_no_cv">0.5</Value>
+              <Value name="graph.resolution">1x</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="330" y="66" width="138.6955" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Module Description</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="5">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="340" y="95" width="122" height="187" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>This module demonstrates how to use the Scatterplot macro.  It lets you see possible relationships between any two model variables that you select.</Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="366" y="102" width="98.89567" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Tools Used</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="7">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="376" y="131" width="170" height="155" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[TOOLS USED:
+Input
+Linear Regression Macro
+Scatterplot Macro
+Join Multiple
+Charting
+Layout
+Render
+Browse
+]]></Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="255" g="243" b="196" />
+              <Shape shape="0" />
+              <Justification Justification="2" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="26" Connection="Data Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="28" Connection="Data Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="29" Connection="Data Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="26" Connection="Scater Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="28" Connection="Scater Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection name="#3">
+      <Origin ToolID="29" Connection="Scater Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Reports" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>_4_Scatterplot</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>
