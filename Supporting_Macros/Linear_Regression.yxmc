@@ -220,7 +220,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_c676e7ca4f0e491cae1579eeddf5ef5e_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_1ce51ee1933a47c6bdd6e7d9990f5a7b_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -360,7 +360,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_ae9f4dcd23fc49148ebf677d3eda9e09_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_adab42f7a709467680db22ebcb21fc3c_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_5ce9756376ea4f49be49df82b7dd96cb_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100"/>
@@ -669,7 +669,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00018" y="54" width="876" height="96"/>
+        <Position x="54.00015" y="54" width="876" height="96"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4642,6 +4642,35 @@ if (outer_config$external_cv) {
           <DefaultAnnotationText/>
           <Left value="False"/>
         </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output4">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output2">
+          <RecordInfo>
+            <Field name="RecordID" source="R-DATA:" type="Int32"/>
+            <Field name="Trial" source="R-DATA:" type="Int32"/>
+            <Field name="Fold" source="R-DATA:" type="Int32"/>
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="Response" source="R-DATA:" type="Double"/>
+            <Field name="Actual" source="R-DATA:" type="Double"/>
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="trial" source="R-DATA:" type="Int32"/>
+            <Field name="fold" source="R-DATA:" type="Int32"/>
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="variable" size="1073741823" source="R-DATA:" type="V_WString"/>
+            <Field name="value" source="R-DATA:" type="Double"/>
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR"/>
     </Node>
@@ -4828,7 +4857,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_3c7aee98a22b46c9af8c09e50b60ccc6_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_8271335cf71a4e2aab782d657c1cf323_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4852,7 +4881,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_0d02657ac3d448b69cb8da4b294c3493_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_def49b03f8fd448dae8021b53baac26e_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4880,7 +4909,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_34e31ce53fb649c68bd46fdea9dacbf0_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_6933f41b41d7419fa61c6bf1bcff4652_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4908,7 +4937,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_35c49420c6534b8daf1de259b656e916_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_176afd3aa6004c3b9489a6c92ad93848_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -5116,7 +5145,7 @@ if (outer_config$external_cv) {
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5016_0a62c08a2f6b48a8ae5a85fba6d7fe9c_\Engine_8320_0cf7a5492fe64b52b4e60489a60b4cf6_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_1928_192bbb30a7794ed3ad2fa37c72976137_\Engine_3800_e6b5e7e65daa469589beb2cd6ea50a69_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -6263,7 +6292,7 @@ if (outer_config$external_cv) {
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54.00003" y="131" width="2135" height="642"/>
+        <Position x="53.99998" y="131" width="2135" height="642"/>
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -6281,7 +6310,7 @@ if (outer_config$external_cv) {
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="473.999" y="400" width="59" height="59"/>
+            <Position x="473.999" y="399.9999" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6294,7 +6323,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9985" y="400.001" width="59" height="59"/>
+            <Position x="197.9984" y="400.001" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6307,7 +6336,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="400.0004" width="59" height="59"/>
+            <Position x="557.999" y="400" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6320,7 +6349,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0016" y="400.0012" width="59" height="59"/>
+            <Position x="294.0018" y="400.0012" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6333,7 +6362,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="377.9992" y="400.0007" width="59" height="59"/>
+            <Position x="377.9991" y="400.0005" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6346,7 +6375,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="400.0002" width="59" height="59"/>
+            <Position x="641.999" y="400.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6359,7 +6388,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="462.0008" y="510.0006" width="59" height="59"/>
+            <Position x="462.0008" y="510.0004" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6385,7 +6414,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0004" y="297.0001" width="59" height="59"/>
+            <Position x="114.0004" y="297.0003" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6398,7 +6427,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4998" y="292.0013" width="59" height="59"/>
+            <Position x="202.4998" y="292.0016" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6411,7 +6440,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="644.999" y="292" width="59" height="59"/>
+            <Position x="644.999" y="291.9999" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6424,7 +6453,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.0008" y="291.9982" width="59" height="59"/>
+            <Position x="291.0009" y="291.9978" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6437,7 +6466,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5009" y="291.9987" width="59" height="59"/>
+            <Position x="379.501" y="291.9986" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6463,7 +6492,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.4989" y="291.9998" width="59" height="59"/>
+            <Position x="556.4989" y="291.9997" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6632,7 +6661,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="209">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="978" y="534" width="59" height="59"/>
+            <Position x="978.0002" y="534" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
@@ -6710,7 +6739,7 @@ if (outer_config$external_cv) {
         </Node>
         <Node ToolID="247">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="714.0001" y="593.9996" width="59" height="59"/>
+            <Position x="714.0001" y="593.9995" width="59" height="59"/>
           </GuiSettings>
           <Properties>
             <Configuration/>
