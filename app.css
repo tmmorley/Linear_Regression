@@ -1,3 +1,13 @@
+body {
+  margin: 0;
+}
+
+.content > .content-padded {
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 10px;
+}
+
 /* Be consistent with TextBox */
 .Select-control{
   border-radius: 0px !important;
@@ -11,48 +21,43 @@ input[type="checkbox"]{
   margin-left: 0 !important;
 }
 
-
+/* Tweak some alteryx widget css */
 .alteryx-toggle-switch-outer {
   position: absolute !important;
   right: 4px;
 }
 
-.tabs {
-  margin-bottom: 20px;
+.alteryx-numeric-slider .comboslider-controls b{
+  font-weight: normal !important;
 }
 
+
 .tabs {
-/**
- * Setting display to flex makes this container lay
- * out its children using flexbox, the exact same
- * as in the above "Stepper input" example.
- */
   display: flex;
+  flex-direction: row;
   border-bottom: 2px solid #1691C6;
+  cursor: pointer;
 }
 
 .tab {
-  cursor: pointer;
-  padding-left: 25px; 
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 25px;
-  /* color: #16A2D7; */
+  text-align: center;
+  line-height: 28px;
+  width: 33.33%;
+  height: 28px;
+  margin: auto;
   color: #000000;
-  font-size: 12px;
-  /* border-bottom: 2px solid transparent; */
+  font-size: 14px;
   background: rgb(230, 230, 230);
 }
-.tab:hover {
-  background: #D8D8D8;
-}
 
-.tab.is-tab-selected {
-  /* border-bottom-color: #4EBBE4; */
+.tab.active {
   background: #1691c6;
   color: #ffffff;
   font: "Segoe UI Semibold";
-  font-size: 12px;
+}
+
+.tab:not(.active):hover {
+  background: #D8D8D8;
 }
 
 #intro-div{
@@ -73,61 +78,69 @@ input[type="checkbox"]{
   border-color: #1691c6;
 }
 
-/*
-#switch-to-home{
-  margin-left: -1px;
-  margin-top: 10px;
+#switch-to-customize i {
+  line-height: 1.5em;
+  width: 0.8em;
+  margin-right: 0;
 }
 
-#div-omit-constant {
-  margin-bottom: 10px;
+#switch-to-home{
+  cursor: pointer;
+  text-align: left;
+  margin-right: 0;
+  width: 0.8em;
 }
-*/
-#xvars label {
-  margin-bottom: 5px;
+
+.fd-header {
+  display: flex;
+  background: #eeeeee;
+  font-size: 20px;
+  line-height: 20px;
+  height: 35px;
+  border-bottom: 1px solid lightgray;
+  align-items: center;
+  padding-left: 12px;
 }
+
+/* Utility Classes */
 .indent-one {
   margin-left: 30px;
 }
 
-
-.alteryx-numeric-slider .comboslider-controls b{
-  font-weight: normal !important;
+.pull-left {
+  float: left;
 }
 
-.fd-header {
-  background: #eeeeee;
-  margin: -8px -8px 4px -8px;
-  padding-top: 3px;
-  padding-bottom: 8px;
-  padding-left: 15px;
-  font-size: 20px;
-  border-bottom: 1px solid lightgray;
-  display: flex;
-  align-items: center;
+.pull-right {
+  float: right;
 }
-.fd-header img {
-  margin-left: -5px;
-  margin-right: 3px;
-  height: 20px;
-  cursor: pointer;
-}
-.fd-header .tabs {
-  border-bottom: 0px;
-  margin-bottom: 0px;
-}
-.fd-header .tabs .tab{
-  background: none;
-  border: 1px solid rgb(230, 230, 230);
-}
-.fd-header .tabs .tab.is-tab-selected {
-  /* border-bottom-color: #4EBBE4; */
-  background: #1691c6;
-  color: #ffffff;
-  font: "Segoe UI Semibold";
-  font-size: 12px;
+
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+/* start commented backslash hack \*/
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+/* close commented backslash hack */
+
+/* Element specific style tweaks */
+#xvars label {
+  margin-bottom: 5px;
 }
 
 #weight-vec{
   margin-top: -10px;
+}
+
+#folds-and-trials div{
+  width: 50%;
+}
+#div-number-trials{
+  text-align: right;
 }
