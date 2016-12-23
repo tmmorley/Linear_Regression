@@ -1,23 +1,31 @@
+<link href='./assets/entypo/entypo.css' rel='stylesheet' />
+<script src='./assets/jquery-sticky-kit/jquery.sticky-kit.min.js'></script>
 <div class='page has-hint' id='page-basic'>
-  <div class='fd-header'>Setup</div>
-  <fieldset style='border-top:0;'>
-    <!-- <div id='intro-div'>
-      <button class='default-button primary' id='intro'>Guide Me</button>
-    </div> -->
-    <div id='mname' class="qconst">{{ `Model Name` }}</div>
-    <div id='yvar' class="qconst">{{ `Y Var` }}</div>
-    <div id='xvars' class="qconst">{{ `X Vars` }}</div>
-    <button class='default-button primary' id='switch-to-customize'>
-      Customize
-    </button>
-  </fieldset>
+  <div class='fd-header'>
+    <div class='fd-header-title-text'>Setup</div>
+  </div>
+  <div class='content'>
+    <div class='content-padded'>
+      <div id='mname' class="qconst">{{ `Model Name` }}</div>
+      <div id='yvar' class="qconst">{{ `Y Var` }}</div>
+      <div id='xvars' class="qconst">{{ `X Vars` }}</div>
+      <button class='default-button primary' id='switch-to-customize'>
+        Customize 
+        <i class = 'en-right-open-big pull-right'></i>
+      </button>
+    </div>
+  </div>
 </div>
 
 <div class='page' id='page-customize' style='display:none;'>
   <div class='fd-header'>
-    <img src='./back_arrow-01.svg' id='switch-to-home' />
-    <div class="tabs" id='header'>
-      <div class="tab is-tab-selected" data-page='advanced' id='advanced'>
+    <div class='fd-header-title'>
+      <i class = 'en-left-open-big' id='switch-to-home'></i> 
+      <span class='fd-header-title-text'>Customize</span>
+    </div>
+  </div>
+  <div class="tabs" id='header'>
+      <div class="tab active" data-page='advanced' id='advanced'>
         Model
       </div>
       <div class="tab" data-page='crossvalidation' id='crossvalidation'>
@@ -26,111 +34,63 @@
       <div class="tab" data-page='graphics' id='graphics'>
         Plots
       </div>
-    </div>
   </div>
-  <fieldset style='border-top:0;'>
-  <!-- TABS -->
-  <div class='tabpage has-hint' id='tabpage-advanced'>
-    <div id='div-omit-constant'>
-      {{ `Omit Constant` }}
-    </div>
-    {{ `Use Weights` }}
-  <div id='weight-vec' class='indent-one'>{{ `Weight Vec` }}</div>
-  <div id='hide-on-xdf'>{{ regularization }}</div>
-  <div id = 'show-on-regularization' class='indent-one'> 
-     {{ alpha }}
-     <p>0 is ridge regression, and 1 is lasso</p>
-     {{ standardize_pred }}
-     {{ internal_cv }}
-     <div id = 'show-on-cv' class = 'indent-one'> 
-       {{ nfolds }}
-       {{ lambda }}
-       <div>
-          <div style='float:left;'>{{ set_seed_internal_cv }}</div>
-         <div style='float:right;' id='show-on-set_seed_internal_cv'>
-           {{ seed_internal_cv }}
-          </div>
-       </div>
-     </div>
-      <div id = 'show-on-no-cv'> 
-       {{ lambda_no_cv }}
-     </div>
-   </div>
-  </div>
-  <div class="tabpage" id="tabpage-crossvalidation">
-    <div id='div-external-cv'>
-        {{ external_cv }}
-        <div id = 'show-on-external-cv' class='indent-one'> 
-         {{ nfolds_external }}
-         {{ numberTrials }}
-         <div id='div-set-seed-external-cv'>
-           <div>
-             <div style='float:left;'>{{ set_seed_external_cv }}</div>
-             <div style='float:right;' id = 'show-on-set-seed-external-cv'>
-               {{ external_seed_value }}
+  <div class='content'>
+    <div class='content-padded'>
+      <div class='tabpage has-hint' id='tabpage-advanced'>
+        <div id='div-omit-constant'>
+          {{ `Omit Constant` }}
+        </div>
+        {{ `Use Weights` }}
+        <div id='weight-vec' class='indent-one'>{{ `Weight Vec` }}</div>
+        <div id='hide-on-xdf'>{{ regularization }}</div>
+        <div id = 'show-on-regularization' class='indent-one'> 
+           {{ alpha }}
+           <p>0 is ridge regression, and 1 is lasso</p>
+           {{ standardize_pred }}
+           {{ internal_cv }}
+           <div id = 'show-on-cv' class = 'indent-one'> 
+             {{ nfolds }}
+             {{ lambda }}
+             <div>
+                <div style='float:left;'>{{ set_seed_internal_cv }}</div>
+               <div style='float:right;' id='show-on-set_seed_internal_cv'>
+                 {{ seed_internal_cv }}
+                </div>
              </div>
            </div>
-          </div>
+            <div id = 'show-on-no-cv'> 
+             {{ lambda_no_cv }}
+           </div>
+         </div>
+      </div>
+      <div class="tabpage" id="tabpage-crossvalidation">
+        <div id='div-external-cv'>
+            {{ external_cv }}
+            <div id = 'show-on-external-cv' class='indent-one'> 
+             <div class='clearfix' id='folds-and-trials'>
+               <div id='div-nfolds-external' class='pull-left'>
+                 {{ nfolds_external }}
+               </div>
+               <div id='div-number-trials' class='pull-right'>
+                 {{ numberTrials }}
+               </div>
+             </div>
+             <div id='div-set-seed-external-cv' class='clearfix'>
+                 <div class='pull-left'>{{ set_seed_external_cv }}</div>
+                 <div class='pull-right' id = 'show-on-set-seed-external-cv'>
+                   {{ external_seed_value }}
+                 </div>
+              </div>
+            </div>
         </div>
+      </div>
+      <div class='tabpage has-hint' id='tabpage-graphics'>
+        {{ `graph.resolution` }}
+        <div id = 'show-on-regularization-graph'>
+        {{ display_graphs }}
+        </div>
+      </div>
     </div>
   </div>
-  <div class='tabpage has-hint' id='tabpage-graphics'>
-    {{ `graph.resolution` }}
-    <div id = 'show-on-regularization-graph'>
-    {{ display_graphs }}
-    </div>
-  </div>
-  <!-- <button class='default-button primary' id='switch-to-home'>Back</button> -->
-</fieldset>
-<script>
-$('#intro').show()
-
-</script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.2.0/intro.min.js'>
-</script>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intro.js/2.2.0/introjs.min.css' />
-<script type="text/javascript">
-  var map_  = {
-    "Model Name": 1,
-    "Y Var": 2,
-    "X Vars": 3,
-    "Link": 4
-  }         
-  var intro = introJs();
-         intro.setOptions({
-            steps: [
-              { 
-                intro: "Welcome to Linear Regression!"
-              },
-              {
-                element: document.querySelector('#mname'),
-                intro: 'Each model needs to be given a name so it can later be identified. Model names must start with a letter and may contain letters, numbers, and the special characters period (".") and underscore ("_"). No other special characters are allowed, and R is case sensitive.'
-              },
-               {
-                element: document.querySelector('#yvar'),
-                intro: "Select the field from the data stream you want to predict."
-              },
-              {
-                element: document.querySelector("#xvars"),
-                intro: 'Choose the fields from the data stream you believe "cause" changes in the value of the target variable.'
-              },
-              {
-                element: document.querySelector("#div-link"),
-                intro: 'The link function.'
-              }
-            ],
-            showStepNumbers: false,
-            showBullets: false,
-            disableInteraction: false
-          });
-      function startIntro(){
-          console.log('starting intro')
-          intro.start();
-      }
-      $('#intro').click(startIntro)
-      $('.has-hint label').click(function(){
-        console.log('clicked...')
-        var step = map_[$(this).attr('for')]
-        intro.goToStep(step).start()
-      })
-</script>
+</div>
