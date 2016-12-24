@@ -1,42 +1,55 @@
-<link href='./assets/entypo/entypo.css' rel='stylesheet' />
-<script src='./assets/jquery-sticky-kit/jquery.sticky-kit.min.js'></script>
 <div class='page has-hint' id='page-basic'>
+  
   <div class='fd-header'>
     <div class='fd-header-title-text'>Setup</div>
   </div>
+  
   <div class='content'>
     <div class='content-padded'>
+      
       <div id='mname' class="qconst">{{ `Model Name` }}</div>
       <div id='yvar' class="qconst">{{ `Y Var` }}</div>
       <div id='xvars' class="qconst">{{ `X Vars` }}</div>
-      <button class='default-button primary' id='switch-to-customize'>
+      <button class='default-button primary switch' id='switch-to-customize'
+        data-page='Customize'
+      >
         Customize 
         <i class = 'en-right-open-big pull-right'></i>
       </button>
+      
     </div>
   </div>
+  
 </div>
 
 <div class='page' id='page-customize' style='display:none;'>
+  
   <div class='fd-header'>
     <div class='fd-header-title'>
-      <i class = 'en-left-open-big' id='switch-to-home'></i> 
+      <i class = 'en-left-open-big switch' id='switch-to-home'
+        data-page='Home'
+      >
+      </i> 
       <span class='fd-header-title-text'>Customize</span>
     </div>
   </div>
+  
   <div class="tabs" id='header'>
-      <div class="tab active" data-page='advanced' id='advanced'>
+      <div class="tab active tab-one-third" data-page='advanced' id='advanced'>
         Model
       </div>
-      <div class="tab" data-page='crossvalidation' id='crossvalidation'>
+      <div class="tab tab-one-third" data-page='crossvalidation' 
+          id='crossvalidation'>
         Cross Validation
       </div>
-      <div class="tab" data-page='graphics' id='graphics'>
+      <div class="tab tab-one-third" data-page='graphics' id='graphics'>
         Plots
       </div>
   </div>
+  
   <div class='content'>
     <div class='content-padded'>
+      
       <div class='tabpage has-hint' id='tabpage-advanced'>
         <div id='div-omit-constant'>
           {{ `Omit Constant` }}
@@ -64,6 +77,7 @@
            </div>
          </div>
       </div>
+      
       <div class="tabpage" id="tabpage-crossvalidation">
         <div id='div-external-cv'>
             {{ external_cv }}
@@ -85,12 +99,15 @@
             </div>
         </div>
       </div>
+      
       <div class='tabpage has-hint' id='tabpage-graphics'>
         {{ `graph.resolution` }}
         <div id = 'show-on-regularization-graph'>
         {{ display_graphs }}
         </div>
       </div>
+      
     </div>
   </div>
+  
 </div>
