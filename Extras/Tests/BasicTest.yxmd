@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.5">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="2">
       <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
@@ -59,19 +59,36 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="graph.resolution">1x</Value>
-          <Value name="Weight Vec" />
-          <Value name="Use Weights">False</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="X Vars">R_G,RBI</Value>
-          <Value name="Y Var">Win_Pct</Value>
+          <Value name="curPage">Customize</Value>
+          <Value name="curTab">crossvalidation</Value>
+          <Value name="standardize_pred">True</Value>
+          <Value name="internal_cv">True</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
+          <Value name="lambda_1se">True</Value>
+          <Value name="lambda_min">False</Value>
           <Value name="Model Name">SABR</Value>
-          <Value name="curTab">advanced</Value>
-          <Value name="curPage">Home</Value>
+          <Value name="Y Var">Win_Pct</Value>
+          <Value name="X Vars">R_G,RBI</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">False</Value>
+          <Value name="Weight Vec" />
+          <Value name="regularization">False</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
+          <Value name="lambda_no_cv">0.5</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
+          <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <DefaultAnnotationText />
+          <DefaultAnnotationText>SABR</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
@@ -84,7 +101,7 @@
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_1c9a471dd64449eda5a66db0ba63295f_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_de63316c062f4cec94e5dfa8d06f7bc1_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5276_69c7e6323d5c4502996ce39243699e04_\Engine_5336_676050679cc3498486fc356ff821ec2b_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -107,8 +124,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5276_69c7e6323d5c4502996ce39243699e04_\Engine_5336_75619dcf69f84235b1785b70145c5040_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_087fb490571a4a7ba749b27d57a8ef11_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_11c7906a04604342a4a0634ddea097d6_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -157,8 +174,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5276_69c7e6323d5c4502996ce39243699e04_\Engine_5336_2a0e7bcc063144f995ed9164514b15d7_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_7404aa34a079406e81046cd10c8f06dc_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_ae8b0f9cdaf24732bcb7aa182d1ca9c1_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -181,8 +198,8 @@
       </GuiSettings>
       <Properties>
         <Configuration>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5276_69c7e6323d5c4502996ce39243699e04_\Engine_5336_bedbfe3860f646558a80163994e7fda7_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_8ab024a454d640c98e9e5ddffc7958fc_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_6072_c73574aec70846ed914ccd1747f3f487_\Engine_4680_fdfb9d8dba48439985dbf896b11cfb92_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
