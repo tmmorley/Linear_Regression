@@ -133,7 +133,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_d55dfa1a60b64df1890dca57d4cb2d01_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8024_0d7ed30711f64bc3b8e2a0b372dd96e9_\Engine_6260_2964dde2f8ec443bb2e9dc9ef71f9fd3_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -313,16 +313,16 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <Value name="curPage">Home</Value>
-          <Value name="curTab">crossvalidation</Value>
+          <Value name="curPage">Customize</Value>
+          <Value name="curTab">advanced</Value>
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">False</Value>
           <Value name="display_graphs">True</Value>
           <Value name="set_seed_internal_cv">True</Value>
           <Value name="set_seed_external_cv">True</Value>
+          <Value name="Model Name">linreg_test</Value>
           <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
-          <Value name="Model Name">linreg_test</Value>
           <Value name="Y Var">mpg</Value>
           <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</Value>
           <Value name="Omit Constant">False</Value>
@@ -342,7 +342,7 @@
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <DefaultAnnotationText />
+          <DefaultAnnotationText>linreg_test</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
@@ -370,7 +370,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_4ef925fd21cf4cd6a9ba067373389c0c_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8024_0d7ed30711f64bc3b8e2a0b372dd96e9_\Engine_6260_574ddf62103e4f6aae5a422bd335280f_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -394,7 +394,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_3e7fe8c5bf064a28b5c4192531abecb4_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8024_0d7ed30711f64bc3b8e2a0b372dd96e9_\Engine_6260_bf4cc9d8fb804d72b86baffaff89f5c4_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <View1>
@@ -418,7 +418,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8104_61d8b5ec8ff548f7b8ac7e7ee5290b5c_\Engine_6356_42cbb9dc2b734fe29d1e9e32f72343fe_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8024_0d7ed30711f64bc3b8e2a0b372dd96e9_\Engine_6260_08d0cbaadb9b45d78ccc16b2c2980c73_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
