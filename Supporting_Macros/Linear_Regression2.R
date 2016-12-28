@@ -26,6 +26,12 @@ outer_config <- list(
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = outer_config)
 
+library(AlteryxPredictive)
+
+inputs <- list(
+  data = read.Alteryx("#2"),
+  models = list(model = unserializeObject((read.Alteryx("#1")$Object)[[1]]))
+)
 
 if (!(outer_config$regularization)) {
   mod.df <- read.Alteryx("#1")
@@ -736,3 +742,13 @@ if (outer_config$external_cv) {
   
 }
 
+dashboard <- AlteryxPredictive:::interactive_lm_report(
+  config = outer_config,
+  data = inputs$data,
+  model = inputs$models[[1]]
+)
+
+flightdeck:::fdRender(
+  x = dashboard, 
+  nOutput = 5
+)
