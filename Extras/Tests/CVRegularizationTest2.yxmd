@@ -129,7 +129,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_7212_030412d89db04bd48906222281b547de_\Engine_6036_b836c8158f554d47a9194bec18bc277e_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_4696_ed6d6437f0964b98a68e3b955d144847_\Engine_5644_6bdc4dabc7114eb3b8d0f73d8c7a8344_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -303,47 +303,6 @@
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
-    <Node ToolID="29">
-      <GuiSettings Plugin="Linear_Regression">
-        <Position x="210" y="198" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Value name="curPage">Customize</Value>
-          <Value name="curTab">advanced</Value>
-          <Value name="standardize_pred">True</Value>
-          <Value name="internal_cv">False</Value>
-          <Value name="display_graphs">True</Value>
-          <Value name="set_seed_internal_cv">True</Value>
-          <Value name="set_seed_external_cv">True</Value>
-          <Value name="lambda_min">False</Value>
-          <Value name="lambda_1se">True</Value>
-          <Value name="Model Name">linreg_test</Value>
-          <Value name="Y Var">mpg</Value>
-          <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="Use Weights">True</Value>
-          <Value name="Weight Vec">carb</Value>
-          <Value name="regularization">True</Value>
-          <Value name="alpha">0.5</Value>
-          <Value name="nfolds">5</Value>
-          <Value name="lambda">lambda_1se</Value>
-          <Value name="seed_internal_cv">1</Value>
-          <Value name="lambda_no_cv">1</Value>
-          <Value name="external_cv">True</Value>
-          <Value name="nfolds_external">5</Value>
-          <Value name="numberTrials">3</Value>
-          <Value name="external_seed_value">1</Value>
-          <Value name="graph.resolution">1x</Value>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
-    </Node>
     <Node ToolID="34">
       <GuiSettings>
         <Position x="414" y="246" />
@@ -357,8 +316,52 @@
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
       </Properties>
       <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="Linear_Regression">
+        <Position x="210" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="curPage">Customize</Value>
+          <Value name="curTab">graphics</Value>
+          <Value name="standardize_pred">True</Value>
+          <Value name="internal_cv">False</Value>
+          <Value name="display_graphs">True</Value>
+          <Value name="set_seed_internal_cv">True</Value>
+          <Value name="set_seed_external_cv">True</Value>
+          <Value name="lambda_1se">True</Value>
+          <Value name="lambda_min">False</Value>
+          <Value name="Model Name">linreg_test</Value>
+          <Value name="Y Var">mpg</Value>
+          <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear</Value>
+          <Value name="Omit Constant">False</Value>
+          <Value name="Use Weights">True</Value>
+          <Value name="Weight Vec">carb</Value>
+          <Value name="regularization">True</Value>
+          <Value name="alpha">0.5</Value>
+          <Value name="nfolds">5</Value>
+          <Value name="lambda">lambda_1se</Value>
+          <Value name="seed_internal_cv">1</Value>
+          <Value name="lambda_no_cv">1</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
+          <Value name="graph.resolution">1x</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>linreg_test</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
     </Node>
   </Nodes>
   <Connections>
@@ -371,15 +374,15 @@
       <Destination ToolID="34" Connection="Coefficients" />
     </Connection>
     <Connection>
-      <Origin ToolID="29" Connection="Output" />
+      <Origin ToolID="35" Connection="Output" />
       <Destination ToolID="34" Connection="Object" />
     </Connection>
     <Connection>
       <Origin ToolID="28" Connection="Output1" />
-      <Destination ToolID="29" Connection="Input" />
+      <Destination ToolID="35" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="29" Connection="Reports" />
+      <Origin ToolID="35" Connection="Output" />
       <Destination ToolID="20" Connection="Input" />
     </Connection>
   </Connections>
