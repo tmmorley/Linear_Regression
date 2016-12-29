@@ -8,9 +8,6 @@
     <OutputConnections>
       <Connection Name="Output" AllowMultiple="False" Optional="False" Type="Connection" Label="O"/>
       <Connection Name="Reports" AllowMultiple="False" Optional="False" Type="Connection" Label="R"/>
-      <Connection Name="Data" AllowMultiple="False" Optional="False" Type="Connection" Label="D"/>
-      <Connection Name="Fit Measures" AllowMultiple="False" Optional="False" Type="Connection" Label="F"/>
-      <Connection Name="Full Cross-Validation Report" AllowMultiple="False" Optional="False" Type="Connection" Label="C"/>
     </OutputConnections>
   </GuiSettings>
   <Properties>
