@@ -343,19 +343,19 @@ if (outer_config$external_cv) {
     return(model)
   }
   
-#   naiveBayesUpdate <- function(model, trainingData, currentYvar) {
-#     
-#     if (is.null(model$laplace)) {
-#       model$laplace <- 0
-#       AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
-#       AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
-#     }
-#     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
-#     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
-#     naiveBayes.default <- getS3method("naiveBayes", "default")
-#     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
-#     return(currentModel)
-#   }
+  #   naiveBayesUpdate <- function(model, trainingData, currentYvar) {
+  #     
+  #     if (is.null(model$laplace)) {
+  #       model$laplace <- 0
+  #       AlteryxMessage2("The Laplace smoothing parameter was not saved in the model object.", iType = 2, iPriority = 3)
+  #       AlteryxMessage2("Hence, we are using a smoothing parameter of 0 for Cross-Validation.", iType = 2, iPriority = 3)
+  #     }
+  #     predictors <- trainingData[,-(which(colnames(trainingData) == currentYvar))]
+  #     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
+  #     naiveBayes.default <- getS3method("naiveBayes", "default")
+  #     currentModel <- update(model, x = predictors, y = response, laplace = model$laplace)
+  #     return(currentModel)
+  #   }
   glmnetUpdate <- function(model, trainingData, currentYvar, config, weight_vec = NULL) {
     predictors <- trainingData[,AlteryxPredictive:::getXVars(model)]
     response <- trainingData[,(which(colnames(trainingData) == currentYvar))]
@@ -392,9 +392,9 @@ if (outer_config$external_cv) {
     currentYvar <- extras$y_name
     #Check if the model is Naive Bayes and lacking a Laplace parameter.
     #If so, set the Laplace parameter to 0 and warn the user.
-#     if (inherits(model, "naiveBayes")) {
-#       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
-#     } else 
+    #     if (inherits(model, "naiveBayes")) {
+    #       currentModel <- naiveBayesUpdate(model, trainingData, currentYvar)
+    #     } else 
     if ((inherits(model, "cv.glmnet")) || (inherits(model, "glmnet"))) {
       #Ideally, it would be more efficient to convert the x df to a matrix earlier so that
       #this conversion wouldn't be necessary with every trial/fold. However, the code assumes
@@ -422,7 +422,7 @@ if (outer_config$external_cv) {
           }
         )
         currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = environment(), weights = trainingData$`Weight Vec`)
-        } else {
+      } else {
         currentModel <- update(model, formula. = makeFormula(AlteryxPredictive:::getXVars(model), currentYvar), data = trainingData)
       }
     }
@@ -707,10 +707,10 @@ if (outer_config$external_cv) {
                                 response = dataOutput1$Score, actual = dataOutput1$actual)
     }
     preppedOutput1 <- data.frame(RecordID = dataOutput1$recordID, 
-                 Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
-                 Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
-                 Actual = dataOutput1$actual)
-
+                                 Trial = dataOutput1$trial, Fold = dataOutput1$fold, 
+                                 Model = modelNames[dataOutput1$mid], Response = dataOutput1$response, 
+                                 Actual = dataOutput1$actual)
+    
     dataOutput2 <- generateOutput2(dataOutput1, extras, modelNames)
     preppedOutput2 <- reshape2::melt(dataOutput2, id = c('trial', 'fold', 'Model'))
     plotData <- ddply(dataOutput1, .(trial, fold, mid), generateDataForPlots, 
@@ -735,4 +735,16 @@ if (outer_config$external_cv) {
   }
   
 }
+
+dashboard <- AlteryxPredictive:::interactive_lm_report(
+  config = outer_config,
+  data = inputs$data,
+  model = inputs$models[[1]]
+)
+
+flightdeck:::fdRender(
+  x = dashboard, 
+  nOutput = 5
+)
+
 
