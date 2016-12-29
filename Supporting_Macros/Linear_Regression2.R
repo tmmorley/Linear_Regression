@@ -43,6 +43,7 @@ config <- list(
 config <- append(config, outer_config)
 
 library(AlteryxPredictive)
+library(flightdeck)
 
 inputs <- list(
   data = read.Alteryx("#2"),
