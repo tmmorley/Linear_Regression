@@ -7,7 +7,8 @@
   margin-top: -10px;
 }
 
-#folds-and-trials div{
+#div-nfolds-external, 
+#div-number-trials {
   width: 50%;
 }
 #div-number-trials{
