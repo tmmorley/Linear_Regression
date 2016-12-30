@@ -2,33 +2,33 @@
 
 
 
-These tests were run at 2016-12-27 11:57:36
+These tests were run at 2016-12-30 10:11:19
 
 
 
 | id|name                     |status  |time           |message    |
 |--:|:------------------------|:-------|:--------------|:----------|
-|  1|_4_Scatterplot           |&#9989; |13.154 seconds |           |
-|  2|_8_Linear_Regression     |&#9989; |14.496 seconds |6 warnings |
-|  3|BasicTest                |&#9989; |8.553 seconds  |2 warnings |
-|  4|CVRegularizationTest1    |&#9989; |8.987 seconds  |2 warnings |
-|  5|CVRegularizationTest2    |&#9989; |8.943 seconds  |1 warning  |
-|  6|LinearTest1              |&#9989; |6.700 seconds  |1 warning  |
-|  7|LinearTest2              |&#9989; |7.810 seconds  |1 warning  |
-|  8|LinearTest3              |&#9989; |8.123 seconds  |1 warning  |
-|  9|LinearTestAll            |&#9989; |21.953 seconds |3 warnings |
-| 10|LinearWithCVTest         |&#9989; |7.185 seconds  |1 warning  |
-| 11|LinearWithCVTest2        |&#9989; |7.946 seconds  |1 warning  |
-| 12|LinearWithCVTest3        |&#9989; |6.682 seconds  |1 warning  |
-| 13|RegularizationTest1      |&#9989; |8.780 seconds  |1 warning  |
-| 14|RegularizationTest2      |&#9989; |9.066 seconds  |1 warning  |
-| 15|RegularizationTest3      |&#9989; |9.311 seconds  |1 warning  |
-| 16|RegularizationTest4      |&#9989; |9.549 seconds  |           |
-| 17|RegularizationTest5      |&#9989; |6.863 seconds  |1 warning  |
-| 18|RegularizationTest6      |&#9989; |9.082 seconds  |           |
-| 19|TestScoreTool            |&#9989; |14.963 seconds |3 warnings |
-| 20|TestScoreTool2           |&#9989; |6.632 seconds  |1 warning  |
-| 21|WeightedLinearWithCVTest |&#9989; |8.313 seconds  |1 warning  |
+|  1|_4_Scatterplot           |&#9989; |17.925 seconds |           |
+|  2|_8_Linear_Regression     |&#9989; |23.287 seconds |6 warnings |
+|  3|BasicTest                |&#9989; |14.300 seconds |2 warnings |
+|  4|CVRegularizationTest1    |&#9989; |13.391 seconds |2 warnings |
+|  5|CVRegularizationTest2    |&#9989; |11.635 seconds |1 warning  |
+|  6|LinearTest1              |&#9989; |7.450 seconds  |1 warning  |
+|  7|LinearTest2              |&#9989; |8.529 seconds  |1 warning  |
+|  8|LinearTest3              |&#9989; |8.255 seconds  |1 warning  |
+|  9|LinearTestAll            |&#9989; |17.821 seconds |3 warnings |
+| 10|LinearWithCVTest         |&#9989; |6.685 seconds  |1 warning  |
+| 11|LinearWithCVTest2        |&#9989; |7.702 seconds  |1 warning  |
+| 12|LinearWithCVTest3        |&#9989; |7.394 seconds  |1 warning  |
+| 13|RegularizationTest1      |&#9989; |10.234 seconds |1 warning  |
+| 14|RegularizationTest2      |&#9989; |10.156 seconds |1 warning  |
+| 15|RegularizationTest3      |&#9989; |10.559 seconds |1 warning  |
+| 16|RegularizationTest4      |&#9989; |8.759 seconds  |           |
+| 17|RegularizationTest5      |&#9989; |8.486 seconds  |1 warning  |
+| 18|RegularizationTest6      |&#9989; |10.085 seconds |           |
+| 19|TestScoreTool            |&#9989; |15.507 seconds |3 warnings |
+| 20|TestScoreTool2           |&#9989; |8.352 seconds  |1 warning  |
+| 21|WeightedLinearWithCVTest |&#9989; |8.829 seconds  |1 warning  |
 
 
 ## UI Test Checklist.
