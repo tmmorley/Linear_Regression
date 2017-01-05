@@ -210,7 +210,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_4051bb7c779c4bb885993735a4f13528_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_01799a6de3ee410f9053087e832df539_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -350,7 +350,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_ae9f4dcd23fc49148ebf677d3eda9e09_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_480ec86f13e043bf9a24117fe9b0b4c5_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_4605848be4ba465bbf4b15c93544198b_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -3816,7 +3816,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="167">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="2430" y="1278" />
+        <Position x="3738" y="1170" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3968,6 +3968,40 @@ flightdeck:::fdRender(
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="Class" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output4">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output2">
+          <RecordInfo>
+            <Field name="RecordID" source="R-DATA:" type="Int32" />
+            <Field name="Trial" source="R-DATA:" type="Int32" />
+            <Field name="Fold" source="R-DATA:" type="Int32" />
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="Response" source="R-DATA:" type="Double" />
+            <Field name="Actual" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="trial" source="R-DATA:" type="Int32" />
+            <Field name="fold" source="R-DATA:" type="Int32" />
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="variable" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="value" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output5">
+          <RecordInfo>
+            <Field name="html" size="1073741823" source="R-DATA:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
@@ -4154,7 +4188,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_47d6902844934e41a82fb6bc58f64f51_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_b5c529569cde4ddaa90dc8c821870104_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4178,7 +4212,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_e249592b8974463299641d4ac9ae86ae_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_377ab7b840184383b5bae0753f0e4de5_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4206,7 +4240,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_dfae509189414661986abc6e6bf3e5f9_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_aa7933c894fa44b9833e0b9244f7136c_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4234,7 +4268,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_cfe4c7eb0eae49a49f2727824ec668df_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_a712f9fd12554737a5f1905f30fcb017_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4442,7 +4476,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_e8403ad9f91a438498240134ac452828_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_3898f876fc624297b97681c4c2535b03_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -4500,7 +4534,7 @@ No Text Styling</DefaultAnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\DBLANC~1\AppData\Local\Temp\Engine_10764_10e32b0d6d4c400480d62d37ea177cbf_\Engine_10852_aed6a7e12a0d45258d10600643f431ed_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_e4ec387eb0014a6088f2ec9d9ff28da5_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4575,18 +4609,9 @@ No Text Styling</DefaultAnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <AutoResetMode>Custom</AutoResetMode>
-          <MultiMetaInfo>
-            <MetaInfo name="#1">
-              <RecordInfo />
-            </MetaInfo>
-            <MetaInfo name="#2">
-              <RecordInfo />
-            </MetaInfo>
-          </MultiMetaInfo>
           <ByName_ErrorMode>Warning</ByName_ErrorMode>
           <ByName_OutputMode>All</ByName_OutputMode>
-          <Mode>ManualDelayed</Mode>
+          <Mode>ByPos</Mode>
           <SetOutputOrder value="True" />
           <OutputOrder>
             <Connection>#1</Connection>
@@ -4624,11 +4649,11 @@ No Text Styling</DefaultAnnotationText>
         <MetaInfo connection="Output">
           <RecordInfo>
             <Field name="Model" size="1073741823" source="CrossTab:Group:Avg:" type="V_WString" />
-            <Field name="Avg_Accuracy_Class_1" source="CrossTab:Header:variable:Accuracy_Class_1:Avg:" type="Double" />
-            <Field name="Avg_Accuracy_Class_2" source="CrossTab:Header:variable:Accuracy_Class_2:Avg:" type="Double" />
-            <Field name="Avg_Accuracy_Overall" source="CrossTab:Header:variable:Accuracy_Overall:Avg:" type="Double" />
-            <Field name="Avg_AUC" source="CrossTab:Header:variable:AUC:Avg:" type="Double" />
-            <Field name="Avg_F1" source="CrossTab:Header:variable:F1:Avg:" type="Double" />
+            <Field name="Avg_Correlation" source="CrossTab:Header:variable:Correlation:Avg:" type="Double" />
+            <Field name="Avg_MAE" source="CrossTab:Header:variable:MAE:Avg:" type="Double" />
+            <Field name="Avg_MAPE" source="CrossTab:Header:variable:MAPE:Avg:" type="Double" />
+            <Field name="Avg_MPE" source="CrossTab:Header:variable:MPE:Avg:" type="Double" />
+            <Field name="Avg_RMSE" source="CrossTab:Header:variable:RMSE:Avg:" type="Double" />
           </RecordInfo>
           <SortInfo>
             <Field field="Model" order="Asc" />
@@ -4670,6 +4695,14 @@ No Text Styling</DefaultAnnotationText>
           <DefaultAnnotationText>Basic Table</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Model" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTablePlugin" />
     </Node>
@@ -4700,6 +4733,14 @@ No Text Styling</DefaultAnnotationText>
           <DefaultAnnotationText>Model fit metrics (average per...</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Table" size="2147483647" source="Report:Table:Basic:" type="V_String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Model" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
     </Node>
@@ -4738,7 +4779,7 @@ No Text Styling</DefaultAnnotationText>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_10984_646fb7662b5b437d90b48a230752d9f5_\Engine_1404_17298ee47b56493eb5e4a71a17b98a01_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_10524_76d26b699ce846c287b209815a3690f6_\Engine_12928_34db56cceb5643e6bb24bd88fe476520_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6884_00313f811635414b9cbb4e79933f0cc7_\Engine_4736_3cba666c776d4c86ad466564f52886fb_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -4772,6 +4813,24 @@ No Text Styling</DefaultAnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="trial" source="R-DATA:" type="Int32" />
+            <Field name="fold" source="R-DATA:" type="Int32" />
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="variable" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="value" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="trial" source="R-DATA:" type="Int32" />
+            <Field name="fold" source="R-DATA:" type="Int32" />
+            <Field name="Model" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="variable" size="1073741823" source="R-DATA:" type="V_WString" />
+            <Field name="value" source="R-DATA:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
     </Node>
@@ -4788,6 +4847,16 @@ No Text Styling</DefaultAnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
     </Node>
@@ -4804,8 +4873,98 @@ No Text Styling</DefaultAnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
+    </Node>
+    <Node ToolID="319">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="3342" y="1134" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
+    </Node>
+    <Node ToolID="320">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="3450" y="1194" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <AutoResetMode>ByName</AutoResetMode>
+          <MultiMetaInfo>
+            <MetaInfo name="#1">
+              <RecordInfo />
+            </MetaInfo>
+            <MetaInfo name="#2">
+              <RecordInfo />
+            </MetaInfo>
+          </MultiMetaInfo>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ManualDelayed</Mode>
+          <SetOutputOrder value="True" />
+          <OutputOrder>
+            <Connection>#1</Connection>
+            <Connection>#2</Connection>
+          </OutputOrder>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="321">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+        <Position x="3546" y="1098" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Desc" size="64" source="Formula: (Multiple Sources)" type="V_String" />
+            <Field name="Report" size="1073741823" source="Report: (Multiple Sources)" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd" />
     </Node>
     <Node ToolID="238">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
@@ -5473,7 +5632,7 @@ No Text Styling</DefaultAnnotationText>
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54.00002" y="167.0001" width="2747" height="485.9991" />
+        <Position x="54.00005" y="178.9999" width="2747" height="449.9996" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -5491,7 +5650,7 @@ No Text Styling</DefaultAnnotationText>
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="474" y="399.9989" width="59" height="59" />
+            <Position x="473.9997" y="399.9989" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5504,7 +5663,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9983" y="400.0005" width="59" height="59" />
+            <Position x="197.9983" y="400.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5517,7 +5676,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.9991" y="399.9986" width="59" height="59" />
+            <Position x="557.999" y="399.9986" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5530,7 +5689,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0021" y="399.9999" width="59" height="59" />
+            <Position x="294.0023" y="400.0001" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5543,7 +5702,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="378.001" y="400.0002" width="59" height="59" />
+            <Position x="378.0009" y="400.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5569,7 +5728,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="462.0015" y="509.9997" width="59" height="59" />
+            <Position x="462.0015" y="509.9995" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5582,7 +5741,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="114" y="400.0011" width="59" height="59" />
+            <Position x="114" y="400.0012" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5595,7 +5754,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0003" y="296.9998" width="59" height="59" />
+            <Position x="114.0003" y="297" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5608,7 +5767,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4993" y="292.0008" width="59" height="59" />
+            <Position x="202.4993" y="292.0007" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5621,7 +5780,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="644.999" y="292.0001" width="59" height="59" />
+            <Position x="644.999" y="292" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5634,7 +5793,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.0009" y="291.9971" width="59" height="59" />
+            <Position x="291.001" y="291.9971" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5647,7 +5806,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5013" y="291.9982" width="59" height="59" />
+            <Position x="379.5013" y="291.9984" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5660,7 +5819,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="468.0002" y="291.9988" width="59" height="59" />
+            <Position x="468.0005" y="291.9989" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5673,7 +5832,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.4989" y="291.9992" width="59" height="59" />
+            <Position x="556.4989" y="291.9994" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5803,7 +5962,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="196">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="990" y="246.0001" width="59" height="59" />
+            <Position x="1014" y="258.0001" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5868,7 +6027,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="233">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="1014" y="461.9998" width="59" height="59" />
+            <Position x="1038" y="486" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5894,7 +6053,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="243">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="1062" y="522" width="59" height="59" />
+            <Position x="1098" y="474.0001" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5920,7 +6079,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="247">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="942.0003" y="533.9991" width="59" height="59" />
+            <Position x="978" y="473.9999" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6076,7 +6235,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="314">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="2106" y="474" width="59" height="59" />
+            <Position x="2082" y="474" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6089,7 +6248,33 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="316">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="2214" y="474" width="59" height="59" />
+            <Position x="2166" y="486" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="318">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="1170" y="474" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="322">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="2250" y="474" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6437,20 +6622,20 @@ Union</Text>
       <Destination ToolID="301" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="170" Connection="Output2" />
-      <Destination ToolID="313" Connection="Input" />
-    </Connection>
-    <Connection name="#2">
-      <Origin ToolID="314" Connection="Action" />
-      <Destination ToolID="313" Connection="Action" />
-    </Connection>
-    <Connection>
       <Origin ToolID="170" Connection="Output4" />
       <Destination ToolID="315" Connection="Input" />
     </Connection>
     <Connection name="#2">
       <Origin ToolID="316" Connection="Action" />
       <Destination ToolID="315" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="170" Connection="Output3" />
+      <Destination ToolID="313" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="314" Connection="Action" />
+      <Destination ToolID="313" Connection="Action" />
     </Connection>
     <Connection>
       <Origin ToolID="171" Connection="Output" />
@@ -6514,7 +6699,11 @@ Union</Text>
     </Connection>
     <Connection>
       <Origin ToolID="231" Connection="Output" />
-      <Destination ToolID="167" Connection="Input" />
+      <Destination ToolID="319" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="322" Connection="Action" />
+      <Destination ToolID="319" Connection="Action" />
     </Connection>
     <Connection>
       <Origin ToolID="240" Connection="Right" />
@@ -6552,6 +6741,14 @@ Union</Text>
       <Origin ToolID="306" Connection="Output" />
       <Destination ToolID="311" Connection="Input" />
     </Connection>
+    <Connection name="#2">
+      <Origin ToolID="306" Connection="Output" />
+      <Destination ToolID="320" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="319" Connection="Right" />
+      <Destination ToolID="320" Connection="Input" />
+    </Connection>
     <Connection>
       <Origin ToolID="308" Connection="Output" />
       <Destination ToolID="309" Connection="Input" />
@@ -6572,9 +6769,25 @@ Union</Text>
       <Origin ToolID="315" Connection="Right" />
       <Destination ToolID="317" Connection="Input" />
     </Connection>
+    <Connection name="#2">
+      <Origin ToolID="318" Connection="Action" />
+      <Destination ToolID="317" Connection="Action" />
+    </Connection>
     <Connection>
       <Origin ToolID="317" Connection="Right" />
       <Destination ToolID="305" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="319" Connection="Left" />
+      <Destination ToolID="321" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="320" Connection="Output" />
+      <Destination ToolID="321" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="321" Connection="Output" />
+      <Destination ToolID="167" Connection="Input" />
     </Connection>
     <Connection>
       <Origin ToolID="213" Connection="True" />
@@ -6757,12 +6970,20 @@ Union</Text>
       <Destination ToolID="251" Connection="Question" />
     </Connection>
     <Connection name="#1">
+      <Origin ToolID="196" Connection="Question" />
+      <Destination ToolID="318" Connection="Question" />
+    </Connection>
+    <Connection name="#1">
       <Origin ToolID="254" Connection="Question" />
       <Destination ToolID="314" Connection="Question" />
     </Connection>
     <Connection name="#1">
       <Origin ToolID="254" Connection="Question" />
       <Destination ToolID="316" Connection="Question" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="254" Connection="Question" />
+      <Destination ToolID="322" Connection="Question" />
     </Connection>
   </Connections>
   <Properties>
@@ -6785,7 +7006,7 @@ Union</Text>
       <Constant>
         <Namespace>Question</Namespace>
         <Name>external_cv</Name>
-        <Value>True</Value>
+        <Value>False</Value>
         <IsNumeric value="False" />
       </Constant>
       <Constant>
@@ -6930,12 +7151,6 @@ Union</Text>
         <Namespace>Question</Namespace>
         <Name>display_graphs</Name>
         <Value>True</Value>
-        <IsNumeric value="False" />
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>Macro Output (303)</Name>
-        <Value />
         <IsNumeric value="False" />
       </Constant>
     </Constants>
@@ -7198,6 +7413,26 @@ Union</Text>
               <Mode>Expression</Mode>
               <DynamicConfiguration />
               <DefaultConfiguration value="True" />
+            </Action>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="318" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>317/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration />
+              <DefaultConfiguration value="True" />
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="322" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="False" />
+              <Destination>321</Destination>
             </Action>
           </True>
         </NoCondition>

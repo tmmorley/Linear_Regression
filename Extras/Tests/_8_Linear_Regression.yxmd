@@ -164,7 +164,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
       <ChildNodes>
         <Node ToolID="30">
           <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
-            <Position x="84.00001" y="296.9999" />
+            <Position x="84.00002" y="296.9998" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -177,9 +177,6 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
               <DefaultAnnotationText>SABRmetrics.yxdb</DefaultAnnotationText>
               <Left value="False" />
             </Annotation>
-            <Dependencies>
-              <Implicit />
-            </Dependencies>
             <MetaInfo connection="Output">
               <RecordInfo>
                 <Field name="Tm" size="1073741823" source="R-DATA:" type="V_WString" />
@@ -259,7 +256,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8884_977f28c1de86453caf8ce648427552af_\Engine_3648_b3bfaeeb705c443d9e2b3071b1b9df26_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6400_a90123ea072f4c418ba9c0300de2b280_\Engine_4736_8dd6b054e6fa40b987d719f605389472_.yxdb</TempFile>
               <TempFileDataProfiling />
               <Layout>
                 <ViewMode>Single</ViewMode>
@@ -287,7 +284,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8884_977f28c1de86453caf8ce648427552af_\Engine_3648_ef7ed80946b240d8bfe49c573d3e298a_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6400_a90123ea072f4c418ba9c0300de2b280_\Engine_4736_8db782590d2941f79d73b9949a92da53_.yxdb</TempFile>
               <Layout>
                 <ViewMode>Single</ViewMode>
                 <ViewSize value="100" />
@@ -312,7 +309,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8884_977f28c1de86453caf8ce648427552af_\Engine_3648_21d465ea24ed40aeaf3ec6b92cdb7237_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6400_a90123ea072f4c418ba9c0300de2b280_\Engine_4736_f2868ee054634d37996249d13d6d4f55_.yxdb</TempFile>
               <Layout>
                 <ViewMode>Single</ViewMode>
                 <ViewSize value="100" />
@@ -337,7 +334,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8884_977f28c1de86453caf8ce648427552af_\Engine_3648_ab67e1052ba242009e06e0b4cae1778b_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6400_a90123ea072f4c418ba9c0300de2b280_\Engine_4736_3e332bb5182b4995b313faf717706571_.yxdb</TempFile>
               <Layout>
                 <ViewMode>Single</ViewMode>
                 <ViewSize value="100" />
@@ -383,7 +380,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8884_977f28c1de86453caf8ce648427552af_\Engine_3648_320717e877f347658018de1ca2d3589e_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6400_a90123ea072f4c418ba9c0300de2b280_\Engine_4736_09e0753ad14b4a638d7eedf368ffbd10_.yxdb</TempFile>
               <Layout>
                 <ViewMode>Single</ViewMode>
                 <ViewSize value="100" />
@@ -408,7 +405,7 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8884_977f28c1de86453caf8ce648427552af_\Engine_3648_5ad16c833ca94447b5630c8677e7213c_.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6400_a90123ea072f4c418ba9c0300de2b280_\Engine_4736_d71ae6f3be09474795fb3b9b729503ce_.yxdb</TempFile>
               <TempFileDataProfiling />
               <Layout>
                 <View1>
@@ -432,13 +429,15 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <Value name="curPage">Home</Value>
+              <Value name="curPage">Customize</Value>
               <Value name="curTab">graphics</Value>
               <Value name="standardize_pred">True</Value>
               <Value name="internal_cv">True</Value>
               <Value name="display_graphs">True</Value>
-              <Value name="lambda_min">False</Value>
+              <Value name="set_seed_internal_cv">True</Value>
+              <Value name="set_seed_external_cv">True</Value>
               <Value name="lambda_1se">True</Value>
+              <Value name="lambda_min">False</Value>
               <Value name="Model Name">SLG_OPS</Value>
               <Value name="Y Var">R_G</Value>
               <Value name="X Vars">SLG,OPS</Value>
@@ -449,12 +448,17 @@ Refer to: http://espn.go.com/mlb/stats/team/_/stat/batting/year/2009</Text>
               <Value name="alpha">0.5</Value>
               <Value name="nfolds">5</Value>
               <Value name="lambda">lambda_1se</Value>
+              <Value name="seed_internal_cv">1</Value>
               <Value name="lambda_no_cv">0.5</Value>
+              <Value name="external_cv">False</Value>
+              <Value name="nfolds_external">5</Value>
+              <Value name="numberTrials">3</Value>
+              <Value name="external_seed_value">1</Value>
               <Value name="graph.resolution">1x</Value>
             </Configuration>
             <Annotation DisplayMode="0">
               <Name />
-              <DefaultAnnotationText />
+              <DefaultAnnotationText>SLG_OPS</DefaultAnnotationText>
               <Left value="False" />
             </Annotation>
           </Properties>
@@ -610,7 +614,7 @@ Browse
     <DisableBrowse value="False" />
     <EnablePerformanceProfiling value="False" />
     <DisableAllOutput value="False" />
-    <ShowAllMacroMessages value="True" />
+    <ShowAllMacroMessages value="False" />
     <ShowConnectionStatusIsOn value="True" />
     <ShowConnectionStatusOnlyWhenRunning value="True" />
     <ZoomLevel value="0" />
