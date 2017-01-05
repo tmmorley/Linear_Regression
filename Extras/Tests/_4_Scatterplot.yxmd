@@ -207,7 +207,7 @@ The three Charting Tools produce analagous scatter plots for each of the three v
       <ChildNodes>
         <Node ToolID="18">
           <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
-            <Position x="91.00018" y="369.9999" />
+            <Position x="91.00011" y="370" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -220,9 +220,6 @@ The three Charting Tools produce analagous scatter plots for each of the three v
               <DefaultAnnotationText>LinearInputData.yxdb</DefaultAnnotationText>
               <Left value="False" />
             </Annotation>
-            <Dependencies>
-              <Implicit />
-            </Dependencies>
             <MetaInfo connection="Output">
               <RecordInfo>
                 <Field name="ID" source="File: C:\Users\rsnow\Documents\SRC Documents\Training\Macros\Regression Macro\Input Data.xls|`Sheet2$`" type="Double" />
@@ -646,7 +643,7 @@ Each Individual Record</DefaultAnnotationText>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>W:\Alteryx_Temp\Engine_17548_6b0f7ca21c8a4c85bfafb3858567e3a2\Engine_11776_5e1952f38d2d4e2f9a84082b1b574dc9.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8188_0eab9c0cf7c9473a8af47b789e8a4293_\Engine_4736_045f1a611a5f4701b4249251868e8462_.yxdb</TempFile>
               <Layout>
                 <ViewMode>Single</ViewMode>
                 <ViewSize value="100" />
@@ -673,7 +670,7 @@ Each Individual Record</DefaultAnnotationText>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <TempFile>W:\Alteryx_Temp\Engine_17548_6b0f7ca21c8a4c85bfafb3858567e3a2\Engine_11776_859d0d374c004d389f1c16cf13bbf3be.yxdb</TempFile>
+              <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8188_0eab9c0cf7c9473a8af47b789e8a4293_\Engine_4736_25b5cc26f7a54421a6ffd4b8da730835_.yxdb</TempFile>
               <Layout>
                 <ViewMode>Single</ViewMode>
                 <ViewSize value="100" />
@@ -698,13 +695,15 @@ Each Individual Record</DefaultAnnotationText>
           </GuiSettings>
           <Properties>
             <Configuration>
-              <Value name="curPage">Home</Value>
+              <Value name="curPage">Customize</Value>
               <Value name="curTab">advanced</Value>
               <Value name="standardize_pred">True</Value>
               <Value name="internal_cv">True</Value>
               <Value name="display_graphs">True</Value>
-              <Value name="lambda_min">False</Value>
+              <Value name="set_seed_internal_cv">True</Value>
+              <Value name="set_seed_external_cv">True</Value>
               <Value name="lambda_1se">True</Value>
+              <Value name="lambda_min">False</Value>
               <Value name="Model Name">Linear_SALES</Value>
               <Value name="Y Var">SALES</Value>
               <Value name="X Vars">VAR1,VAR2,VAR3</Value>
@@ -715,12 +714,17 @@ Each Individual Record</DefaultAnnotationText>
               <Value name="alpha">0.5</Value>
               <Value name="nfolds">5</Value>
               <Value name="lambda">lambda_1se</Value>
+              <Value name="seed_internal_cv">1</Value>
               <Value name="lambda_no_cv">0.5</Value>
+              <Value name="external_cv">False</Value>
+              <Value name="nfolds_external">5</Value>
+              <Value name="numberTrials">3</Value>
+              <Value name="external_seed_value">1</Value>
               <Value name="graph.resolution">1x</Value>
             </Configuration>
             <Annotation DisplayMode="0">
               <Name />
-              <DefaultAnnotationText />
+              <DefaultAnnotationText>Linear_SALES</DefaultAnnotationText>
               <Left value="False" />
             </Annotation>
           </Properties>

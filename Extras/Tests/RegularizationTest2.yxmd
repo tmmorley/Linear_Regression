@@ -109,7 +109,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_9392_2dcba3ff2b5640d592d1b643b2070b63_\Engine_8788_f65881e60e674c1197366e0a909457a0_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8772_39dcfad5cf85461d9f535fb3e9f2a2ba_\Engine_9640_57b422f5758c42e99262b0b271f580b9_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -294,9 +294,9 @@ write.Alteryx(as.data.frame(LifeCycleSavings), 1)
       </Properties>
       <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
     </Node>
-    <Node ToolID="35">
+    <Node ToolID="36">
       <GuiSettings Plugin="Linear_Regression">
-        <Position x="234" y="174" />
+        <Position x="234" y="198" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -307,29 +307,29 @@ write.Alteryx(as.data.frame(LifeCycleSavings), 1)
           <Value name="display_graphs">True</Value>
           <Value name="set_seed_internal_cv">True</Value>
           <Value name="set_seed_external_cv">True</Value>
-          <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
+          <Value name="lambda_min">False</Value>
           <Value name="Model Name">test1</Value>
           <Value name="Y Var">ddpi</Value>
           <Value name="X Vars">sr,pop15,pop75,dpi</Value>
           <Value name="Omit Constant">False</Value>
           <Value name="Use Weights">False</Value>
           <Value name="Weight Vec" />
-          <Value name="external_cv">False</Value>
-          <Value name="nfolds_external">5</Value>
-          <Value name="numberTrials">3</Value>
-          <Value name="external_seed_value">1</Value>
           <Value name="regularization">True</Value>
           <Value name="alpha">0.75</Value>
           <Value name="nfolds">5</Value>
           <Value name="lambda">lambda_1se</Value>
           <Value name="seed_internal_cv">1</Value>
           <Value name="lambda_no_cv">0.5</Value>
+          <Value name="external_cv">False</Value>
+          <Value name="nfolds_external">5</Value>
+          <Value name="numberTrials">3</Value>
+          <Value name="external_seed_value">1</Value>
           <Value name="graph.resolution">1x</Value>
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <DefaultAnnotationText />
+          <DefaultAnnotationText>test1</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
@@ -346,15 +346,15 @@ write.Alteryx(as.data.frame(LifeCycleSavings), 1)
       <Destination ToolID="34" Connection="Coefficients" />
     </Connection>
     <Connection>
-      <Origin ToolID="35" Connection="Output" />
+      <Origin ToolID="36" Connection="Output" />
       <Destination ToolID="34" Connection="Object" />
     </Connection>
     <Connection>
       <Origin ToolID="28" Connection="Output1" />
-      <Destination ToolID="35" Connection="Input" />
+      <Destination ToolID="36" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="35" Connection="Reports" />
+      <Origin ToolID="36" Connection="Output" />
       <Destination ToolID="20" Connection="Input" />
     </Connection>
   </Connections>

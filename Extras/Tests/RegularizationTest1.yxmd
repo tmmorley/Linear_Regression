@@ -133,7 +133,7 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_5416_189732a13ed4409ea0689ce79b0434cb_\Engine_2400_d02d8e3a70364eb78b7e88418666b19f_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8648_4f7062c329b040a685f86b12f020b52b_\Engine_4736_b58192bfea604fdfa38e6aeb4754b617_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -307,9 +307,53 @@
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
-    <Node ToolID="29">
+    <Node ToolID="34">
+      <GuiSettings>
+        <Position x="414" y="246" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Drop Down (6)">Variable</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="522" y="222" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8648_4f7062c329b040a685f86b12f020b52b_\Engine_4736_02e288c51a0f4c05a22d1b1f1e94d0b3_.yxdb</TempFile>
+          <TempFileDataProfiling />
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Report</DefaultTab>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="38">
       <GuiSettings Plugin="Linear_Regression">
-        <Position x="210" y="198" />
+        <Position x="234" y="210" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -320,8 +364,8 @@
           <Value name="display_graphs">True</Value>
           <Value name="set_seed_internal_cv">True</Value>
           <Value name="set_seed_external_cv">True</Value>
-          <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
+          <Value name="lambda_min">False</Value>
           <Value name="Model Name">linreg_test</Value>
           <Value name="Y Var">mpg</Value>
           <Value name="X Vars">cyl,disp,hp,drat,wt,qsec,vs,am,gear,carb</Value>
@@ -342,27 +386,11 @@
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <DefaultAnnotationText />
+          <DefaultAnnotationText>linreg_test</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
       <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
-    </Node>
-    <Node ToolID="34">
-      <GuiSettings>
-        <Position x="414" y="246" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Value name="Drop Down (6)">Variable</Value>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
     </Node>
   </Nodes>
   <Connections>
@@ -375,16 +403,20 @@
       <Destination ToolID="34" Connection="Coefficients" />
     </Connection>
     <Connection>
-      <Origin ToolID="29" Connection="Output" />
+      <Origin ToolID="38" Connection="Output" />
       <Destination ToolID="34" Connection="Object" />
     </Connection>
     <Connection>
       <Origin ToolID="28" Connection="Output1" />
-      <Destination ToolID="29" Connection="Input" />
+      <Destination ToolID="38" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="29" Connection="Reports" />
+      <Origin ToolID="38" Connection="Output" />
       <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Reports" />
+      <Destination ToolID="37" Connection="Input" />
     </Connection>
   </Connections>
   <Properties>

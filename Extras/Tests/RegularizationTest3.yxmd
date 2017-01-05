@@ -109,13 +109,13 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_3264_b6be426690c145488012a9b1a0e614e8_\Engine_9912_9a8b3f63a3ae456f8f5fab14d45a592a_.yxdb</TempFile>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6824_e78e1270d32141bf9513576d9886feb5_\Engine_9640_42df7c0cdeae44088b97d89f78b33305_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_2832_710d2d32715d4d2d960a7ee5d4ddceb1_\Engine_5716_dda8b342ab754048b00ec3037d61e634_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
             <View1>
-              <DefaultTab>Report</DefaultTab>
+              <DefaultTab>Profile</DefaultTab>
               <Hints>
                 <Table />
               </Hints>
@@ -297,21 +297,21 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
       </Properties>
       <EngineSettings Macro=".\Helpers\test_coefficients.yxmc" />
     </Node>
-    <Node ToolID="35">
+    <Node ToolID="36">
       <GuiSettings Plugin="Linear_Regression">
-        <Position x="234" y="174" />
+        <Position x="234" y="186" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <Value name="curPage">Customize</Value>
-          <Value name="curTab">crossvalidation</Value>
+          <Value name="curTab">advanced</Value>
           <Value name="standardize_pred">True</Value>
           <Value name="internal_cv">False</Value>
           <Value name="display_graphs">True</Value>
           <Value name="set_seed_internal_cv">True</Value>
           <Value name="set_seed_external_cv">True</Value>
-          <Value name="lambda_min">False</Value>
           <Value name="lambda_1se">True</Value>
+          <Value name="lambda_min">False</Value>
           <Value name="Model Name">test1</Value>
           <Value name="Y Var">ddpi</Value>
           <Value name="X Vars">sr,pop15,pop75,dpi</Value>
@@ -332,11 +332,34 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
-          <DefaultAnnotationText />
+          <DefaultAnnotationText>test1</DefaultAnnotationText>
           <Left value="False" />
         </Annotation>
       </Properties>
       <EngineSettings Macro="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" EngineDll="Macro" EngineDllEntryPoint="Linear_Regression/Supporting_Macros/Linear_Regression.yxmc" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="462" y="210" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_6824_e78e1270d32141bf9513576d9886feb5_\Engine_9640_7c8e53901cca4683847b75ac7cd25944_.yxdb</TempFile>
+          <Layout>
+            <View1>
+              <Hints>
+                <Table />
+              </Hints>
+            </View1>
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
     </Node>
   </Nodes>
   <Connections>
@@ -349,16 +372,20 @@ write.Alteryx(as.data.frame(cbind(LifeCycleSavings, myweights)), 1)
       <Destination ToolID="34" Connection="Coefficients" />
     </Connection>
     <Connection>
-      <Origin ToolID="35" Connection="Output" />
+      <Origin ToolID="36" Connection="Output" />
       <Destination ToolID="34" Connection="Object" />
     </Connection>
     <Connection>
       <Origin ToolID="28" Connection="Output1" />
-      <Destination ToolID="35" Connection="Input" />
+      <Destination ToolID="36" Connection="Input" />
     </Connection>
     <Connection>
-      <Origin ToolID="35" Connection="Reports" />
+      <Origin ToolID="36" Connection="Output" />
       <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Interactive Report" />
+      <Destination ToolID="37" Connection="Input" />
     </Connection>
   </Connections>
   <Properties>
