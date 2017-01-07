@@ -7,10 +7,6 @@
   margin-top: -10px;
 }
 
-#div-nfolds-external, 
-#div-number-trials {
-  width: 50%;
-}
-#div-number-trials{
-  text-align: right;
+#show-on-external-cv{
+  margin-top: 10px;
 }
