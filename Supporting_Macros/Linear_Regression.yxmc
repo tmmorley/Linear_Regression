@@ -3,7 +3,7 @@
   <Nodes>
     <Node ToolID="4">
       <GuiSettings Plugin="AlteryxConnectorGui.R.R">
-        <Position x="894" y="1146" />
+        <Position x="893.9999" y="1146" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -84,6 +84,16 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
           <RecordInfo>
             <Field name="Name" size="1073741823" source="R-DATA:" type="V_WString" />
             <Field name="Object" size="2147483647" source="R-DATA:SERIAL" type="Blob" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output4">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output5">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
           </RecordInfo>
         </MetaInfo>
       </Properties>
@@ -206,11 +216,11 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="117">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="918" y="1450" />
+        <Position x="917.9999" y="1450" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_01799a6de3ee410f9053087e832df539_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_9565f9c5209a43239340890e36ff2e8a_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_1ff960c66688408989a874a112e8fb3e_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -350,7 +360,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_ae9f4dcd23fc49148ebf677d3eda9e09_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_4605848be4ba465bbf4b15c93544198b_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_d06ca641bcb646d58f5a818fe9878208_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -406,7 +416,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="126">
       <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
-        <Position x="714" y="1149" />
+        <Position x="713.9999" y="1149" />
       </GuiSettings>
       <Properties>
         <Configuration />
@@ -428,7 +438,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="127">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="330" y="678" />
+        <Position x="329.9999" y="678" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -454,7 +464,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="128">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="330" y="884" />
+        <Position x="329.9999" y="884" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -482,7 +492,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="129">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="438" y="884" />
+        <Position x="437.9999" y="884" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -509,7 +519,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="130">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
-        <Position x="570" y="703" />
+        <Position x="569.9999" y="703" />
       </GuiSettings>
       <Properties>
         <Configuration joinByRecordPos="True">
@@ -553,7 +563,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="131">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="330" y="1366" />
+        <Position x="329.9999" y="1366" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -579,7 +589,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="132">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="330" y="1619" />
+        <Position x="329.9999" y="1619" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -607,7 +617,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="133">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="330" y="1884" />
+        <Position x="329.9999" y="1884" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -633,7 +643,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="134">
       <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
-        <Position x="426" y="1619" />
+        <Position x="425.9999" y="1619" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -659,7 +669,7 @@ http://downloads.alteryx.com/Latest_RInstaller.htm</AnnotationText>
     </Node>
     <Node ToolID="136">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="54.00011" y="54" width="876" height="96" />
+        <Position x="54.00006" y="54" width="876" height="96" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -680,7 +690,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="143">
       <GuiSettings Plugin="AlteryxBasePluginsGui.DynamicSelect.DynamicSelect">
-        <Position x="786" y="1149" />
+        <Position x="785.9999" y="1149" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -3833,7 +3843,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="168">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
-        <Position x="588" y="1447" />
+        <Position x="587.9999" y="1447" />
       </GuiSettings>
       <Properties>
         <Configuration joinByRecordPos="True">
@@ -3857,7 +3867,7 @@ Linear Regression</Text>
     </Node>
     <Node ToolID="169">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
-        <Position x="648" y="1651" />
+        <Position x="647.9999" y="1651" />
       </GuiSettings>
       <Properties>
         <Configuration joinByRecordPos="True">
@@ -4188,7 +4198,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_b5c529569cde4ddaa90dc8c821870104_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_5e211da80bde4e9e989895512546249e_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_2badc95510d9491dbef76c826d79f54b_.yxdb</TempFileDataProfiling>
           <Layout>
             <View1>
@@ -4212,7 +4222,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_377ab7b840184383b5bae0753f0e4de5_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_62bd100fb9c84661b673698de50eb424_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_61d8189c5dc64638b042c3a18d6c1aba_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4240,7 +4250,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_aa7933c894fa44b9833e0b9244f7136c_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_8a3ffdff35144454b7db75239b4b9f37_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_e4f38547f1074634acbbbbab56a3c8cb_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4264,11 +4274,11 @@ flightdeck:::fdRender(
     </Node>
     <Node ToolID="200">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="906" y="1374" />
+        <Position x="905.9999" y="1374" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_a712f9fd12554737a5f1905f30fcb017_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_2e6652e1780d4269a02a7a68ae248681_.yxdb</TempFile>
           <TempFileDataProfiling>C:\Users\btoomey\AppData\Local\Temp\Engine_8032_187d00c98f724c8d848b10df41636b51_\Engine_8640_31804436a7684dffbc0d2f82ac12bad7_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -4292,7 +4302,7 @@ flightdeck:::fdRender(
     </Node>
     <Node ToolID="201">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
-        <Position x="978" y="774" />
+        <Position x="977.9999" y="774" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4394,7 +4404,7 @@ flightdeck:::fdRender(
     </Node>
     <Node ToolID="240">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
-        <Position x="882" y="1758" />
+        <Position x="881.9999" y="1758" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -4476,7 +4486,7 @@ flightdeck:::fdRender(
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_3898f876fc624297b97681c4c2535b03_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_430c7de9c8274cc6b6b7755ad9e53f53_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -4534,7 +4544,7 @@ No Text Styling</DefaultAnnotationText>
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\Users\btoomey\AppData\Local\Temp\Engine_8468_08d961263f3e4159b4c6ad4da3d761e8_\Engine_4736_e4ec387eb0014a6088f2ec9d9ff28da5_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5432_57ccd8d16ff74cfd84eefacc3dc8fa97_\Engine_5332_8157b055d5ea4df0bed7e32dcc7e683a_.yxdb</TempFile>
           <TempFileDataProfiling />
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -5632,7 +5642,7 @@ No Text Styling</DefaultAnnotationText>
     </Node>
     <Node ToolID="177">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54.00005" y="178.9999" width="2747" height="449.9996" />
+        <Position x="54.00003" y="178.9999" width="2747" height="449.9991" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -5650,7 +5660,7 @@ No Text Styling</DefaultAnnotationText>
       <ChildNodes>
         <Node ToolID="144">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="473.9997" y="399.9989" width="59" height="59" />
+            <Position x="473.9998" y="399.9987" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5663,7 +5673,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="145">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="197.9983" y="400.0002" width="59" height="59" />
+            <Position x="197.9983" y="399.9997" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5676,7 +5686,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="146">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="557.999" y="399.9986" width="59" height="59" />
+            <Position x="557.999" y="399.9983" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5689,7 +5699,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="147">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="294.0023" y="400.0001" width="59" height="59" />
+            <Position x="294.0022" y="399.9996" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5702,7 +5712,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="148">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="378.0009" y="400.0002" width="59" height="59" />
+            <Position x="378.0007" y="399.9998" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5715,7 +5725,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="149">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="641.999" y="399.9994" width="59" height="59" />
+            <Position x="641.999" y="399.9992" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5728,7 +5738,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="150">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="462.0015" y="509.9995" width="59" height="59" />
+            <Position x="462.0017" y="509.999" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5741,7 +5751,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="151">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="114" y="400.0012" width="59" height="59" />
+            <Position x="114" y="400.0006" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5754,7 +5764,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="154">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.TextBox">
-            <Position x="114.0003" y="297" width="59" height="59" />
+            <Position x="114.0002" y="296.9997" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5767,7 +5777,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="156">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="202.4993" y="292.0007" width="59" height="59" />
+            <Position x="202.4993" y="292.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5780,7 +5790,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="157">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
-            <Position x="644.999" y="292" width="59" height="59" />
+            <Position x="644.999" y="291.9998" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5793,7 +5803,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="158">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="291.001" y="291.9971" width="59" height="59" />
+            <Position x="291.0009" y="291.9966" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5806,7 +5816,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="159">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="379.5013" y="291.9984" width="59" height="59" />
+            <Position x="379.5014" y="291.9981" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5819,7 +5829,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="160">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="468.0005" y="291.9989" width="59" height="59" />
+            <Position x="468.0011" y="291.9987" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5832,7 +5842,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="162">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="556.4989" y="291.9994" width="59" height="59" />
+            <Position x="556.4987" y="291.9991" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5845,7 +5855,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="176">
           <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
-            <Position x="725.9991" y="399.9999" width="59" height="59" />
+            <Position x="725.999" y="399.9997" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -5962,7 +5972,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="196">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="1014" y="258.0001" width="59" height="59" />
+            <Position x="1014" y="258.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6027,7 +6037,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="233">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="1038" y="486" width="59" height="59" />
+            <Position x="1038" y="486.0001" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6053,7 +6063,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="243">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="1098" y="474.0001" width="59" height="59" />
+            <Position x="1098" y="474.0002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6079,7 +6089,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="247">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="978" y="473.9999" width="59" height="59" />
+            <Position x="977.9999" y="473.9999" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6092,7 +6102,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="251">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="905.9998" y="473.9997" width="59" height="59" />
+            <Position x="905.9998" y="473.9996" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6261,7 +6271,7 @@ No Text Styling</DefaultAnnotationText>
         </Node>
         <Node ToolID="318">
           <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
-            <Position x="1170" y="474" width="59" height="59" />
+            <Position x="1170" y="473.9999" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
@@ -6289,7 +6299,7 @@ No Text Styling</DefaultAnnotationText>
     </Node>
     <Node ToolID="138">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="774" y="66" width="138.6955" height="19" />
+        <Position x="773.9999" y="66" width="138.6955" height="19" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -6307,7 +6317,7 @@ No Text Styling</DefaultAnnotationText>
       <ChildNodes>
         <Node ToolID="137">
           <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-            <Position x="784" y="94.99997" width="132" height="204" />
+            <Position x="783.9999" y="94.99997" width="132" height="204" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -6329,7 +6339,7 @@ No Text Styling</DefaultAnnotationText>
     </Node>
     <Node ToolID="140">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="810" y="102" width="98.89567" height="19" />
+        <Position x="809.9999" y="102" width="98.89567" height="19" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -6347,7 +6357,7 @@ No Text Styling</DefaultAnnotationText>
       <ChildNodes>
         <Node ToolID="139">
           <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-            <Position x="820" y="131" width="223" height="218" />
+            <Position x="819.9999" y="131" width="223" height="218" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -7788,9 +7798,9 @@ Union</Text>
         <Tool ToolId="276" Selected="False" />
         <Tool ToolId="302" Selected="False" />
         <Tool ToolId="303" Selected="True" />
-        <Tool ToolId="220" Selected="False" />
         <Tool ToolId="311" Selected="False" />
         <Tool ToolId="312" Selected="False" />
+        <Tool ToolId="220" Selected="False" />
       </Wiz_OpenOutputTools>
       <Wiz_OutputMessage />
       <Wiz_NoOutputFilesMessage />
