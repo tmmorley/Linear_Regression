@@ -43,11 +43,10 @@ These tests were run at 2017-01-05 14:27:12
 8. All words should be spelled correctly. Additionally, no config text should end in punctuation, and all config options should be in sentence case.
 9. The option to use regularized regression should not display if an XDF input is connected to the tool. Neither should the option to use cross-validation.
 10. The config options `Enter value of alpha` `Standardize predictor variables` and `Use cross-validation to determine model parameters` should display if and only if regularization is selected.
-11. If regularization is selected, `Standardize predictor variables` and `Use cross-validation to determine model parameters` should be selected by default.
-12. If `Use cross-validation to determine model parameters` is selected, the options `Simpler model` and `Set seed` should be selected by default. The default value of the seed should be 1.
+11. If regularization is selected, `Standardize predictor variables` and `Use cross-validation to determine model parameters` should be selected by default. Additionally, the report generated should be the appropriate type depending on whether regularization is used.
+12. If `Use cross-validation to determine model parameters` is selected, the options `Simpler model` and `Set seed` should be selected by default. The default value of the seed should be 1. Additionally, the cross-validation graphs should appear in the R report if cross-validation is selected (assuming Display graphs is checked.)
 13. The options `Number of folds` `What type of model` and `Set seed` should display if and only if cross-validation with regularization is selected.
 14. The slider under `Enter value of alpha` should prevent you from selecting a value less than 0 or greater than 1. If you type a value into the box or use the up/down widget to change the value of alpha, the slider should change its position accordingly.
 15. `Use Cross-validation to determine estimates of model quality` should be unchecked by default. 
 16. In the Cross-validation tab, `Number of folds`, `Number of trials`, and `Set seed` should appear if and only if cross-validation is selected. If CV is selected, `Set seed` should be checked by default, and the default value of the seed should be 1.
 17. The default graph resolution should be 1x. The option `Display graphs` should display if and only if regularization is selected. If regularization is selected, `Display graphs` should be selected by default.
-
