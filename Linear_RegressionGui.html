@@ -96,7 +96,7 @@ Linear_Regression
 <!--  Weight Vec  -->
 <alteryx-pluginwidget type="DropDown" dataType="FieldSelector" inputNumber="0" connectionNumber="0" fieldType="Numeric" clearable="true" id="Weight Vec" dataName="Weight Vec"></alteryx-pluginwidget>
 </div>
-        <div id='hide-on-xdf'>
+        <div class='hide-on-xdf'>
 <!--  regularization  -->
 <alteryx-pluginwidget type="CheckBox" text="Use regularized regression" id="regularization" dataName="regularization" defaultValue="false"></alteryx-pluginwidget>
 </div>
@@ -152,7 +152,10 @@ Linear_Regression
       </div>
       
       <div class="tabpage" id="tabpage-crossvalidation">
-        <div id='div-external-cv'>
+        <div class='show-on-xdf' style='display:none;'>
+          Cross-validation is not currently supported for XDF input.
+        </div>
+        <div id='div-external-cv' class='hide-on-xdf'>
             
 <!--  external_cv  -->
 <alteryx-pluginwidget type="CheckBox" text="Use cross-validation to determine estimates of model quality" showAsToggle="true" id="external_cv" dataName="external_cv" defaultValue="false"></alteryx-pluginwidget>
