@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.5">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="1">
       <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
@@ -1011,88 +1011,9 @@
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
     </Node>
-    <Node ToolID="3">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="54" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_4a640521ac3e45de98e92d424c47f703_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_4fb96b94fd6546fe9e8b50f5c2e9e6fb_.yxdb</TempFile>
-          <Layout>
-            <View1>
-              <Hints>
-                <Table />
-              </Hints>
-            </View1>
-          </Layout>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
-    </Node>
-    <Node ToolID="4">
-      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="138" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_56d3c9884eb94df2985ab89d83e078d2_.yxdb</TempFile>
-          <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_7c5e8a955ebc417c9eccbdd8404e2585_.yxdb</TempFileDataProfiling>
-          <Layout>
-            <ViewMode>Single</ViewMode>
-            <ViewSize value="100" />
-            <View1>
-              <DefaultTab>Report</DefaultTab>
-              <Hints>
-                <Table />
-              </Hints>
-            </View1>
-            <View2 />
-          </Layout>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
-    </Node>
-    <Node ToolID="5">
-      <GuiSettings>
-        <Position x="174" y="102" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Value name="Model Name">New Macro</Value>
-          <Value name="Y Var">Win_Pct</Value>
-          <Value name="X Vars">PA,AB</Value>
-          <Value name="Omit Constant">False</Value>
-          <Value name="Use Weights">False</Value>
-          <Value name="Weight Vec">Win_Pct</Value>
-          <Value name="regularization">False</Value>
-          <Value name="alpha">0.5000000000</Value>
-          <Value name="graph.resolution">1x</Value>
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-        <Dependencies>
-          <Implicit />
-        </Dependencies>
-      </Properties>
-      <EngineSettings Macro="..\..\Supporting_Macros\Linear_Regression.yxmc" />
-    </Node>
     <Node ToolID="6">
       <GuiSettings Plugin="Linear_Regression">
-        <Position x="174" y="210" />
+        <Position x="174" y="126" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1118,12 +1039,12 @@
     </Node>
     <Node ToolID="7">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="186" />
+        <Position x="306" y="54" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_2dd51d81e3e24c408a51f3fc4726255c_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_52a260dc7a064844a668bea493c3c70e_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5128_4faf01bed52742c5b6293ba20d7bc6a1_\Engine_4952_e5eea9cc6cee4e3a9c6197ddcc5100af_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -1142,11 +1063,11 @@
     </Node>
     <Node ToolID="8">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="270" />
+        <Position x="306" y="186" />
       </GuiSettings>
       <Properties>
         <Configuration>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_0800960ca1bd4120985c6e9bbfe818fb_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5128_4faf01bed52742c5b6293ba20d7bc6a1_\Engine_4952_11763f7893fd4004a9fdf495d255d6ff_.yxdb</TempFile>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_b8b62766041d42c6a2d81b9a3c802978_.yxdb</TempFileDataProfiling>
           <Layout>
             <ViewMode>Single</ViewMode>
@@ -1170,7 +1091,7 @@
     </Node>
     <Node ToolID="9">
       <GuiSettings>
-        <Position x="174" y="366" />
+        <Position x="174" y="330" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1192,12 +1113,12 @@
     </Node>
     <Node ToolID="10">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="330" />
+        <Position x="306" y="258" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_cb5f6a979c824255814b4ec49069d5e4_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_0abb8936dfc54507bba9707ce5fd9c95_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5128_4faf01bed52742c5b6293ba20d7bc6a1_\Engine_4952_23d5432fc8a44e20b335808afa69a8fc_.yxdb</TempFile>
           <Layout>
             <View1>
               <Hints>
@@ -1216,12 +1137,12 @@
     </Node>
     <Node ToolID="11">
       <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-        <Position x="294" y="402" />
+        <Position x="306" y="378" />
       </GuiSettings>
       <Properties>
         <Configuration>
           <TempFileDataProfiling>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_4b026fc1516b4d92a7611d567fd92e11_.yxdb</TempFileDataProfiling>
-          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5416_8cb9fede9464422f925c3296a737ac9d_\Engine_3136_3f864631bce24761abe931ac17e64b09_.yxdb</TempFile>
+          <TempFile>C:\ProgramData\Alteryx\Engine\Engine_5128_4faf01bed52742c5b6293ba20d7bc6a1_\Engine_4952_1e20fb9d4ddb4b5195c57de693c3550d_.yxdb</TempFile>
           <Layout>
             <ViewMode>Single</ViewMode>
             <ViewSize value="100" />
@@ -1244,7 +1165,7 @@
     </Node>
     <Node ToolID="12">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="150" y="354" width="100" height="24" />
+        <Position x="150" y="318" width="100" height="24" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1264,7 +1185,7 @@
     </Node>
     <Node ToolID="13">
       <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="150" y="186" width="100" height="24" />
+        <Position x="150" y="102" width="100" height="24" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1283,33 +1204,8 @@
         </Annotation>
       </Properties>
     </Node>
-    <Node ToolID="14">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="150" y="78" width="100" height="24" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text><![CDATA[New Macro
-]]></Text>
-          <Font name="Segoe UI" size="9.75" style="0" />
-          <TextColor r="0" g="128" b="192" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="4" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
   </Nodes>
   <Connections>
-    <Connection>
-      <Origin ToolID="1" Connection="Output" />
-      <Destination ToolID="5" Connection="Input" />
-    </Connection>
     <Connection>
       <Origin ToolID="1" Connection="Output" />
       <Destination ToolID="6" Connection="Input" />
@@ -1317,14 +1213,6 @@
     <Connection>
       <Origin ToolID="1" Connection="Output" />
       <Destination ToolID="9" Connection="Input" />
-    </Connection>
-    <Connection>
-      <Origin ToolID="5" Connection="Reports" />
-      <Destination ToolID="4" Connection="Input" />
-    </Connection>
-    <Connection>
-      <Origin ToolID="5" Connection="Output" />
-      <Destination ToolID="3" Connection="Input" />
     </Connection>
     <Connection>
       <Origin ToolID="6" Connection="Output" />
