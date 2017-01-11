@@ -47,6 +47,11 @@ inputs <- list(
   the.data = read.Alteryx2("#1", default = mtcars),
   XDFInfo = getXdfProperties("#1", default = list(is_XDF = FALSE, xdf_path = NULL))
 )
-
+checkLowN(
+  data = inputs$the.data,
+  threshold = 25,
+  mult = 1,
+  msg = "The incoming data may not have enough rows to generate a model successfully.  "
+)
 AlteryxPredictive:::runLinearRegression(inputs, config)
  
